@@ -16,8 +16,8 @@ from reportlab.platypus import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT_DIR = ROOT / "output" / "pdf"
-OUTPUT_FILE = OUTPUT_DIR / "andres-tirano-resume.pdf"
+OUTPUT_DIR = ROOT / "public" / "documents"
+OUTPUT_FILE = OUTPUT_DIR / "andres-tirano-cv.pdf"
 PORTRAIT_FILE = ROOT / "public" / "images" / "portrait" / "andres-tirano.jpg"
 
 
@@ -64,42 +64,42 @@ RESUME = {
         (
             "2025",
             "Only YOU Hotel Malaga",
-            "Cook",
+            "Hotel Line Cook",
             "Malaga, Spain",
             "Worked in the culinary environment of a five-star hotel, adding experience in premium hospitality standards, coordinated service, and guest-focused execution.",
         ),
         (
             "2024",
             "Hotel Gran Cervantes",
-            "Cook",
+            "Showcooking Buffet Cook",
             "Torremolinos, Spain",
             "Worked in buffet showcooking across grill, wok, and crepes stations while serving a daily average of around 1,200 guests. Strengthened teamwork, guest interaction, speed, and consistency under pressure.",
         ),
         (
             "2022",
             "La Deriva",
-            "Cook",
+            "Restaurant Line Cook",
             "Malaga, Spain",
             "Restaurant experience that reinforced mise en place discipline, service rhythm, and day-to-day kitchen coordination in a fast-moving dining environment.",
         ),
         (
             "2022",
             "The Club",
-            "Cook",
+            "Brunch Cook",
             "Malaga, Spain",
             "Focused on assembly and brunch service while also supporting purchasing, inventory, menu creation, and pre-service preparation in a high-demand concept.",
         ),
         (
             "2021",
             "LUME",
-            "Cook",
+            "Line Cook",
             "Santiago de Compostela, Spain",
             "Worked in an innovative direct-to-guest concept blending Japanese techniques with Mexican flavors, requiring accuracy, product respect, and clean execution.",
         ),
         (
             "2021",
             "A Tafona",
-            "Cook",
+            "Prep Cook",
             "Santiago de Compostela, Spain",
             "Worked under chef Lucia Freitas in a quality-focused environment where pre-preparation, precision, and attention to detail were essential to maintaining kitchen standards.",
         ),

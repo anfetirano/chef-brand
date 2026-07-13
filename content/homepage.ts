@@ -95,7 +95,7 @@ export const homepageContent: HomepageContent = {
   experience: [
     {
       venue: "Only YOU Hotel Málaga",
-      role: "Cook",
+      role: "Hotel Line Cook",
       period: "2025",
       location: "Málaga, Spain",
       summary:
@@ -103,7 +103,7 @@ export const homepageContent: HomepageContent = {
     },
     {
       venue: "Hotel Gran Cervantes",
-      role: "Cook",
+      role: "Showcooking Buffet Cook",
       period: "2024",
       location: "Torremolinos, Spain",
       summary:
@@ -111,7 +111,7 @@ export const homepageContent: HomepageContent = {
     },
     {
       venue: "La Deriva",
-      role: "Cook",
+      role: "Restaurant Line Cook",
       period: "2022",
       location: "Málaga, Spain",
       summary:
@@ -119,7 +119,7 @@ export const homepageContent: HomepageContent = {
     },
     {
       venue: "The Club",
-      role: "Cook",
+      role: "Brunch Cook",
       period: "2022",
       location: "Malaga, Spain",
       summary:
@@ -127,7 +127,7 @@ export const homepageContent: HomepageContent = {
     },
     {
       venue: "LUME",
-      role: "Cook",
+      role: "Line Cook",
       period: "2021",
       location: "Santiago de Compostela, Spain",
       summary:
@@ -135,7 +135,7 @@ export const homepageContent: HomepageContent = {
     },
     {
       venue: "A Tafona",
-      role: "Cook",
+      role: "Prep Cook",
       period: "2021",
       location: "Santiago de Compostela, Spain",
       summary:
