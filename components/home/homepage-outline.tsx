@@ -11,6 +11,12 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
   const heroText = { color: "var(--foreground)" };
   const heroTextSoft = { color: "rgba(33,25,20,0.84)" };
   const heroLabel = { color: "rgba(112,98,85,0.96)" };
+  const heroWhatsAppMethod = page.hero.contactMethods.find(
+    (method) => method.label === "WhatsApp",
+  );
+  const heroEmailMethod = page.hero.contactMethods.find(
+    (method) => method.label === "Email",
+  );
   const linkedInMethod = page.contact.methods.find(
     (method) => method.label === "LinkedIn",
   );
@@ -93,13 +99,34 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                     {page.hero.summary}
                   </p>
                   <div className="flex flex-wrap gap-3 pt-2">
-                    <a
-                      className="inline-flex min-h-11 items-center justify-center border px-4 py-2 text-sm font-medium"
-                      href={page.hero.primaryCta.href}
-                      style={primaryButtonStyle}
-                    >
-                      {page.hero.primaryCta.label}
-                    </a>
+                    <details className="group relative">
+                      <summary
+                        className="inline-flex min-h-11 cursor-pointer list-none items-center justify-center border px-4 py-2 text-sm font-medium [&::-webkit-details-marker]:hidden"
+                        style={primaryButtonStyle}
+                      >
+                        {page.hero.primaryCta.label}
+                      </summary>
+                      <div className="absolute left-0 top-full z-10 mt-2 grid min-w-[13rem] gap-2 border border-border bg-[var(--surface)] p-2 shadow-[0_18px_40px_rgba(33,25,20,0.14)]">
+                        {heroWhatsAppMethod ? (
+                          <a
+                            className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground hover:text-accent"
+                            href={heroWhatsAppMethod.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            WhatsApp
+                          </a>
+                        ) : null}
+                        {heroEmailMethod ? (
+                          <a
+                            className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground hover:text-accent"
+                            href={heroEmailMethod.href}
+                          >
+                            Email
+                          </a>
+                        ) : null}
+                      </div>
+                    </details>
                     <a
                       className="inline-flex min-h-11 items-center justify-center border px-4 py-2 text-sm font-medium"
                       href={page.hero.secondaryCta.href}

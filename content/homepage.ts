@@ -42,6 +42,11 @@ export const homepageContent: HomepageContent = {
         href: "tel:+50762527773",
       },
       {
+        label: "WhatsApp",
+        value: "+507 62527773",
+        href: "https://wa.me/50762527773?text=Hello%20Andres%2C%20I%20would%20like%20to%20discuss%20a%20kitchen%20opportunity.",
+      },
+      {
         label: "Instagram",
         value: "@anfetirano",
         href: "https://www.instagram.com/anfetirano/",
@@ -203,6 +208,11 @@ export const homepageContent: HomepageContent = {
         label: "Phone",
         value: "+507 62527773",
         href: "tel:+50762527773",
+      },
+      {
+        label: "WhatsApp",
+        value: "+507 62527773",
+        href: "https://wa.me/50762527773?text=Hello%20Andres%2C%20I%20would%20like%20to%20discuss%20a%20kitchen%20opportunity.",
       },
       {
         label: "Instagram",
