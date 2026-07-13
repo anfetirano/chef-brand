@@ -58,8 +58,8 @@ export const homepageContent: HomepageContent = {
       },
       {
         label: "Website",
-        value: "www.tirano.co",
-        href: "https://www.tirano.co",
+        value: "chef.tirano.co",
+        href: "https://chef.tirano.co",
       },
     ],
   },
@@ -226,8 +226,8 @@ export const homepageContent: HomepageContent = {
       },
       {
         label: "Website",
-        value: "www.tirano.co",
-        href: "https://www.tirano.co",
+        value: "chef.tirano.co",
+        href: "https://chef.tirano.co",
       },
     ],
   },

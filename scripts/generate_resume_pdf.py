@@ -52,7 +52,7 @@ RESUME = {
         ("Phone", "+507 62527773"),
         ("Instagram", "@anfetirano"),
         ("LinkedIn", "andres-f-tirano-vasquez"),
-        ("Website", "www.tirano.co"),
+        ("Website", "chef.tirano.co"),
     ],
     "strengths": [
         "Reliable high-volume execution in live buffet stations serving around 1,200 guests per day.",
