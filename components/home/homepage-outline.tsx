@@ -308,25 +308,27 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
             </div>
           </SectionShell>
 
-          <SectionShell
-            id="gallery"
-            heading="Gallery"
-            summary="These are the kinds of professional moments the visual gallery will emphasize as assets are added."
-          >
-            <div className="grid gap-px border border-border bg-border md:grid-cols-3">
-              {page.gallery.map((item) => (
-                <article key={item.title} className="bg-[var(--surface)] p-5 md:p-6">
-                  <div className="mb-4 aspect-[4/3] bg-[var(--surface-strong)]" />
-                  <h3 className="text-base font-semibold tracking-tight text-foreground">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-7 text-muted">
-                    {item.description}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </SectionShell>
+          {page.gallery.length > 0 ? (
+            <SectionShell
+              id="gallery"
+              heading="Gallery"
+              summary="These are the kinds of professional moments the visual gallery will emphasize as assets are added."
+            >
+              <div className="grid gap-px border border-border bg-border md:grid-cols-3">
+                {page.gallery.map((item) => (
+                  <article key={item.title} className="bg-[var(--surface)] p-5 md:p-6">
+                    <div className="mb-4 aspect-[4/3] bg-[var(--surface-strong)]" />
+                    <h3 className="text-base font-semibold tracking-tight text-foreground">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-7 text-muted">
+                      {item.description}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </SectionShell>
+          ) : null}
 
           <SectionShell
             id="resume"

@@ -172,23 +172,7 @@ export const homepageContent: HomepageContent = {
       level: "Intermediate-upper (B2)",
     },
   ],
-  gallery: [
-    {
-      title: "Showcooking service",
-      description:
-        "Live hot stations, guest-facing execution, and consistency during large hotel buffet service.",
-    },
-    {
-      title: "Brunch production",
-      description:
-        "Fast-paced assembly, coordination, and sustained output in a brunch-focused concept.",
-    },
-    {
-      title: "Detail-driven preparation",
-      description:
-        "Careful pre-elaboration and standards-focused work shaped by quality-centered restaurant environments.",
-    },
-  ],
+  gallery: [],
   resume: {
     description:
       "Download the full CV for a complete view of experience, education, and contact information.",
