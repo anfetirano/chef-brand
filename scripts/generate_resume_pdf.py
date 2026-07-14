@@ -1,4 +1,5 @@
 from pathlib import Path
+from shutil import copy2
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -18,6 +19,8 @@ from reportlab.platypus import (
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = ROOT / "public" / "documents"
 OUTPUT_FILE = OUTPUT_DIR / "andres-tirano-cv.pdf"
+LEGACY_OUTPUT_DIR = ROOT / "output" / "pdf"
+LEGACY_OUTPUT_FILE = LEGACY_OUTPUT_DIR / "andres-tirano-resume.pdf"
 PORTRAIT_FILE = ROOT / "public" / "images" / "portrait" / "andres-tirano.jpg"
 
 
@@ -443,6 +446,7 @@ def build_single_column_sections(styles):
 
 def create_pdf():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    LEGACY_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     doc = SimpleDocTemplate(
         str(OUTPUT_FILE),
@@ -469,6 +473,7 @@ def create_pdf():
         canvas.restoreState()
 
     doc.build(story, onFirstPage=paint_page, onLaterPages=paint_page)
+    copy2(OUTPUT_FILE, LEGACY_OUTPUT_FILE)
     return OUTPUT_FILE
 
 
