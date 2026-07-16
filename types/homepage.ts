@@ -1,3 +1,5 @@
+export type HomepageLocale = "en" | "es";
+
 export type HomepageCta = {
   label: string;
   href: string;
@@ -8,17 +10,30 @@ export type HomepageFact = {
   value: string;
 };
 
+export type HomepageContactMethodId =
+  | "email"
+  | "phone"
+  | "whatsapp"
+  | "instagram"
+  | "linkedin"
+  | "website";
+
 export type HomepageContactMethod = {
+  id: HomepageContactMethodId;
   label: string;
   value: string;
   href: string;
 };
 
 export type HomepageHero = {
+  profileLabel: string;
   name: string;
   role: string;
+  summaryLabel: string;
   summary: string;
+  locationLabel: string;
   location: string;
+  availabilityLabel: string;
   availability: string;
   primaryCta: HomepageCta;
   secondaryCta: HomepageCta;
@@ -57,21 +72,38 @@ export type HomepageGalleryItem = {
   description: string;
 };
 
+export type HomepageSection = {
+  title: string;
+  description?: string;
+};
+
 export type HomepageResume = {
+  title: string;
   description: string;
+  note: string;
   fileHref: string;
   fileLabel: string;
+  linkedInLabel: string;
 };
 
 export type HomepageContact = {
+  title: string;
   description: string;
   methods: HomepageContactMethod[];
 };
 
 export type HomepageContent = {
+  locale: HomepageLocale;
+  languageSwitcherLabel: string;
   hero: HomepageHero;
   promiseIntro: string;
+  strengthsTitle: string;
   valueItems: HomepageValueItem[];
+  experienceSection: HomepageSection;
+  storySection: HomepageSection;
+  educationTitle: string;
+  languagesTitle: string;
+  gallerySection: HomepageSection;
   story: string[];
   experience: HomepageExperienceItem[];
   education: HomepageEducationItem[];
@@ -80,3 +112,5 @@ export type HomepageContent = {
   resume: HomepageResume;
   contact: HomepageContact;
 };
+
+export type HomepageContentByLocale = Record<HomepageLocale, HomepageContent>;

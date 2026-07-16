@@ -1,7 +1,7 @@
 type SectionShellProps = {
   id: string;
   heading: string;
-  summary?: string;
+  summary?: string | undefined;
   children: React.ReactNode;
 };
 

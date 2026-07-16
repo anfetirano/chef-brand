@@ -1,9 +1,10 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { cache } from "react";
-import { homepageContent } from "@/content/homepage";
+import { homepageContentByLocale } from "@/content/homepage";
+import type { HomepageContent, HomepageContentByLocale } from "@/types/homepage";
 
-export const getHomepageContent = cache(() => {
+export const getHomepageContent = cache((): HomepageContentByLocale => {
   const portraitPath = join(
     process.cwd(),
     "public",
@@ -12,15 +13,20 @@ export const getHomepageContent = cache(() => {
     "andres-tirano.jpg",
   );
 
-  return {
-    ...homepageContent,
+  const portraitSrc = existsSync(portraitPath)
+    ? "/images/portrait/andres-tirano.jpg"
+    : undefined;
+
+  const attachPortrait = (content: HomepageContent): HomepageContent => ({
+    ...content,
     hero: {
-      ...homepageContent.hero,
-      ...(existsSync(portraitPath)
-        ? {
-            portraitSrc: "/images/portrait/andres-tirano.jpg",
-          }
-        : {}),
+      ...content.hero,
+      ...(portraitSrc ? { portraitSrc } : {}),
     },
+  });
+
+  return {
+    en: attachPortrait(homepageContentByLocale.en),
+    es: attachPortrait(homepageContentByLocale.es),
   };
 });

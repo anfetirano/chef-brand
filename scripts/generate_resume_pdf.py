@@ -18,7 +18,10 @@ from reportlab.platypus import (
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = ROOT / "public" / "documents"
-OUTPUT_FILE = OUTPUT_DIR / "andres-tirano-cv.pdf"
+OUTPUT_FILES = {
+    "en": OUTPUT_DIR / "andres-tirano-cv.pdf",
+    "es": OUTPUT_DIR / "andres-tirano-cv-es.pdf",
+}
 LEGACY_OUTPUT_DIR = ROOT / "output" / "pdf"
 LEGACY_OUTPUT_FILE = LEGACY_OUTPUT_DIR / "andres-tirano-resume.pdf"
 PORTRAIT_FILE = ROOT / "public" / "images" / "portrait" / "andres-tirano.jpg"
@@ -35,96 +38,207 @@ PALETTE = {
 }
 
 
-RESUME = {
-    "name": "Andres Tirano",
-    "title": "Professional Cook",
-    "tagline": (
-        "Professional cook with experience in quality-focused restaurants, "
-        "premium hospitality, brunch production, and high-volume hotel service."
-    ),
-    "summary": (
-        "Based in Panama and currently seeking professional kitchen opportunities "
-        "in Canada. Andres brings hands-on experience from chef Lucía Freitas's "
-        "projects, premium hospitality in Málaga, brunch operations, and live "
-        "hotel buffet service serving up to 1,200 guests a day."
-    ),
-    "location": "Panama",
-    "availability": "Open to opportunities in Canada and available for international relocation.",
-    "contact": [
-        ("Email", "andres@tirano.co"),
-        ("Phone", "+507 62527773"),
-        ("Instagram", "@anfetirano"),
-        ("LinkedIn", "Andres F. Tirano Vasquez"),
-        ("Website", "chef.tirano.co"),
-    ],
-    "strengths": [
-        "Reliable high-volume execution in live buffet stations serving around 1,200 guests per day.",
-        "Precision in quality-focused kitchens shaped by A Tafona and LUME.",
-        "Strong mise en place, station setup, purchasing support, and menu execution.",
-        "Calm guest-facing service in brunch and hotel environments.",
-        "Experience in premium hospitality environments with polished service standards.",
-        "Adaptable across chef-led restaurants, brunch concepts, and hotel kitchens.",
-    ],
-    "experience": [
-        (
-            "2025",
-            "Only YOU Hotel Málaga",
-            "Hotel Line Cook",
-            "Málaga, Spain",
-            "Worked in the culinary environment of a five-star hotel, adding experience in premium hospitality standards, coordinated service, and guest-focused execution.",
+RESUMES = {
+    "en": {
+        "name": "Andres Tirano",
+        "title": "Professional Cook",
+        "tagline": (
+            "Professional cook with experience in quality-focused restaurants, "
+            "premium hospitality, brunch production, and high-volume hotel service."
         ),
-        (
-            "2024",
-            "Hotel Gran Cervantes",
-            "Showcooking Buffet Cook",
-            "Torremolinos, Spain",
-            "Worked in buffet showcooking across grill, wok, and crepes stations while serving a daily average of around 1,200 guests. Strengthened teamwork, guest interaction, speed, and consistency under pressure.",
+        "summary": (
+            "Based in Panama and currently seeking professional kitchen opportunities "
+            "in Canada. Andres brings hands-on experience from chef Lucía Freitas's "
+            "projects, premium hospitality in Málaga, brunch operations, and live "
+            "hotel buffet service serving up to 1,200 guests a day."
         ),
-        (
-            "2022",
-            "La Deriva",
-            "Restaurant Line Cook",
-            "Málaga, Spain",
-            "Restaurant experience that reinforced mise en place discipline, service rhythm, and day-to-day kitchen coordination in a fast-moving dining environment.",
+        "callout": "Seeking professional kitchen opportunities in Canada",
+        "contact": [
+            ("Email", "andres@tirano.co"),
+            ("Phone", "+507 62527773"),
+            ("Instagram", "@anfetirano"),
+            ("LinkedIn", "Andres F. Tirano Vasquez"),
+            ("Website", "chef.tirano.co"),
+        ],
+        "strengths_heading": "Core strengths",
+        "strengths": [
+            "Reliable high-volume execution in live buffet stations serving around 1,200 guests per day.",
+            "Precision in quality-focused kitchens shaped by A Tafona and LUME.",
+            "Strong mise en place, station setup, purchasing support, and menu execution.",
+            "Calm guest-facing service in brunch and hotel environments.",
+            "Experience in premium hospitality environments with polished service standards.",
+            "Adaptable across chef-led restaurants, brunch concepts, and hotel kitchens.",
+        ],
+        "experience_heading": "Experience",
+        "experience": [
+            (
+                "2025",
+                "Only YOU Hotel Málaga",
+                "Hotel Line Cook",
+                "Málaga, Spain",
+                "Worked in the culinary environment of a five-star hotel, adding experience in premium hospitality standards, coordinated service, and guest-focused execution.",
+            ),
+            (
+                "2024",
+                "Hotel Gran Cervantes",
+                "Showcooking Buffet Cook",
+                "Torremolinos, Spain",
+                "Worked in buffet showcooking across grill, wok, and crepes stations while serving a daily average of around 1,200 guests. Strengthened teamwork, guest interaction, speed, and consistency under pressure.",
+            ),
+            (
+                "2022",
+                "La Deriva",
+                "Restaurant Line Cook",
+                "Málaga, Spain",
+                "Restaurant experience that reinforced mise en place discipline, service rhythm, and day-to-day kitchen coordination in a fast-moving dining environment.",
+            ),
+            (
+                "2022",
+                "The Club",
+                "Brunch Cook",
+                "Málaga, Spain",
+                "Focused on assembly and brunch service while also supporting purchasing, inventory, menu creation, and pre-service preparation in a high-demand concept.",
+            ),
+            (
+                "2021",
+                "LUME",
+                "Line Cook",
+                "Santiago de Compostela, Spain",
+                "Worked in an innovative direct-to-guest concept blending Japanese techniques with Mexican flavors, requiring accuracy, product respect, and clean execution.",
+            ),
+            (
+                "2021",
+                "A Tafona",
+                "Prep Cook",
+                "Santiago de Compostela, Spain",
+                "Worked under chef Lucía Freitas in a quality-focused environment where pre-preparation, precision, and attention to detail were essential to maintaining kitchen standards.",
+            ),
+        ],
+        "profile_heading": "Profile",
+        "profile": [
+            "A cook shaped by demanding kitchens, disciplined preparation, and direct guest-facing service.",
+            "His trajectory combines chef-led restaurant standards, premium hotel execution, and brunch operations, all connected by consistency and adaptability.",
+            "The next step is to bring that experience into a professional kitchen in Canada.",
+        ],
+        "education_heading": "Education",
+        "education": [
+            (
+                "Technical Program in Kitchen Assistance",
+                "Escuela de Gastronomía de Medellín (EGM)",
+                "Training in culinary techniques, ingredient handling, food safety, and menu preparation with a strong practical focus.",
+            ),
+            (
+                "Basic Molecular Cuisine Course",
+                "Escuela MCS Colombia",
+                "Training in spherification, texture development, smoking, plating, and liquid nitrogen techniques with hands-on application.",
+            ),
+        ],
+        "languages_heading": "Languages",
+        "languages": [
+            ("Spanish", "Native"),
+            ("English", "Upper-intermediate (B2)"),
+        ],
+    },
+    "es": {
+        "name": "Andres Tirano",
+        "title": "Cocinero profesional",
+        "tagline": (
+            "Cocinero profesional con experiencia en restaurantes enfocados en calidad, "
+            "hospitalidad premium, producción de brunch y servicio hotelero de alto volumen."
         ),
-        (
-            "2022",
-            "The Club",
-            "Brunch Cook",
-            "Málaga, Spain",
-            "Focused on assembly and brunch service while also supporting purchasing, inventory, menu creation, and pre-service preparation in a high-demand concept.",
+        "summary": (
+            "Desde Panamá y actualmente buscando oportunidades profesionales de cocina "
+            "en Canadá, Andres aporta experiencia práctica en proyectos de la chef Lucía "
+            "Freitas, hospitalidad premium en Málaga, operaciones de brunch y servicio "
+            "de buffet en vivo para hasta 1,200 comensales por día."
         ),
-        (
-            "2021",
-            "LUME",
-            "Line Cook",
-            "Santiago de Compostela, Spain",
-            "Worked in an innovative direct-to-guest concept blending Japanese techniques with Mexican flavors, requiring accuracy, product respect, and clean execution.",
-        ),
-        (
-            "2021",
-            "A Tafona",
-            "Prep Cook",
-            "Santiago de Compostela, Spain",
-            "Worked under chef Lucía Freitas in a quality-focused environment where pre-preparation, precision, and attention to detail were essential to maintaining kitchen standards.",
-        ),
-    ],
-    "education": [
-        (
-            "Technical Program in Kitchen Assistance",
-            "Escuela de Gastronomía de Medellín (EGM)",
-            "Training in culinary techniques, ingredient handling, food safety, and menu preparation with a strong practical focus.",
-        ),
-        (
-            "Basic Molecular Cuisine Course",
-            "Escuela MCS Colombia",
-            "Training in spherification, texture development, smoking, plating, and liquid nitrogen techniques with hands-on application.",
-        ),
-    ],
-    "languages": [
-        ("Spanish", "Native"),
-        ("English", "Upper-intermediate (B2)"),
-    ],
+        "callout": "Buscando oportunidades profesionales de cocina en Canadá",
+        "contact": [
+            ("Correo", "andres@tirano.co"),
+            ("Teléfono", "+507 62527773"),
+            ("Instagram", "@anfetirano"),
+            ("LinkedIn", "Andres F. Tirano Vasquez"),
+            ("Sitio web", "chef.tirano.co"),
+        ],
+        "strengths_heading": "Fortalezas clave",
+        "strengths": [
+            "Ejecución confiable en estaciones de buffet en vivo atendiendo alrededor de 1,200 comensales por día.",
+            "Precisión en cocinas enfocadas en calidad, marcada por A Tafona y LUME.",
+            "Sólido mise en place, montaje de estación, apoyo en compras y ejecución de menú.",
+            "Servicio sereno de cara al cliente en entornos de brunch y hotelería.",
+            "Experiencia en hospitalidad premium con estándares de servicio pulidos.",
+            "Adaptabilidad entre restaurantes liderados por chefs, conceptos de brunch y cocinas hoteleras.",
+        ],
+        "experience_heading": "Experiencia",
+        "experience": [
+            (
+                "2025",
+                "Only YOU Hotel Málaga",
+                "Cocinero de línea en hotel",
+                "Málaga, España",
+                "Trabajó en el entorno culinario de un hotel cinco estrellas, sumando experiencia en estándares de hospitalidad premium, servicio coordinado y ejecución orientada al cliente.",
+            ),
+            (
+                "2024",
+                "Hotel Gran Cervantes",
+                "Cocinero de buffet showcooking",
+                "Torremolinos, España",
+                "Trabajó en buffet showcooking cubriendo estaciones como grill, wok y crepes mientras atendía un promedio diario de alrededor de 1,200 comensales. Fortaleció trabajo en equipo, interacción con clientes, velocidad y consistencia bajo presión.",
+            ),
+            (
+                "2022",
+                "La Deriva",
+                "Cocinero de línea en restaurante",
+                "Málaga, España",
+                "Experiencia en restaurante que reforzó la disciplina de mise en place, el ritmo de servicio y la coordinación diaria de cocina en un entorno de alto movimiento.",
+            ),
+            (
+                "2022",
+                "The Club",
+                "Cocinero de brunch",
+                "Málaga, España",
+                "Enfocado en montaje y servicio de brunch, apoyando además compras, inventario, creación de menú y preparación previa al servicio en un concepto de alta demanda.",
+            ),
+            (
+                "2021",
+                "LUME",
+                "Cocinero de línea",
+                "Santiago de Compostela, España",
+                "Trabajó en un concepto innovador de servicio directo al cliente que combinaba técnicas japonesas con sabores mexicanos, exigiendo precisión, respeto por el producto y ejecución limpia.",
+            ),
+            (
+                "2021",
+                "A Tafona",
+                "Cocinero de preparación",
+                "Santiago de Compostela, España",
+                "Trabajó bajo la chef Lucía Freitas en un entorno enfocado en la calidad donde la preelaboración, la precisión y la atención al detalle eran esenciales para mantener los estándares de cocina.",
+            ),
+        ],
+        "profile_heading": "Perfil",
+        "profile": [
+            "Un cocinero formado por cocinas exigentes, preparación disciplinada y servicio directo al cliente.",
+            "Su trayectoria combina estándares de restaurantes liderados por chefs, ejecución hotelera premium y operaciones de brunch, unidas por consistencia y adaptabilidad.",
+            "El siguiente paso es llevar esa experiencia a una cocina profesional en Canadá.",
+        ],
+        "education_heading": "Formación",
+        "education": [
+            (
+                "Programa técnico en asistencia de cocina",
+                "Escuela de Gastronomía de Medellín (EGM)",
+                "Formación en técnicas culinarias, manejo de ingredientes, seguridad alimentaria y preparación de menús con un fuerte enfoque práctico.",
+            ),
+            (
+                "Curso básico de cocina molecular",
+                "Escuela MCS Colombia",
+                "Formación en esferificación, desarrollo de texturas, ahumados, emplatado y técnicas con nitrógeno líquido con aplicación práctica.",
+            ),
+        ],
+        "languages_heading": "Idiomas",
+        "languages": [
+            ("Español", "Nativo"),
+            ("Inglés", "Intermedio alto (B2)"),
+        ],
+    },
 }
 
 
@@ -227,47 +341,9 @@ def section_heading(text, styles):
     ]
 
 
-def build_header(styles):
-    top_left = [
-        Paragraph(RESUME["name"], styles["Name"]),
-        Paragraph(RESUME["title"], styles["Role"]),
-        Paragraph(RESUME["tagline"], styles["Body"]),
-    ]
-
-    portrait_cell = ""
-    if PORTRAIT_FILE.exists():
-        portrait_cell = Image(str(PORTRAIT_FILE), width=26 * mm, height=34 * mm)
-
-    top_row = Table([[top_left, portrait_cell]], colWidths=[154 * mm, 28 * mm])
-    top_row.setStyle(
-        TableStyle(
-            [
-                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                ("ALIGN", (1, 0), (1, 0), "RIGHT"),
-                ("LEFTPADDING", (0, 0), (-1, -1), 0),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
-                ("TOPPADDING", (0, 0), (-1, -1), 0),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
-            ]
-        )
-    )
-
-    summary_box = Table([[Paragraph(RESUME["summary"], styles["Body"])]], colWidths=[182 * mm])
-    summary_box.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, -1), PALETTE["surface"]),
-                ("BOX", (0, 0), (-1, -1), 0.6, PALETTE["border"]),
-                ("LEFTPADDING", (0, 0), (-1, -1), 10),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 10),
-                ("TOPPADDING", (0, 0), (-1, -1), 8),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
-            ]
-        )
-    )
-
+def build_contact_row(contact, styles):
     contact_cells = []
-    for label, value in RESUME["contact"]:
+    for label, value in contact:
         contact_cells.append(
             [
                 Paragraph(label.upper(), styles["SmallLabel"]),
@@ -291,12 +367,53 @@ def build_header(styles):
             ]
         )
     )
+    return contact_row
 
-    canada_callout = Table(
-        [[Paragraph("Seeking professional kitchen opportunities in Canada", styles["Callout"])]],
+
+def build_header(resume, styles):
+    top_left = [
+        Paragraph(resume["name"], styles["Name"]),
+        Paragraph(resume["title"], styles["Role"]),
+        Paragraph(resume["tagline"], styles["Body"]),
+    ]
+
+    portrait_cell = ""
+    if PORTRAIT_FILE.exists():
+        portrait_cell = Image(str(PORTRAIT_FILE), width=26 * mm, height=34 * mm)
+
+    top_row = Table([[top_left, portrait_cell]], colWidths=[154 * mm, 28 * mm])
+    top_row.setStyle(
+        TableStyle(
+            [
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("ALIGN", (1, 0), (1, 0), "RIGHT"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                ("TOPPADDING", (0, 0), (-1, -1), 0),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+            ]
+        )
+    )
+
+    summary_box = Table([[Paragraph(resume["summary"], styles["Body"])]], colWidths=[182 * mm])
+    summary_box.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, -1), PALETTE["surface"]),
+                ("BOX", (0, 0), (-1, -1), 0.6, PALETTE["border"]),
+                ("LEFTPADDING", (0, 0), (-1, -1), 10),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 10),
+                ("TOPPADDING", (0, 0), (-1, -1), 8),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+            ]
+        )
+    )
+
+    callout = Table(
+        [[Paragraph(resume["callout"], styles["Callout"])]],
         colWidths=[182 * mm],
     )
-    canada_callout.setStyle(
+    callout.setStyle(
         TableStyle(
             [
                 ("BACKGROUND", (0, 0), (-1, -1), PALETTE["surface_strong"]),
@@ -314,17 +431,17 @@ def build_header(styles):
         Spacer(1, 10),
         summary_box,
         Spacer(1, 8),
-        canada_callout,
+        callout,
         Spacer(1, 8),
-        contact_row,
+        build_contact_row(resume["contact"], styles),
     ]
 
 
-def build_strengths(styles):
+def build_strengths(resume, styles):
     rows = []
-    for index in range(0, len(RESUME["strengths"]), 2):
-        left = Paragraph(RESUME["strengths"][index], styles["Body"])
-        right = Paragraph(RESUME["strengths"][index + 1], styles["Body"])
+    for index in range(0, len(resume["strengths"]), 2):
+        left = Paragraph(resume["strengths"][index], styles["Body"])
+        right = Paragraph(resume["strengths"][index + 1], styles["Body"])
         rows.append([left, right])
 
     table = Table(rows, colWidths=[88 * mm, 88 * mm], hAlign="LEFT")
@@ -345,9 +462,9 @@ def build_strengths(styles):
     return table
 
 
-def build_experience(styles):
+def build_experience(resume, styles):
     blocks = []
-    for year, venue, role, location, summary in RESUME["experience"]:
+    for year, venue, role, location, summary in resume["experience"]:
         role_line = Paragraph(f"{role} | {location}", styles["Body"])
         content = [
             Paragraph(venue, styles["ItemTitle"]),
@@ -372,9 +489,9 @@ def build_experience(styles):
     return blocks
 
 
-def build_education(styles):
+def build_education(resume, styles):
     items = []
-    for title, institution, description in RESUME["education"]:
+    for title, institution, description in resume["education"]:
         items.extend(
             [
                 Paragraph(title, styles["ItemTitle"]),
@@ -386,9 +503,9 @@ def build_education(styles):
     return items
 
 
-def build_languages(styles):
+def build_languages(resume, styles):
     rows = []
-    for name, level in RESUME["languages"]:
+    for name, level in resume["languages"]:
         rows.append(
             [
                 Paragraph(name, styles["Body"]),
@@ -414,59 +531,49 @@ def build_languages(styles):
     return table
 
 
-def build_story(styles):
-    paragraphs = [
-        "A chef shaped by demanding kitchens, disciplined preparation, and direct guest-facing service.",
-        "His trajectory combines author-driven restaurant standards, premium hotel execution, and brunch operations, all connected by consistency and adaptability.",
-        "The next step is to bring that experience into a professional kitchen in Canada.",
-    ]
-    return [Paragraph(text, styles["Body"]) for text in paragraphs]
-
-
-def build_single_column_sections(styles):
+def build_single_column_sections(resume, styles):
     story = []
 
-    story.extend(section_heading("Core strengths", styles))
-    story.append(build_strengths(styles))
+    story.extend(section_heading(resume["strengths_heading"], styles))
+    story.append(build_strengths(resume, styles))
     story.append(Spacer(1, 12))
 
-    story.extend(section_heading("Experience", styles))
-    story.extend(build_experience(styles))
+    story.extend(section_heading(resume["experience_heading"], styles))
+    story.extend(build_experience(resume, styles))
 
-    story.extend(section_heading("Profile", styles))
-    for paragraph in build_story(styles):
-        story.extend([paragraph, Spacer(1, 6)])
+    story.extend(section_heading(resume["profile_heading"], styles))
+    for paragraph in resume["profile"]:
+        story.extend([Paragraph(paragraph, styles["Body"]), Spacer(1, 6)])
 
-    story.extend(section_heading("Education", styles))
-    story.extend(build_education(styles))
+    story.extend(section_heading(resume["education_heading"], styles))
+    story.extend(build_education(resume, styles))
 
-    story.extend(section_heading("Languages", styles))
-    story.append(build_languages(styles))
+    story.extend(section_heading(resume["languages_heading"], styles))
+    story.append(build_languages(resume, styles))
 
     return story
 
 
-def create_pdf():
+def create_pdf(resume, output_file):
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    LEGACY_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     doc = SimpleDocTemplate(
-        str(OUTPUT_FILE),
+        str(output_file),
         pagesize=A4,
         leftMargin=14 * mm,
         rightMargin=14 * mm,
         topMargin=12 * mm,
         bottomMargin=12 * mm,
-        title="Andres Tirano Resume",
+        title=f"{resume['name']} Resume",
         author="OpenAI Codex",
     )
 
     styles = build_styles()
     story = []
 
-    story.extend(build_header(styles))
+    story.extend(build_header(resume, styles))
     story.append(Spacer(1, 12))
-    story.extend(build_single_column_sections(styles))
+    story.extend(build_single_column_sections(resume, styles))
 
     def paint_page(canvas, doc):
         canvas.saveState()
@@ -475,10 +582,21 @@ def create_pdf():
         canvas.restoreState()
 
     doc.build(story, onFirstPage=paint_page, onLaterPages=paint_page)
-    copy2(OUTPUT_FILE, LEGACY_OUTPUT_FILE)
-    return OUTPUT_FILE
+    return output_file
+
+
+def generate_all():
+    LEGACY_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    generated_files = []
+    for locale, resume in RESUMES.items():
+        output_file = OUTPUT_FILES[locale]
+        generated_files.append(create_pdf(resume, output_file))
+
+    copy2(OUTPUT_FILES["en"], LEGACY_OUTPUT_FILE)
+    return generated_files
 
 
 if __name__ == "__main__":
-    pdf_path = create_pdf()
-    print(pdf_path)
+    for pdf_path in generate_all():
+        print(pdf_path)

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { HomepageOutline } from "@/components/home/homepage-outline";
+import { LocalizedHomepage } from "@/components/home/localized-homepage";
 import { StructuredData } from "@/components/seo/structured-data";
 import { siteConfig } from "@/content/site";
 import { createPageMetadata } from "@/lib/seo/metadata";
@@ -36,7 +36,7 @@ export default async function Home() {
           }),
         ]}
       />
-      <HomepageOutline page={homepage} />
+      <LocalizedHomepage pages={homepage} />
     </>
   );
 }
