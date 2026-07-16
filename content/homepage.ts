@@ -91,6 +91,11 @@ export const homepageContent: HomepageContent = {
       description:
         "His background also includes hotel and restaurant service in Málaga, adding exposure to guest expectations, polished standards, and service consistency.",
     },
+    {
+      title: "Adaptable across restaurant and hotel kitchens",
+      description:
+        "From chef-led restaurants to brunch concepts and large hotel operations, Andres adapts quickly to different service styles while protecting standards and team rhythm.",
+    },
   ],
   story: [
     "Andres has been passionate about gastronomy from an early age, but his profile is not built on enthusiasm alone. It is built on repeated exposure to demanding kitchens where consistency matters every day.",
