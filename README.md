@@ -26,15 +26,16 @@ Detailed architecture direction lives in [docs/architecture.md](/Users/berta/Doc
 
 ## Current development phase
 
-The repository is currently in **Phase 1: Foundation**. This phase is intentionally documentation-first. The objective is to define the product clearly before any engineering work begins.
+The repository is currently in **Phase 2: Landing MVP**.
 
-This means:
+The foundational product documentation is complete, the first public experience is live, and current work is focused on tightening content, trust signals, conversion clarity, and presentation quality.
 
-- No application code yet
-- No UI generation yet
-- No component implementation yet
-- No additional libraries yet
-- No feature development yet
+This means the current priorities are:
+
+- Refine the single-page employer journey
+- Improve copy consistency across the site and PDFs
+- Strengthen mobile quality and performance
+- Keep the experience lean while preparing for future analytics and CRM layers
 
 ## Future phases
 

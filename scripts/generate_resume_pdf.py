@@ -44,17 +44,17 @@ RESUME = {
     ),
     "summary": (
         "Based in Panama and currently seeking professional kitchen opportunities "
-        "in Canada. Andres brings hands-on experience from chef Lucia Freitas's "
-        "projects, premium hospitality in Malaga, brunch operations, and live "
+        "in Canada. Andres brings hands-on experience from chef Lucía Freitas's "
+        "projects, premium hospitality in Málaga, brunch operations, and live "
         "hotel buffet service serving up to 1,200 guests a day."
     ),
     "location": "Panama",
-    "availability": "Open to Canada and international relocation.",
+    "availability": "Open to opportunities in Canada and available for international relocation.",
     "contact": [
         ("Email", "andres@tirano.co"),
         ("Phone", "+507 62527773"),
         ("Instagram", "@anfetirano"),
-        ("LinkedIn", "andres-f-tirano-vasquez"),
+        ("LinkedIn", "Andres F. Tirano Vasquez"),
         ("Website", "chef.tirano.co"),
     ],
     "strengths": [
@@ -62,13 +62,15 @@ RESUME = {
         "Precision in quality-focused kitchens shaped by A Tafona and LUME.",
         "Strong mise en place, station setup, purchasing support, and menu execution.",
         "Calm guest-facing service in brunch and hotel environments.",
+        "Experience in premium hospitality environments with polished service standards.",
+        "Adaptable across chef-led restaurants, brunch concepts, and hotel kitchens.",
     ],
     "experience": [
         (
             "2025",
-            "Only YOU Hotel Malaga",
+            "Only YOU Hotel Málaga",
             "Hotel Line Cook",
-            "Malaga, Spain",
+            "Málaga, Spain",
             "Worked in the culinary environment of a five-star hotel, adding experience in premium hospitality standards, coordinated service, and guest-focused execution.",
         ),
         (
@@ -82,14 +84,14 @@ RESUME = {
             "2022",
             "La Deriva",
             "Restaurant Line Cook",
-            "Malaga, Spain",
+            "Málaga, Spain",
             "Restaurant experience that reinforced mise en place discipline, service rhythm, and day-to-day kitchen coordination in a fast-moving dining environment.",
         ),
         (
             "2022",
             "The Club",
             "Brunch Cook",
-            "Malaga, Spain",
+            "Málaga, Spain",
             "Focused on assembly and brunch service while also supporting purchasing, inventory, menu creation, and pre-service preparation in a high-demand concept.",
         ),
         (
@@ -104,13 +106,13 @@ RESUME = {
             "A Tafona",
             "Prep Cook",
             "Santiago de Compostela, Spain",
-            "Worked under chef Lucia Freitas in a quality-focused environment where pre-preparation, precision, and attention to detail were essential to maintaining kitchen standards.",
+            "Worked under chef Lucía Freitas in a quality-focused environment where pre-preparation, precision, and attention to detail were essential to maintaining kitchen standards.",
         ),
     ],
     "education": [
         (
             "Technical Program in Kitchen Assistance",
-            "Escuela de Gastronomia de Medellin (EGM)",
+            "Escuela de Gastronomía de Medellín (EGM)",
             "Training in culinary techniques, ingredient handling, food safety, and menu preparation with a strong practical focus.",
         ),
         (
@@ -121,7 +123,7 @@ RESUME = {
     ],
     "languages": [
         ("Spanish", "Native"),
-        ("English", "Intermediate-upper (B2)"),
+        ("English", "Upper-intermediate (B2)"),
     ],
 }
 

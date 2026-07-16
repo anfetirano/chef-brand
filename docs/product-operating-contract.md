@@ -99,6 +99,10 @@ Introduce the human layer behind the professional profile. This section should c
 
 Provide curated visual proof that supports standards, discipline, and taste.
 
+This section is optional until real professional assets exist.
+
+It must never appear as filler, placeholders, or empty visual structure.
+
 ### Resume download
 
 Offer a clear path to deeper evaluation materials for serious employers.

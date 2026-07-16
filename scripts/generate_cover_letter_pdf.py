@@ -26,13 +26,13 @@ PALETTE = {
 COVER_LETTER = {
     "name": "Andres Tirano",
     "title": "Professional Cook",
-    "date": date(2026, 7, 13).strftime("%B %d, %Y"),
+    "date": date.today().strftime("%B %d, %Y"),
     "location": "Panama",
-    "availability": "Available for Canada and international relocation",
+    "availability": "Open to opportunities in Canada and available for international relocation",
     "contact": [
         ("Email", "andres@tirano.co"),
         ("Phone", "+507 62527773"),
-        ("LinkedIn", "andres-f-tirano-vasquez"),
+        ("LinkedIn", "Andres F. Tirano Vasquez"),
         ("Website", "chef.tirano.co"),
     ],
     "opening": "Dear Hiring Manager,",
@@ -44,7 +44,7 @@ COVER_LETTER = {
             "hotel service."
         ),
         (
-            "My background includes work in Spain across chef Lucia Freitas's "
+            "My background includes work in Spain across chef Lucía Freitas's "
             "projects, brunch-focused production, and live buffet stations serving "
             "large numbers of guests each day. These environments strengthened my "
             "discipline, mise en place, station organization, and ability to maintain "

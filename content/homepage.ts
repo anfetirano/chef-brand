@@ -23,7 +23,7 @@ export const homepageContent: HomepageContent = {
       },
       {
         label: "Languages",
-        value: "Spanish native, English intermediate-upper (B2)",
+        value: "Spanish native, English upper-intermediate (B2)",
       },
       {
         label: "Focus",
@@ -68,8 +68,8 @@ export const homepageContent: HomepageContent = {
   valueItems: [
     {
       title: "Reliable high-volume execution",
-        description:
-        "At Hotel Gran Cervantes, Andres works in live buffet stations such as grill, wok, and crepes while serving around 1,200 guests per day.",
+      description:
+        "At Hotel Gran Cervantes, Andres worked in live buffet stations such as grill, wok, and crepes while serving around 1,200 guests per day.",
     },
     {
       title: "Precision in quality-focused kitchens",
@@ -131,7 +131,7 @@ export const homepageContent: HomepageContent = {
       venue: "The Club",
       role: "Brunch Cook",
       period: "2022",
-      location: "Malaga, Spain",
+      location: "Málaga, Spain",
       summary:
         "Focused on assembly and brunch service while maintaining full understanding of the kitchen. Also supported purchasing, inventory, menu creation, and pre-service preparation in a high-demand concept.",
     },
@@ -174,7 +174,7 @@ export const homepageContent: HomepageContent = {
     },
     {
       name: "English",
-      level: "Intermediate-upper (B2)",
+      level: "Upper-intermediate (B2)",
     },
   ],
   gallery: [],
