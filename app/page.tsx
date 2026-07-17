@@ -12,7 +12,7 @@ import { getHomepageContent } from "@/services/homepage/get-homepage-content";
 export const metadata: Metadata = createPageMetadata({
   title: "Professional Cook",
   description:
-    "Professional cook Andres Tirano: experience in Spanish restaurants, brunch production, and high-volume hotel service, open to kitchen opportunities in Canada and international relocation.",
+    "Professional cook Andres Tirano: experience in Spanish restaurants, brunch production, and high-volume hotel service, open to professional kitchen opportunities and relocation.",
   path: "/",
 });
 

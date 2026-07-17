@@ -28,7 +28,7 @@ COVER_LETTER = {
     "title": "Professional Cook",
     "date": date.today().strftime("%B %d, %Y"),
     "location": "Panama",
-    "availability": "Open to opportunities in Canada and available for international relocation",
+    "availability": "Open to professional kitchen opportunities and available for relocation",
     "contact": [
         ("Email", "andres@tirano.co"),
         ("Phone", "+507 62527773"),
@@ -58,10 +58,10 @@ COVER_LETTER = {
         ),
         (
             "At this stage of my career, I am seeking the opportunity to continue "
-            "growing in a professional kitchen in Canada. I am motivated to contribute, "
-            "learn quickly, and adapt to the standards of a serious culinary team. "
-            "Thank you for your time and consideration. I would welcome the opportunity "
-            "to speak with you."
+            "growing in a serious professional kitchen where I can contribute, learn "
+            "quickly, and adapt to the standards of a strong culinary team. Thank you "
+            "for your time and consideration. I would welcome the opportunity to speak "
+            "with you."
         ),
     ],
     "closing": "Sincerely,",
@@ -232,7 +232,7 @@ def create_pdf():
                 Paragraph(COVER_LETTER["name"], styles["Name"]),
                 Paragraph(COVER_LETTER["title"], styles["Role"]),
                 Paragraph(
-                    "Cover letter for professional kitchen opportunities in Canada.",
+                    "Cover letter for professional kitchen opportunities.",
                     styles["Body"],
                 ),
             ],
@@ -259,7 +259,7 @@ def create_pdf():
     )
 
     canada_callout = Table(
-        [[Paragraph("Seeking a serious kitchen opportunity in Canada", styles["Callout"])]],
+        [[Paragraph("Seeking a serious professional kitchen opportunity", styles["Callout"])]],
         colWidths=[182 * mm],
     )
     canada_callout.setStyle(

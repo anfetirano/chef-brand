@@ -23,12 +23,12 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       role: "Professional cook with experience in quality-focused restaurants, premium hospitality, brunch production, and high-volume hotel service.",
       summaryLabel: "Summary",
       summary:
-        "Based in Panama and currently seeking professional kitchen opportunities in Canada, Andres brings hands-on experience from chef Lucía Freitas's projects, premium hospitality in Málaga, brunch operations, and live hotel buffet service serving up to 1,200 guests a day.",
+        "Based in Panama and currently seeking professional kitchen opportunities, Andres brings hands-on experience from chef Lucía Freitas's projects, premium hospitality in Málaga, brunch operations, and live hotel buffet service serving up to 1,200 guests a day.",
       locationLabel: "Location",
       location: "Panama",
       availabilityLabel: "Availability",
       availability:
-        "Open to opportunities in Canada and available for international relocation.",
+        "Open to professional kitchen opportunities and available for relocation.",
       primaryCta: {
         label: "Contact Andres",
         href: "#contact",
@@ -236,7 +236,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
     contact: {
       title: "Contact",
       description:
-        "If you are hiring for a kitchen in Canada or considering international talent, Andres is open to relocation and the fastest next step is a direct conversation.",
+        "If you are hiring for a kitchen, hotel, or restaurant team, Andres is open to relocation and the fastest next step is a direct conversation.",
       methods: [
         {
           id: "email",
@@ -286,12 +286,12 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       role: "Cocinero profesional con experiencia en restaurantes enfocados en calidad, hospitalidad premium, producción de brunch y servicio hotelero de alto volumen.",
       summaryLabel: "Resumen",
       summary:
-        "Desde Panamá y actualmente buscando oportunidades profesionales de cocina en Canadá, Andres aporta experiencia práctica en proyectos de la chef Lucía Freitas, hospitalidad premium en Málaga, operaciones de brunch y servicio de buffet en vivo para hasta 1,200 comensales por día.",
+        "Desde Panamá y actualmente buscando oportunidades profesionales de cocina, Andres aporta experiencia práctica en proyectos de la chef Lucía Freitas, hospitalidad premium en Málaga, operaciones de brunch y servicio de buffet en vivo para hasta 1,200 comensales por día.",
       locationLabel: "Ubicación",
       location: "Panamá",
       availabilityLabel: "Disponibilidad",
       availability:
-        "Abierto a oportunidades en Canadá y disponible para reubicación internacional.",
+        "Abierto a oportunidades profesionales de cocina y disponible para reubicación.",
       primaryCta: {
         label: "Contactar a Andres",
         href: "#contact",
@@ -499,7 +499,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
     contact: {
       title: "Contacto",
       description:
-        "Si estás contratando para una cocina en Canadá o considerando talento internacional, Andres está abierto a la reubicación y el siguiente paso más rápido es una conversación directa.",
+        "Si estás contratando para una cocina, hotel o restaurante, Andres está abierto a la reubicación y el siguiente paso más rápido es una conversación directa.",
       methods: [
         {
           id: "email",

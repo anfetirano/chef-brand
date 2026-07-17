@@ -47,12 +47,12 @@ RESUMES = {
             "premium hospitality, brunch production, and high-volume hotel service."
         ),
         "summary": (
-            "Based in Panama and currently seeking professional kitchen opportunities "
-            "in Canada. Andres brings hands-on experience from chef Lucía Freitas's "
+            "Based in Panama and currently seeking professional kitchen opportunities. "
+            "Andres brings hands-on experience from chef Lucía Freitas's "
             "projects, premium hospitality in Málaga, brunch operations, and live "
             "hotel buffet service serving up to 1,200 guests a day."
         ),
-        "callout": "Seeking professional kitchen opportunities in Canada",
+        "callout": "Seeking professional kitchen opportunities",
         "contact": [
             ("Email", "andres@tirano.co"),
             ("Phone", "+507 62527773"),
@@ -118,7 +118,7 @@ RESUMES = {
         "profile": [
             "A cook shaped by demanding kitchens, disciplined preparation, and direct guest-facing service.",
             "His trajectory combines chef-led restaurant standards, premium hotel execution, and brunch operations, all connected by consistency and adaptability.",
-            "The next step is to bring that experience into a professional kitchen in Canada.",
+            "The next step is to bring that experience into a professional kitchen where high standards and consistency matter every day.",
         ],
         "education_heading": "Education",
         "education": [
@@ -147,12 +147,12 @@ RESUMES = {
             "hospitalidad premium, producción de brunch y servicio hotelero de alto volumen."
         ),
         "summary": (
-            "Desde Panamá y actualmente buscando oportunidades profesionales de cocina "
-            "en Canadá, Andres aporta experiencia práctica en proyectos de la chef Lucía "
+            "Desde Panamá y actualmente buscando oportunidades profesionales de cocina, "
+            "Andres aporta experiencia práctica en proyectos de la chef Lucía "
             "Freitas, hospitalidad premium en Málaga, operaciones de brunch y servicio "
             "de buffet en vivo para hasta 1,200 comensales por día."
         ),
-        "callout": "Buscando oportunidades profesionales de cocina en Canadá",
+        "callout": "Buscando oportunidades profesionales de cocina",
         "contact": [
             ("Correo", "andres@tirano.co"),
             ("Teléfono", "+507 62527773"),
@@ -218,7 +218,7 @@ RESUMES = {
         "profile": [
             "Un cocinero formado por cocinas exigentes, preparación disciplinada y servicio directo al cliente.",
             "Su trayectoria combina estándares de restaurantes liderados por chefs, ejecución hotelera premium y operaciones de brunch, unidas por consistencia y adaptabilidad.",
-            "El siguiente paso es llevar esa experiencia a una cocina profesional en Canadá.",
+            "El siguiente paso es llevar esa experiencia a una cocina profesional donde los estándares altos y la consistencia importan cada día.",
         ],
         "education_heading": "Formación",
         "education": [
