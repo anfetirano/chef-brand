@@ -27,11 +27,11 @@ COVER_LETTER = {
     "name": "Andres Tirano",
     "title": "Professional Cook",
     "date": date.today().strftime("%B %d, %Y"),
-    "location": "Panama",
+    "location": "",
     "availability": "Open to professional kitchen opportunities and available for relocation",
     "contact": [
         ("Email", "andres@tirano.co"),
-        ("Phone", "+507 62527773"),
+        ("Phone", "+34 603 91 99 93"),
         ("LinkedIn", "Andres F. Tirano Vasquez"),
         ("Website", "chef.tirano.co"),
     ],
@@ -239,7 +239,7 @@ def create_pdf():
             [
                 Paragraph(COVER_LETTER["date"], styles["Meta"]),
                 Spacer(1, 6),
-                Paragraph(COVER_LETTER["location"], styles["Body"]),
+                Paragraph(COVER_LETTER["location"], styles["Body"]) if COVER_LETTER["location"] else Spacer(1, 0),
                 Paragraph(COVER_LETTER["availability"], styles["Body"]),
             ],
         ]],

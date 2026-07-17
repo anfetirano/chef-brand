@@ -47,7 +47,7 @@ RESUMES = {
             "premium hospitality, brunch production, and high-volume hotel service."
         ),
         "summary": (
-            "Based in Panama and currently seeking professional kitchen opportunities. "
+            "Currently seeking professional kitchen opportunities. "
             "Andres brings hands-on experience from chef Lucía Freitas's "
             "projects, premium hospitality in Málaga, brunch operations, and live "
             "hotel buffet service serving up to 1,200 guests a day."
@@ -55,7 +55,7 @@ RESUMES = {
         "callout": "Seeking professional kitchen opportunities",
         "contact": [
             ("Email", "andres@tirano.co"),
-            ("Phone", "+507 62527773"),
+            ("Phone", "+34 603 91 99 93"),
             ("Instagram", "@anfetirano"),
             ("LinkedIn", "Andres F. Tirano Vasquez"),
             ("Website", "chef.tirano.co"),
@@ -147,7 +147,7 @@ RESUMES = {
             "hospitalidad premium, producción de brunch y servicio hotelero de alto volumen."
         ),
         "summary": (
-            "Desde Panamá y actualmente buscando oportunidades profesionales de cocina, "
+            "Actualmente buscando oportunidades profesionales de cocina, "
             "Andres aporta experiencia práctica en proyectos de la chef Lucía "
             "Freitas, hospitalidad premium en Málaga, operaciones de brunch y servicio "
             "de buffet en vivo para hasta 1,200 comensales por día."
@@ -155,7 +155,7 @@ RESUMES = {
         "callout": "Buscando oportunidades profesionales de cocina",
         "contact": [
             ("Correo", "andres@tirano.co"),
-            ("Teléfono", "+507 62527773"),
+            ("Teléfono", "+34 603 91 99 93"),
             ("Instagram", "@anfetirano"),
             ("LinkedIn", "Andres F. Tirano Vasquez"),
             ("Sitio web", "chef.tirano.co"),

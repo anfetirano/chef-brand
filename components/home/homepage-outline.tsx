@@ -59,14 +59,16 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                 </div>
 
                 <div className="space-y-4 lg:border-l lg:border-border lg:pl-6">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.22em]" style={heroLabel}>
-                      {page.hero.locationLabel}
-                    </p>
-                    <p className="mt-2 text-sm leading-6" style={heroTextSoft}>
-                      {page.hero.location}
-                    </p>
-                  </div>
+                  {page.hero.location ? (
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.22em]" style={heroLabel}>
+                        {page.hero.locationLabel}
+                      </p>
+                      <p className="mt-2 text-sm leading-6" style={heroTextSoft}>
+                        {page.hero.location}
+                      </p>
+                    </div>
+                  ) : null}
                   <div>
                     <p className="text-xs uppercase tracking-[0.22em]" style={heroLabel}>
                       {page.hero.availabilityLabel}

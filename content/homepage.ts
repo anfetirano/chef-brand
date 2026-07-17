@@ -2,9 +2,9 @@ import type { HomepageContentByLocale } from "@/types/homepage";
 
 const contactValues = {
   email: "andres@tirano.co",
-  phone: "+507 62527773",
+  phone: "+34 603 91 99 93",
   whatsappHref:
-    "https://wa.me/50762527773?text=Hello%20Andres%2C%20I%20would%20like%20to%20discuss%20a%20kitchen%20opportunity.",
+    "https://wa.me/34603919993?text=Hello%20Andres%2C%20I%20would%20like%20to%20discuss%20a%20kitchen%20opportunity.",
   instagram: "@anfetirano",
   instagramHref: "https://www.instagram.com/anfetirano/",
   linkedin: "Andres F. Tirano Vasquez",
@@ -23,9 +23,8 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       role: "Professional cook with experience in quality-focused restaurants, premium hospitality, brunch production, and high-volume hotel service.",
       summaryLabel: "Summary",
       summary:
-        "Based in Panama and currently seeking professional kitchen opportunities, Andres brings hands-on experience from chef Lucía Freitas's projects, premium hospitality in Málaga, brunch operations, and live hotel buffet service serving up to 1,200 guests a day.",
+        "Currently seeking professional kitchen opportunities, Andres brings hands-on experience from chef Lucía Freitas's projects, premium hospitality in Málaga, brunch operations, and live hotel buffet service serving up to 1,200 guests a day.",
       locationLabel: "Location",
-      location: "Panama",
       availabilityLabel: "Availability",
       availability:
         "Open to professional kitchen opportunities and available for relocation.",
@@ -63,7 +62,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
           id: "phone",
           label: "Phone",
           value: contactValues.phone,
-          href: "tel:+50762527773",
+          href: "tel:+34603919993",
         },
         {
           id: "whatsapp",
@@ -248,7 +247,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
           id: "phone",
           label: "Phone",
           value: contactValues.phone,
-          href: "tel:+50762527773",
+          href: "tel:+34603919993",
         },
         {
           id: "whatsapp",
@@ -286,9 +285,8 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       role: "Cocinero profesional con experiencia en restaurantes enfocados en calidad, hospitalidad premium, producción de brunch y servicio hotelero de alto volumen.",
       summaryLabel: "Resumen",
       summary:
-        "Desde Panamá y actualmente buscando oportunidades profesionales de cocina, Andres aporta experiencia práctica en proyectos de la chef Lucía Freitas, hospitalidad premium en Málaga, operaciones de brunch y servicio de buffet en vivo para hasta 1,200 comensales por día.",
+        "Actualmente buscando oportunidades profesionales de cocina, Andres aporta experiencia práctica en proyectos de la chef Lucía Freitas, hospitalidad premium en Málaga, operaciones de brunch y servicio de buffet en vivo para hasta 1,200 comensales por día.",
       locationLabel: "Ubicación",
-      location: "Panamá",
       availabilityLabel: "Disponibilidad",
       availability:
         "Abierto a oportunidades profesionales de cocina y disponible para reubicación.",
@@ -326,7 +324,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
           id: "phone",
           label: "Teléfono",
           value: contactValues.phone,
-          href: "tel:+50762527773",
+          href: "tel:+34603919993",
         },
         {
           id: "whatsapp",
@@ -511,7 +509,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
           id: "phone",
           label: "Teléfono",
           value: contactValues.phone,
-          href: "tel:+50762527773",
+          href: "tel:+34603919993",
         },
         {
           id: "whatsapp",

@@ -32,7 +32,7 @@ export type HomepageHero = {
   summaryLabel: string;
   summary: string;
   locationLabel: string;
-  location: string;
+  location?: string;
   availabilityLabel: string;
   availability: string;
   primaryCta: HomepageCta;
