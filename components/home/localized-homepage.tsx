@@ -39,7 +39,7 @@ export function LocalizedHomepage({ pages }: LocalizedHomepageProps) {
     <main className="flex-1">
       <PageShell>
         <div className="border-b border-border bg-[var(--surface)] px-6 py-3 md:px-10">
-          <div className="flex items-center justify-center gap-3">
+          <div className="mx-auto flex w-full max-w-[1600px] items-center justify-center gap-3">
             <span className="sr-only">{page.languageSwitcherLabel}</span>
             {languageOptions.map((option) => {
               const isActive = option.locale === locale;
