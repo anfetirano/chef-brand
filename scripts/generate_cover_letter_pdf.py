@@ -10,7 +10,10 @@ from reportlab.platypus import HRFlowable, Paragraph, SimpleDocTemplate, Spacer,
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = ROOT / "public" / "documents"
-OUTPUT_FILE = OUTPUT_DIR / "andres-tirano-cover-letter.pdf"
+OUTPUT_FILES = {
+    "en": OUTPUT_DIR / "andres-tirano-cover-letter.pdf",
+    "es": OUTPUT_DIR / "andres-tirano-cover-letter-es.pdf",
+}
 
 
 PALETTE = {
@@ -23,48 +26,114 @@ PALETTE = {
 }
 
 
-COVER_LETTER = {
-    "name": "Andres Tirano",
-    "title": "Professional Cook",
-    "date": date.today().strftime("%B %d, %Y"),
-    "location": "",
-    "availability": "Open to professional kitchen opportunities and available for relocation",
-    "contact": [
-        ("Email", "andres@tirano.co"),
-        ("Phone", "+34 603 91 99 93"),
-        ("LinkedIn", "Andres F. Tirano Vasquez"),
-        ("Website", "chef.tirano.co"),
-    ],
-    "opening": "Dear Hiring Manager,",
-    "paragraphs": [
-        (
-            "I am writing to express my interest in joining your kitchen team. "
-            "I am a professional cook with hands-on experience in quality-focused "
-            "restaurants, brunch operations, premium hospitality, and high-volume "
-            "hotel service."
-        ),
-        (
-            "My background includes work in Spain across chef Lucía Freitas's "
-            "projects, brunch-focused production, and live buffet stations serving "
-            "large numbers of guests each day. These environments strengthened my "
-            "discipline, mise en place, station organization, and ability to maintain "
-            "consistent execution under pressure."
-        ),
-        (
-            "I would bring a strong respect for kitchen standards, calm teamwork, and "
-            "a guest-focused mindset. I am comfortable supporting prep, line service, "
-            "buffet execution, and fast-paced daily operations while protecting quality "
-            "and cleanliness."
-        ),
-        (
-            "At this stage of my career, I am seeking the opportunity to continue "
-            "growing in a serious professional kitchen where I can contribute, learn "
-            "quickly, and adapt to the standards of a strong culinary team. Thank you "
-            "for your time and consideration. I would welcome the opportunity to speak "
-            "with you."
-        ),
-    ],
-    "closing": "Sincerely,",
+def spanish_date(today: date) -> str:
+    months = {
+        1: "enero",
+        2: "febrero",
+        3: "marzo",
+        4: "abril",
+        5: "mayo",
+        6: "junio",
+        7: "julio",
+        8: "agosto",
+        9: "septiembre",
+        10: "octubre",
+        11: "noviembre",
+        12: "diciembre",
+    }
+    return f"{today.day} de {months[today.month]} de {today.year}"
+
+
+today = date.today()
+
+COVER_LETTERS = {
+    "en": {
+        "title": "Professional Cook",
+        "date": today.strftime("%B %d, %Y"),
+        "availability": "Open to professional kitchen opportunities and available for relocation",
+        "contact": [
+            ("Email", "andres@tirano.co"),
+            ("Phone", "+34 603 91 99 93"),
+            ("LinkedIn", "Andres F. Tirano Vasquez"),
+            ("Website", "chef.tirano.co"),
+        ],
+        "intro_note": "Cover letter for professional kitchen opportunities.",
+        "callout": "Seeking a serious professional kitchen opportunity",
+        "opening": "Dear Hiring Manager,",
+        "paragraphs": [
+            (
+                "I am writing to express my interest in joining your kitchen team. "
+                "I am a professional cook with hands-on experience in quality-focused "
+                "restaurants, brunch operations, premium hospitality, and high-volume "
+                "hotel service."
+            ),
+            (
+                "My background includes work in Spain across chef Lucía Freitas's "
+                "projects, brunch-focused production, and live buffet stations serving "
+                "large numbers of guests each day. These environments strengthened my "
+                "discipline, mise en place, station organization, and ability to maintain "
+                "consistent execution under pressure."
+            ),
+            (
+                "I would bring a strong respect for kitchen standards, calm teamwork, and "
+                "a guest-focused mindset. I am comfortable supporting prep, line service, "
+                "buffet execution, and fast-paced daily operations while protecting quality "
+                "and cleanliness."
+            ),
+            (
+                "At this stage of my career, I am seeking the opportunity to continue "
+                "growing in a serious professional kitchen where I can contribute, learn "
+                "quickly, and adapt to the standards of a strong culinary team. Thank you "
+                "for your time and consideration. I would welcome the opportunity to speak "
+                "with you."
+            ),
+        ],
+        "closing": "Sincerely,",
+        "pdf_title": "Andres Tirano Cover Letter",
+    },
+    "es": {
+        "title": "Cocinero profesional",
+        "date": spanish_date(today),
+        "availability": "Disponible para oportunidades profesionales de cocina y reubicación",
+        "contact": [
+            ("Correo", "andres@tirano.co"),
+            ("Teléfono", "+34 603 91 99 93"),
+            ("LinkedIn", "Andres F. Tirano Vasquez"),
+            ("Sitio web", "chef.tirano.co"),
+        ],
+        "intro_note": "Carta de presentación para oportunidades profesionales de cocina.",
+        "callout": "Buscando una oportunidad seria dentro de una cocina profesional",
+        "opening": "Estimado equipo de selección:",
+        "paragraphs": [
+            (
+                "Me dirijo a ustedes para expresar mi interés en formar parte de su equipo de "
+                "cocina. Soy cocinero profesional con experiencia práctica en restaurantes "
+                "enfocados en la calidad, operaciones de brunch, hospitalidad premium y "
+                "servicio hotelero de alto volumen."
+            ),
+            (
+                "Mi trayectoria incluye experiencia en España dentro de proyectos liderados "
+                "por la chef Lucía Freitas, operaciones de brunch y estaciones de buffet en "
+                "vivo con atención a un gran número de comensales cada día. Estos entornos "
+                "reforzaron mi disciplina, mi mise en place, la organización de estación y "
+                "mi capacidad para mantener una ejecución constante bajo presión."
+            ),
+            (
+                "Puedo aportar respeto por los estándares de cocina, trabajo en equipo y "
+                "enfoque en el servicio. Me siento cómodo apoyando preelaboración, servicio "
+                "de línea, buffet y operaciones diarias de ritmo alto, siempre cuidando la "
+                "calidad, el orden y la limpieza."
+            ),
+            (
+                "En esta etapa de mi carrera busco seguir creciendo dentro de una cocina "
+                "profesional seria, donde pueda contribuir con compromiso, adaptarme "
+                "rápidamente y seguir desarrollándome junto a un equipo exigente. Agradezco "
+                "su tiempo y consideración, y quedo a disposición para conversar en una entrevista."
+            ),
+        ],
+        "closing": "Atentamente,",
+        "pdf_title": "Carta de Presentacion de Andres Tirano",
+    },
 }
 
 
@@ -148,9 +217,9 @@ def build_styles():
     return styles
 
 
-def build_contact_row(styles):
+def build_contact_row(styles, content):
     cells = []
-    for label, value in COVER_LETTER["contact"]:
+    for label, value in content["contact"]:
         cells.append(
             [
                 Paragraph(label.upper(), styles["SmallLabel"]),
@@ -177,24 +246,24 @@ def build_contact_row(styles):
     return row
 
 
-def build_letter_box(styles):
-    content = [
-        Paragraph(COVER_LETTER["opening"], styles["LetterHeading"]),
+def build_letter_box(styles, content):
+    story = [
+        Paragraph(content["opening"], styles["LetterHeading"]),
         Spacer(1, 7),
     ]
 
-    for paragraph in COVER_LETTER["paragraphs"]:
-        content.extend([Paragraph(paragraph, styles["Body"]), Spacer(1, 9)])
+    for paragraph in content["paragraphs"]:
+        story.extend([Paragraph(paragraph, styles["Body"]), Spacer(1, 9)])
 
-    content.extend(
+    story.extend(
         [
-            Paragraph(COVER_LETTER["closing"], styles["Body"]),
+            Paragraph(content["closing"], styles["Body"]),
             Spacer(1, 5),
-            Paragraph(COVER_LETTER["name"], styles["LetterHeading"]),
+            Paragraph("Andres Tirano", styles["LetterHeading"]),
         ]
     )
 
-    box = Table([[content]], colWidths=[182 * mm])
+    box = Table([[story]], colWidths=[182 * mm])
     box.setStyle(
         TableStyle(
             [
@@ -210,17 +279,20 @@ def build_letter_box(styles):
     return box
 
 
-def create_pdf():
+def create_pdf(locale: str):
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
+    content = COVER_LETTERS[locale]
+    output_file = OUTPUT_FILES[locale]
+
     doc = SimpleDocTemplate(
-        str(OUTPUT_FILE),
+        str(output_file),
         pagesize=A4,
         leftMargin=14 * mm,
         rightMargin=14 * mm,
         topMargin=12 * mm,
         bottomMargin=12 * mm,
-        title="Andres Tirano Cover Letter",
+        title=content["pdf_title"],
         author="OpenAI Codex",
     )
 
@@ -229,18 +301,14 @@ def create_pdf():
     top_row = Table(
         [[
             [
-                Paragraph(COVER_LETTER["name"], styles["Name"]),
-                Paragraph(COVER_LETTER["title"], styles["Role"]),
-                Paragraph(
-                    "Cover letter for professional kitchen opportunities.",
-                    styles["Body"],
-                ),
+                Paragraph("Andres Tirano", styles["Name"]),
+                Paragraph(content["title"], styles["Role"]),
+                Paragraph(content["intro_note"], styles["Body"]),
             ],
             [
-                Paragraph(COVER_LETTER["date"], styles["Meta"]),
+                Paragraph(content["date"], styles["Meta"]),
                 Spacer(1, 6),
-                Paragraph(COVER_LETTER["location"], styles["Body"]) if COVER_LETTER["location"] else Spacer(1, 0),
-                Paragraph(COVER_LETTER["availability"], styles["Body"]),
+                Paragraph(content["availability"], styles["Body"]),
             ],
         ]],
         colWidths=[132 * mm, 50 * mm],
@@ -258,11 +326,11 @@ def create_pdf():
         )
     )
 
-    canada_callout = Table(
-        [[Paragraph("Seeking a serious professional kitchen opportunity", styles["Callout"])]],
+    callout = Table(
+        [[Paragraph(content["callout"], styles["Callout"])]],
         colWidths=[182 * mm],
     )
-    canada_callout.setStyle(
+    callout.setStyle(
         TableStyle(
             [
                 ("BACKGROUND", (0, 0), (-1, -1), PALETTE["surface_strong"]),
@@ -278,23 +346,23 @@ def create_pdf():
         HRFlowable(width="100%", thickness=2, color=PALETTE["accent"], spaceAfter=10, spaceBefore=0),
         top_row,
         Spacer(1, 10),
-        build_contact_row(styles),
+        build_contact_row(styles, content),
         Spacer(1, 8),
-        canada_callout,
+        callout,
         Spacer(1, 10),
-        build_letter_box(styles),
+        build_letter_box(styles, content),
     ]
 
-    def paint_page(canvas, doc):
+    def paint_page(canvas, _doc):
         canvas.saveState()
         canvas.setFillColor(colors.white)
         canvas.rect(0, 0, A4[0], A4[1], stroke=0, fill=1)
         canvas.restoreState()
 
     doc.build(story, onFirstPage=paint_page, onLaterPages=paint_page)
-    return OUTPUT_FILE
+    return output_file
 
 
 if __name__ == "__main__":
-    pdf_path = create_pdf()
-    print(pdf_path)
+    for locale in ("en", "es"):
+        print(create_pdf(locale))

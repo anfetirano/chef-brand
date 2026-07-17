@@ -358,6 +358,14 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                 >
                   {page.resume.fileLabel}
                 </a>
+                <a
+                  className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground"
+                  href={page.resume.coverLetterHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {page.resume.coverLetterLabel}
+                </a>
                 {linkedInMethod ? (
                   <a
                     className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground"

@@ -226,10 +226,12 @@ export const homepageContentByLocale: HomepageContentByLocale = {
     resume: {
       title: "Curriculum Vitae",
       description:
-        "Download the full CV for a complete view of experience, education, and contact information.",
-      note: "This version includes his latest roles, education, and direct contact details.",
+        "Download the full CV and matching cover letter for a complete view of experience, education, and contact information.",
+      note: "These files include his latest roles, education, direct contact details, and a formal introduction for employers.",
       fileHref: "/documents/andres-tirano-cv.pdf",
       fileLabel: "Download Resume",
+      coverLetterHref: "/documents/andres-tirano-cover-letter.pdf",
+      coverLetterLabel: "Download Cover Letter",
       linkedInLabel: "LinkedIn",
     },
     contact: {
@@ -488,10 +490,12 @@ export const homepageContentByLocale: HomepageContentByLocale = {
     resume: {
       title: "Currículum vitae",
       description:
-        "Descarga el CV completo para revisar experiencia, formación y datos de contacto en detalle.",
-      note: "Esta versión incluye sus puestos más recientes, formación y datos de contacto directos.",
+        "Descarga el CV completo y la carta de presentación para revisar experiencia, formación y datos de contacto en detalle.",
+      note: "Estos archivos incluyen sus puestos más recientes, formación, datos de contacto directos y una presentación formal para empleadores.",
       fileHref: "/documents/andres-tirano-cv-es.pdf",
       fileLabel: "Descargar CV",
+      coverLetterHref: "/documents/andres-tirano-cover-letter-es.pdf",
+      coverLetterLabel: "Descargar carta",
       linkedInLabel: "LinkedIn",
     },
     contact: {

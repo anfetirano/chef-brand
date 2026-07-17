@@ -83,6 +83,8 @@ export type HomepageResume = {
   note: string;
   fileHref: string;
   fileLabel: string;
+  coverLetterHref: string;
+  coverLetterLabel: string;
   linkedInLabel: string;
 };
 
