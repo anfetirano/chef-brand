@@ -205,6 +205,25 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
         </div>
       </div>
 
+      <div className="bg-[var(--surface)] px-6 pb-6 md:px-10 md:pb-10">
+        <div className="mx-auto w-full max-w-[1600px]">
+          <section
+            aria-label="Andres Tirano in kitchen service"
+            className="overflow-hidden border border-border bg-[var(--surface-strong)]"
+          >
+            <video
+              className="aspect-[16/10] w-full object-cover md:aspect-[21/8]"
+              src="/videos/andres-kitchen-banner.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            />
+          </section>
+        </div>
+      </div>
+
       <div className="bg-[var(--surface)] px-6 md:px-10">
         <div className="mx-auto w-full max-w-[1600px]">
           <SectionShell
