@@ -1,4 +1,10 @@
+"use client";
+
 import Image from "next/image";
+import {
+  TrackedActionLink,
+  TrackedLink,
+} from "@/components/analytics/tracked-link";
 import { SectionShell } from "@/components/layout/section-shell";
 import type { HomepageContent } from "@/types/homepage";
 
@@ -101,22 +107,32 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                       </summary>
                       <div className="absolute left-0 top-full z-10 mt-2 grid min-w-[13rem] gap-2 border border-border bg-[var(--surface)] p-2 shadow-[0_18px_40px_rgba(33,25,20,0.14)]">
                         {heroWhatsAppMethod ? (
-                          <a
+                          <TrackedActionLink
                             className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground hover:text-accent"
                             href={heroWhatsAppMethod.href}
+                            methodId={heroWhatsAppMethod.id}
+                            eventPayload={{
+                              locale: page.locale,
+                              placement: "hero-contact-menu",
+                            }}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             {heroWhatsAppMethod.label}
-                          </a>
+                          </TrackedActionLink>
                         ) : null}
                         {heroEmailMethod ? (
-                          <a
+                          <TrackedActionLink
                             className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground hover:text-accent"
                             href={heroEmailMethod.href}
+                            methodId={heroEmailMethod.id}
+                            eventPayload={{
+                              locale: page.locale,
+                              placement: "hero-contact-menu",
+                            }}
                           >
                             {heroEmailMethod.label}
-                          </a>
+                          </TrackedActionLink>
                         ) : null}
                       </div>
                     </details>
@@ -169,16 +185,21 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                     {method.label}
                   </dt>
                   <dd className="min-w-0">
-                    <a
+                    <TrackedActionLink
                       className="block break-words text-sm leading-6 text-foreground hover:text-accent"
+                      eventPayload={{
+                        locale: page.locale,
+                        placement: "hero-sidebar",
+                      }}
                       href={method.href}
+                      methodId={method.id}
                       target={method.href.startsWith("http") ? "_blank" : undefined}
                       rel={
                         method.href.startsWith("http") ? "noopener noreferrer" : undefined
                       }
                     >
                       {method.value}
-                    </a>
+                    </TrackedActionLink>
                   </dd>
                 </div>
               ))}
@@ -350,31 +371,48 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
             <div className="grid gap-6 bg-[var(--surface-strong)] p-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:p-8">
               <p className="max-w-2xl text-sm leading-7 text-muted">{page.resume.note}</p>
               <div className="flex flex-wrap gap-3 md:justify-end">
-                <a
+                <TrackedLink
                   className="inline-flex min-h-11 items-center justify-center border border-foreground bg-foreground px-4 py-2 text-sm font-medium text-white"
+                  eventName="resume_download"
+                  eventPayload={{
+                    locale: page.locale,
+                    document: "resume",
+                    placement: "resume-section",
+                  }}
                   href={page.resume.fileHref}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   {page.resume.fileLabel}
-                </a>
-                <a
+                </TrackedLink>
+                <TrackedLink
                   className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground"
+                  eventName="resume_download"
+                  eventPayload={{
+                    locale: page.locale,
+                    document: "cover_letter",
+                    placement: "resume-section",
+                  }}
                   href={page.resume.coverLetterHref}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   {page.resume.coverLetterLabel}
-                </a>
+                </TrackedLink>
                 {linkedInMethod ? (
-                  <a
+                  <TrackedActionLink
                     className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground"
+                    eventPayload={{
+                      locale: page.locale,
+                      placement: "resume-section",
+                    }}
                     href={linkedInMethod.href}
+                    methodId={linkedInMethod.id}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     {page.resume.linkedInLabel}
-                  </a>
+                  </TrackedActionLink>
                 ) : null}
               </div>
             </div>
@@ -387,10 +425,15 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
           >
             <div className="grid gap-px border border-border bg-border md:grid-cols-2">
               {page.contact.methods.map((method) => (
-                <a
+                <TrackedActionLink
                   key={method.id}
                   className="bg-[var(--surface)] p-5 hover:bg-[#f8f1e7] md:p-6"
+                  eventPayload={{
+                    locale: page.locale,
+                    placement: "contact-section",
+                  }}
                   href={method.href}
+                  methodId={method.id}
                   target={method.href.startsWith("http") ? "_blank" : undefined}
                   rel={method.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 >
@@ -400,7 +443,7 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                   <p className="mt-3 break-words text-lg font-medium tracking-tight text-foreground">
                     {method.value}
                   </p>
-                </a>
+                </TrackedActionLink>
               ))}
             </div>
           </SectionShell>

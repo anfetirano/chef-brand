@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { AnalyticsProvider } from "@/components/analytics/analytics-provider";
 import { siteConfig } from "@/content/site";
 import { buildRootMetadata } from "@/lib/seo/metadata";
 import "./globals.css";
@@ -29,6 +30,7 @@ export default function RootLayout({
       className={`${manrope.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <AnalyticsProvider />
         {children}
         <Analytics />
       </body>
