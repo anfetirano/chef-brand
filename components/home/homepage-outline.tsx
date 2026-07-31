@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import {
   TrackedActionLink,
   TrackedLink,
@@ -12,10 +13,70 @@ type HomepageOutlineProps = {
   page: HomepageContent;
 };
 
+const statementsByLocale = {
+  es: [
+    ["Precisión antes del servicio.", "Calma durante el pase."],
+    ["Orden en la partida.", "Libertad en cada movimiento."],
+    ["Respeto por el producto.", "Intención en cada detalle."],
+    ["Técnica en las manos.", "Criterio en cada decisión."],
+    ["Confianza en el equipo.", "Un mismo ritmo durante el servicio."],
+    ["Exigencia hasta el final.", "Orgullo después del último plato."],
+  ],
+  en: [
+    ["Precision before service.", "Calm during the pass."],
+    ["Order at the station.", "Freedom in every movement."],
+    ["Respect for the product.", "Intention in every detail."],
+    ["Technique in the hands.", "Judgment in every decision."],
+    ["Trust in the team.", "One rhythm throughout service."],
+    ["High standards to the end.", "Pride after the last plate."],
+  ],
+} as const;
+
+const flavorIcons = [
+  "/images/flavors/dulce-miel.png",
+  "/images/flavors/salado-sal-marina.png",
+  "/images/flavors/amargo-cafe.png",
+  "/images/flavors/acido-limon.png",
+  "/images/flavors/umami-shiitake.png",
+] as const;
+
 export function HomepageOutline({ page }: HomepageOutlineProps) {
-  const heroText = { color: "var(--foreground)" };
-  const heroTextSoft = { color: "rgba(33,25,20,0.84)" };
-  const heroLabel = { color: "rgba(112,98,85,0.96)" };
+  const [statementIndex, setStatementIndex] = useState(0);
+  const statements = statementsByLocale[page.locale];
+  const activeStatement =
+    statements[statementIndex % statements.length] ?? statements[0];
+  const [firstName = page.hero.name, ...familyNameParts] =
+    page.hero.name.split(" ");
+  const familyName = familyNameParts.join(" ");
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setStatementIndex((currentIndex) => currentIndex + 1);
+    }, 7000);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, []);
+
+  const editorial =
+    page.locale === "es"
+      ? {
+          role: "Cocinero profesional",
+          contact: "Contactar",
+          journey: "Ver trayectoria",
+          pillars: ["Dulce", "Salado", "Amargo", "Ácido", "Umami"],
+        }
+      : {
+          role: "Professional cook",
+          contact: "Contact",
+          journey: "View experience",
+          pillars: ["Sweet", "Salty", "Bitter", "Sour", "Umami"],
+        };
   const heroWhatsAppMethod = page.hero.contactMethods.find(
     (method) => method.id === "whatsapp",
   );
@@ -25,191 +86,124 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
   const linkedInMethod = page.contact.methods.find(
     (method) => method.id === "linkedin",
   );
-  const primaryButtonStyle = {
-    backgroundColor: "var(--foreground)",
-    borderColor: "var(--foreground)",
-    color: "#fbf7f1",
-  };
-  const secondaryButtonStyle = {
-    backgroundColor: "transparent",
-    borderColor: "var(--border)",
-    color: "var(--foreground)",
-  };
-
   return (
     <>
-      <section className="border-b border-border">
-        <div className="mx-auto grid w-full max-w-[1600px] lg:grid-cols-[minmax(0,1fr)_21rem]">
+      <section id="top" className="border-b border-border">
+        <div className="grid min-h-screen w-full lg:grid-cols-[57.5fr_42.5fr]">
           <div
-            className="px-6 py-8 md:px-10 md:py-10"
-            style={{ backgroundColor: "var(--surface)", color: "var(--foreground)" }}
+            className="hero-copy flex px-6 py-10 md:px-10 md:py-14 lg:px-14 lg:py-10"
+            style={{ color: "var(--foreground)" }}
           >
-            <div className="flex flex-col gap-8">
-              <div className="grid gap-8 border-b border-border pb-8 lg:grid-cols-[minmax(0,46rem)_14rem] lg:justify-between">
-                <div className="space-y-4">
-                  <p className="text-xs uppercase tracking-[0.28em]" style={heroLabel}>
-                    {page.hero.profileLabel}
-                  </p>
-                  <h1
-                    className="max-w-3xl text-5xl font-semibold tracking-tight md:text-6xl"
-                    style={heroText}
-                  >
-                    {page.hero.name}
-                  </h1>
-                  <p
-                    className="max-w-2xl text-xl leading-8 md:text-2xl"
-                    style={heroTextSoft}
-                  >
-                    {page.hero.role}
-                  </p>
-                </div>
-
-                <div className="space-y-4 lg:border-l lg:border-border lg:pl-6">
-                  {page.hero.location ? (
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.22em]" style={heroLabel}>
-                        {page.hero.locationLabel}
-                      </p>
-                      <p className="mt-2 text-sm leading-6" style={heroTextSoft}>
-                        {page.hero.location}
-                      </p>
-                    </div>
+            <div className="flex w-full flex-col justify-between gap-12">
+              <div className="pt-[clamp(2rem,7vh,6rem)]">
+                <h1 className="max-w-[8.5ch] font-editorial text-[clamp(5rem,8.4vw,10rem)] font-medium uppercase leading-[0.78] tracking-[-0.045em] text-foreground">
+                  <span className="block">{firstName}</span>
+                  {familyName ? (
+                    <span className="block ps-[0.22em]">{familyName}</span>
                   ) : null}
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.22em]" style={heroLabel}>
-                      {page.hero.availabilityLabel}
-                    </p>
-                    <p className="mt-2 text-sm leading-6" style={heroTextSoft}>
-                      {page.hero.availability}
-                    </p>
-                  </div>
+                </h1>
+                <p className="mt-7 text-[clamp(0.9rem,1.15vw,1.15rem)] font-semibold uppercase tracking-[0.3em] text-foreground/70">
+                  {editorial.role}
+                </p>
+                <div className="mt-8 h-px w-20 bg-accent" />
+
+                <p
+                  key={`${page.locale}-${statementIndex}`}
+                  className="editorial-statement mt-8 min-h-[clamp(6rem,9vw,9rem)] text-[clamp(2rem,3.15vw,4rem)] leading-[1.12] tracking-[-0.025em] text-foreground/90"
+                  style={{ fontFamily: "var(--font-cormorant)" }}
+                >
+                  {activeStatement.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </p>
+
+                <div className="mt-10 flex flex-wrap gap-4">
+                  <details className="group relative">
+                    <summary
+                      className="inline-flex min-h-14 cursor-pointer list-none items-center justify-center border border-accent bg-accent px-8 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-foreground shadow-[0_10px_28px_rgba(0,0,0,0.32)] [&::-webkit-details-marker]:hidden"
+                    >
+                      {editorial.contact}
+                    </summary>
+                    <div className="absolute left-0 top-full z-10 mt-2 grid min-w-[14rem] gap-2 border border-border bg-[var(--surface)] p-2">
+                      {heroWhatsAppMethod ? (
+                        <TrackedActionLink
+                          className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground hover:text-accent"
+                          href={heroWhatsAppMethod.href}
+                          methodId={heroWhatsAppMethod.id}
+                          eventPayload={{ locale: page.locale, placement: "hero-contact-menu" }}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {heroWhatsAppMethod.label}
+                        </TrackedActionLink>
+                      ) : null}
+                      {heroEmailMethod ? (
+                        <TrackedActionLink
+                          className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground hover:text-accent"
+                          href={heroEmailMethod.href}
+                          methodId={heroEmailMethod.id}
+                          eventPayload={{ locale: page.locale, placement: "hero-contact-menu" }}
+                        >
+                          {heroEmailMethod.label}
+                        </TrackedActionLink>
+                      ) : null}
+                    </div>
+                  </details>
+                  <a
+                    className="inline-flex min-h-14 items-center justify-center border border-foreground/70 px-8 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-foreground"
+                    href="#experience"
+                  >
+                    {editorial.journey}
+                  </a>
                 </div>
               </div>
 
-              <div className="grid gap-8 lg:grid-cols-[minmax(0,50rem)_16rem] lg:justify-between">
-                <div className="space-y-4">
-                  <p className="text-sm uppercase tracking-[0.18em]" style={heroLabel}>
-                    {page.hero.summaryLabel}
-                  </p>
-                  <p
-                    className="max-w-3xl text-base leading-8 md:text-[1.05rem]"
-                    style={heroTextSoft}
-                  >
-                    {page.hero.summary}
-                  </p>
-                  <div className="flex flex-wrap gap-3 pt-2">
-                    <details className="group relative">
-                      <summary
-                        className="inline-flex min-h-11 cursor-pointer list-none items-center justify-center border px-4 py-2 text-sm font-medium [&::-webkit-details-marker]:hidden"
-                        style={primaryButtonStyle}
-                      >
-                        {page.hero.primaryCta.label}
-                      </summary>
-                      <div className="absolute left-0 top-full z-10 mt-2 grid min-w-[13rem] gap-2 border border-border bg-[var(--surface)] p-2 shadow-[0_18px_40px_rgba(33,25,20,0.14)]">
-                        {heroWhatsAppMethod ? (
-                          <TrackedActionLink
-                            className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground hover:text-accent"
-                            href={heroWhatsAppMethod.href}
-                            methodId={heroWhatsAppMethod.id}
-                            eventPayload={{
-                              locale: page.locale,
-                              placement: "hero-contact-menu",
-                            }}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {heroWhatsAppMethod.label}
-                          </TrackedActionLink>
-                        ) : null}
-                        {heroEmailMethod ? (
-                          <TrackedActionLink
-                            className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground hover:text-accent"
-                            href={heroEmailMethod.href}
-                            methodId={heroEmailMethod.id}
-                            eventPayload={{
-                              locale: page.locale,
-                              placement: "hero-contact-menu",
-                            }}
-                          >
-                            {heroEmailMethod.label}
-                          </TrackedActionLink>
-                        ) : null}
-                      </div>
-                    </details>
-                    <a
-                      className="inline-flex min-h-11 items-center justify-center border px-4 py-2 text-sm font-medium"
-                      href={page.hero.secondaryCta.href}
-                      style={secondaryButtonStyle}
-                    >
-                      {page.hero.secondaryCta.label}
-                    </a>
-                  </div>
-                </div>
+              <div className="hero-pillars grid sm:grid-cols-2 xl:grid-cols-5">
+                {editorial.pillars.map((pillar, index) => {
+                  const icon = flavorIcons[index] ?? flavorIcons[0];
 
-                <dl className="grid gap-4 border-t border-border pt-6 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
-                  {page.hero.facts.map((fact) => (
-                    <div key={fact.label} className="space-y-1">
-                      <dt className="text-xs uppercase tracking-[0.18em]" style={heroLabel}>
-                        {fact.label}
-                      </dt>
-                      <dd className="text-sm leading-6" style={heroTextSoft}>
-                        {fact.value}
-                      </dd>
+                  return (
+                    <div
+                      key={pillar}
+                      className="group relative isolate flex min-h-24 items-center justify-center overflow-hidden px-4 py-5 text-center"
+                    >
+                      <Image
+                        src={icon}
+                        alt=""
+                        aria-hidden="true"
+                        width={92}
+                        height={92}
+                        className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[5.75rem] w-[5.75rem] -translate-x-1/2 -translate-y-1/2 object-contain opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-[0.65]"
+                      />
+                      <span className="relative z-10 text-[0.9rem] font-semibold uppercase tracking-[0.2em] text-foreground/80 transition-opacity duration-300 ease-out group-hover:opacity-0">
+                        {pillar}
+                      </span>
                     </div>
-                  ))}
-                </dl>
+                  );
+                })}
               </div>
             </div>
           </div>
 
-          <aside className="grid border-t border-border bg-[var(--surface-strong)] lg:border-l lg:border-t-0">
-            {page.hero.portraitSrc ? (
-              <div className="border-b border-border">
-                <Image
-                  src={page.hero.portraitSrc}
-                  alt="Portrait of Andres Tirano"
-                  width={640}
-                  height={800}
-                  className="aspect-[4/5] w-full object-cover"
-                  priority
-                />
-              </div>
-            ) : null}
-            <dl className="space-y-3 px-6 py-6 md:px-8">
-              {page.hero.contactMethods.map((method) => (
-                <div
-                  key={method.id}
-                  className="grid gap-1 border-b border-border pb-3 last:border-b-0 last:pb-0 md:grid-cols-[5.75rem_minmax(0,1fr)] md:gap-3"
-                >
-                  <dt className="text-xs uppercase tracking-[0.16em] text-muted">
-                    {method.label}
-                  </dt>
-                  <dd className="min-w-0">
-                    <TrackedActionLink
-                      className="block break-words text-sm leading-6 text-foreground hover:text-accent"
-                      eventPayload={{
-                        locale: page.locale,
-                        placement: "hero-sidebar",
-                      }}
-                      href={method.href}
-                      methodId={method.id}
-                      target={method.href.startsWith("http") ? "_blank" : undefined}
-                      rel={
-                        method.href.startsWith("http") ? "noopener noreferrer" : undefined
-                      }
-                    >
-                      {method.value}
-                    </TrackedActionLink>
-                  </dd>
-                </div>
-              ))}
-            </dl>
+          <aside className="relative min-h-[38rem] overflow-hidden border-t border-border bg-[#14110e] lg:min-h-0 lg:border-l lg:border-t-0">
+            <Image
+              src="/images/portrait/andres-official-final.png"
+              alt="Andres Tirano working during kitchen service"
+              fill
+              priority
+              sizes="(min-width: 1024px) 43vw, 100vw"
+              className="hero-photo object-cover object-[center_44%]"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,10,8,0.18)_0%,transparent_18%),linear-gradient(0deg,rgba(11,10,8,0.12)_0%,transparent_28%)]" />
+            <div className="absolute inset-x-0 bottom-0 h-px bg-white/20" />
           </aside>
         </div>
       </section>
 
       <div className="bg-[var(--surface)] px-6 py-6 md:px-10">
-        <div className="mx-auto w-full max-w-[1600px]">
+        <div className="w-full">
           <div className="mb-5">
             <h2 className="text-2xl font-semibold tracking-tight text-foreground">
               {page.strengthsTitle}
@@ -229,7 +223,7 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
       </div>
 
       <div className="bg-[var(--surface)] px-6 pb-6 md:px-10 md:pb-10">
-        <div className="mx-auto w-full max-w-[1600px]">
+        <div className="w-full">
           <section
             aria-label="Andres Tirano in kitchen service"
             className="overflow-hidden border border-border bg-[var(--surface-strong)]"
@@ -248,7 +242,7 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
       </div>
 
       <div className="bg-[var(--surface)] px-6 md:px-10">
-        <div className="mx-auto w-full max-w-[1600px]">
+        <div className="w-full">
           <SectionShell
             id="experience"
             heading={page.experienceSection.title}
@@ -372,7 +366,7 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
               <p className="max-w-2xl text-sm leading-7 text-muted">{page.resume.note}</p>
               <div className="flex flex-wrap gap-3 md:justify-end">
                 <TrackedLink
-                  className="inline-flex min-h-11 items-center justify-center border border-foreground bg-foreground px-4 py-2 text-sm font-medium text-white"
+                  className="inline-flex min-h-11 items-center justify-center border border-accent bg-accent px-4 py-2 text-sm font-medium text-foreground"
                   eventName="resume_download"
                   eventPayload={{
                     locale: page.locale,
@@ -427,7 +421,7 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
               {page.contact.methods.map((method) => (
                 <TrackedActionLink
                   key={method.id}
-                  className="bg-[var(--surface)] p-5 hover:bg-[#f8f1e7] md:p-6"
+                  className="bg-[var(--surface)] p-5 hover:bg-[var(--surface-strong)] md:p-6"
                   eventPayload={{
                     locale: page.locale,
                     placement: "contact-section",

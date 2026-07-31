@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider";
 import { siteConfig } from "@/content/site";
@@ -11,12 +11,18 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+  weight: ["400", "500"],
+});
+
 export const metadata: Metadata = buildRootMetadata();
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#f4ede2",
+  themeColor: "#0c0c0b",
 };
 
 export default function RootLayout({
@@ -27,7 +33,19 @@ export default function RootLayout({
   return (
     <html
       lang={siteConfig.locale}
-      className={`${manrope.variable} h-full scroll-smooth antialiased`}
+      className={`${manrope.variable} ${cormorant.variable} h-full scroll-smooth antialiased`}
+      style={
+        {
+          "--background": "#0d0c0a",
+          "--surface": "#171411",
+          "--surface-strong": "#211c17",
+          "--panel": "#0b0a08",
+          "--foreground": "#fffaf1",
+          "--muted": "#c4bbb0",
+          "--border": "rgba(255, 250, 241, 0.2)",
+          "--accent": "#c96f38",
+        } as React.CSSProperties
+      }
     >
       <body className="min-h-full flex flex-col">
         <AnalyticsProvider />

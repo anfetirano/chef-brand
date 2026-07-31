@@ -41,7 +41,7 @@ PALETTE = {
 RESUMES = {
     "en": {
         "name": "Andres Tirano",
-        "title": "Professional Cook",
+        "title": "Andrés Tirano | Professional Cook — Hotels & Restaurants",
         "tagline": (
             "Professional cook with experience in quality-focused restaurants, "
             "premium hospitality, brunch production, and high-volume hotel service."
