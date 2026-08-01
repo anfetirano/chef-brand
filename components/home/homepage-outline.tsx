@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import {
   TrackedActionLink,
@@ -91,7 +92,7 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
       <section id="top" className="relative border-b border-border">
         <div className="grid min-h-screen w-full lg:grid-cols-[57.5fr_42.5fr]">
           <div
-            className="hero-copy flex px-6 py-10 md:px-10 md:py-14 lg:px-14 lg:py-10"
+            className="hero-copy relative flex px-6 py-10 md:px-10 md:py-14 lg:px-14 lg:py-10"
             style={{ color: "var(--foreground)" }}
           >
             <div className="flex w-full flex-col justify-between gap-12">
@@ -160,14 +161,19 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                 </div>
               </div>
 
-              <div className="hero-pillars grid sm:grid-cols-2 xl:grid-cols-5">
+              <div className="hero-pillars grid grid-cols-2 xl:grid-cols-5">
                 {editorial.pillars.map((pillar, index) => {
                   const icon = flavorIcons[index] ?? flavorIcons[0];
 
                   return (
                     <div
                       key={pillar}
-                      className="group relative isolate flex min-h-24 items-center justify-center overflow-hidden px-4 py-5 text-center"
+                      className="group relative isolate flex min-h-24 items-center justify-center overflow-hidden px-4 py-5 text-center last:col-span-2 xl:last:col-span-1"
+                      style={
+                        {
+                          "--flavor-delay": `${index * 5}s`,
+                        } as CSSProperties
+                      }
                     >
                       <Image
                         src={icon}
@@ -175,9 +181,9 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                         aria-hidden="true"
                         width={92}
                         height={92}
-                        className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[5.75rem] w-[5.75rem] -translate-x-1/2 -translate-y-1/2 object-contain opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-[0.65]"
+                        className="mobile-flavor-icon pointer-events-none absolute left-1/2 top-1/2 z-0 h-[5.75rem] w-[5.75rem] -translate-x-1/2 -translate-y-1/2 object-contain opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-[0.65]"
                       />
-                      <span className="relative z-10 text-[0.9rem] font-semibold uppercase tracking-[0.2em] text-foreground/80 transition-opacity duration-300 ease-out group-hover:opacity-0">
+                      <span className="mobile-flavor-label relative z-10 text-[0.9rem] font-semibold uppercase tracking-[0.2em] text-foreground/80 transition-opacity duration-300 ease-out group-hover:opacity-0">
                         {pillar}
                       </span>
                     </div>
@@ -185,11 +191,45 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                 })}
               </div>
             </div>
+            <div
+              className="mobile-knife-track pointer-events-none absolute inset-y-24 right-4 z-20 w-px bg-foreground/20 lg:hidden"
+              aria-hidden="true"
+            >
+              <div
+                className="knife-runner"
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  top: "7%",
+                  transform: "translateX(-50%)",
+                  filter: "drop-shadow(0 2px 3px rgba(0, 0, 0, 0.42))",
+                  animation:
+                    "knife-descent 14s cubic-bezier(0.45, 0, 0.55, 1) infinite",
+                }}
+              >
+                <span className="absolute inset-y-0 left-1/2 z-0 w-[3px] -translate-x-1/2 bg-[#0d0c0a]" />
+                <div
+                  className="relative z-10 h-32 w-14 overflow-hidden"
+                  style={{
+                    transformStyle: "preserve-3d",
+                    animation: "damascus-knife-turn 18s linear infinite",
+                  }}
+                >
+                  <Image
+                    src="/images/decor/damascus-knife.png"
+                    alt=""
+                    fill
+                    sizes="56px"
+                    className="object-cover object-center brightness-[1.18] contrast-110"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
           <aside className="relative min-h-[38rem] overflow-hidden border-t border-border bg-[#14110e] lg:min-h-0 lg:border-l lg:border-t-0">
             <Image
-              src="/images/portrait/andres-official-final.png"
+              src="/images/portrait/andres-skin-tone-test-v1.png"
               alt="Andres Tirano working during kitchen service"
               fill
               priority

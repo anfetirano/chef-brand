@@ -160,6 +160,46 @@ img {
   }
 }
 
+@keyframes mobile-flavor-icon-cycle {
+  0%,
+  20%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.94);
+  }
+
+  3%,
+  17% {
+    opacity: 0.65;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes mobile-flavor-label-cycle {
+  0%,
+  20%,
+  100% {
+    opacity: 1;
+  }
+
+  3%,
+  17% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1023px) {
+  .mobile-flavor-icon {
+    top: calc(50% + 3rem);
+    left: calc(50% + 2.5rem);
+    animation: mobile-flavor-icon-cycle 25s ease-in-out var(--flavor-delay) infinite;
+  }
+
+  .mobile-flavor-label {
+    animation: mobile-flavor-label-cycle 25s ease-in-out var(--flavor-delay) infinite;
+  }
+}
+
 .knife-motion {
   position: absolute;
   left: 50%;
@@ -191,8 +231,14 @@ img {
     animation: none;
   }
 
-  .knife-divider {
+  .knife-track,
+  .mobile-knife-track {
     display: none;
+  }
+
+  .mobile-flavor-icon,
+  .mobile-flavor-label {
+    animation: none;
   }
 }
 
