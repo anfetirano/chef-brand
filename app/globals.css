@@ -98,6 +98,78 @@ img {
   filter: saturate(0.94) contrast(1.03) brightness(1.01);
 }
 
+.editorial-action {
+  position: relative;
+  isolation: isolate;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.editorial-action::after {
+  position: absolute;
+  z-index: -1;
+  inset: 4px;
+  pointer-events: none;
+  content: "";
+  border: 1px solid rgba(255, 250, 241, 0.18);
+}
+
+.editorial-action--primary:hover,
+.editorial-action--primary:focus-visible {
+  border-color: #d5814c;
+  background: #d5814c;
+}
+
+.editorial-action--secondary:hover,
+.editorial-action--secondary:focus-visible {
+  border-color: rgba(255, 250, 241, 0.82);
+  background: rgba(255, 250, 241, 0.075);
+}
+
+.editorial-action:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@keyframes knife-descent {
+  0% {
+    top: 7%;
+    opacity: 0;
+  }
+
+  9%,
+  82% {
+    opacity: 0.62;
+  }
+
+  100% {
+    top: 88%;
+    opacity: 0;
+  }
+}
+
+@keyframes damascus-knife-turn {
+  0% {
+    transform: perspective(260px) rotateY(0deg);
+  }
+
+  100% {
+    transform: perspective(260px) rotateY(360deg);
+  }
+}
+
+.knife-motion {
+  position: absolute;
+  left: 50%;
+  top: 7%;
+  color: var(--foreground);
+  transform: translateX(-50%);
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.42));
+  animation: knife-descent 14s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
 @keyframes editorial-statement-cycle {
   0%,
   100% {
@@ -117,6 +189,10 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .editorial-statement {
     animation: none;
+  }
+
+  .knife-divider {
+    display: none;
   }
 }
 

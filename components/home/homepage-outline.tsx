@@ -88,7 +88,7 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
   );
   return (
     <>
-      <section id="top" className="border-b border-border">
+      <section id="top" className="relative border-b border-border">
         <div className="grid min-h-screen w-full lg:grid-cols-[57.5fr_42.5fr]">
           <div
             className="hero-copy flex px-6 py-10 md:px-10 md:py-14 lg:px-14 lg:py-10"
@@ -119,10 +119,10 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                   ))}
                 </p>
 
-                <div className="mt-10 flex flex-wrap gap-4">
+                <div className="mt-10 flex flex-wrap gap-3">
                   <details className="group relative">
                     <summary
-                      className="inline-flex min-h-14 cursor-pointer list-none items-center justify-center border border-accent bg-accent px-8 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-foreground shadow-[0_10px_28px_rgba(0,0,0,0.32)] [&::-webkit-details-marker]:hidden"
+                      className="hero-action hero-action-primary inline-flex min-h-[3.75rem] cursor-pointer list-none items-center justify-center border border-accent bg-accent px-9 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-foreground [&::-webkit-details-marker]:hidden"
                     >
                       {editorial.contact}
                     </summary>
@@ -152,7 +152,7 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                     </div>
                   </details>
                   <a
-                    className="inline-flex min-h-14 items-center justify-center border border-foreground/70 px-8 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-foreground"
+                    className="hero-action hero-action-secondary inline-flex min-h-[3.75rem] items-center justify-center border border-foreground/45 bg-white/[0.025] px-9 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-foreground"
                     href="#experience"
                   >
                     {editorial.journey}
@@ -199,6 +199,38 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,10,8,0.18)_0%,transparent_18%),linear-gradient(0deg,rgba(11,10,8,0.12)_0%,transparent_28%)]" />
             <div className="absolute inset-x-0 bottom-0 h-px bg-white/20" />
           </aside>
+        </div>
+        <div className="knife-track pointer-events-none absolute inset-y-20 left-[57.5%] z-20 hidden w-px lg:block" aria-hidden="true">
+          <div
+            className="knife-runner"
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "7%",
+              color: "var(--foreground)",
+              transform: "translateX(-50%)",
+              filter: "drop-shadow(0 2px 3px rgba(0, 0, 0, 0.42))",
+              animation: "knife-descent 14s cubic-bezier(0.45, 0, 0.55, 1) infinite",
+            }}
+          >
+            <span className="absolute inset-y-0 left-1/2 z-0 w-[3px] -translate-x-1/2 bg-[#0d0c0a]" />
+            <div
+              className="relative z-10 h-48 w-20 overflow-hidden"
+              style={{
+                transformStyle: "preserve-3d",
+                animation:
+                  "damascus-knife-turn 18s linear infinite",
+              }}
+            >
+              <Image
+                src="/images/decor/damascus-knife.png"
+                alt=""
+                fill
+                sizes="80px"
+                className="object-cover object-center brightness-[1.18] contrast-110"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
