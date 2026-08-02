@@ -1,602 +1,492 @@
 from pathlib import Path
 from shutil import copy2
+from io import BytesIO
 
+from PIL import Image as PILImage
 from reportlab.lib import colors
+from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.utils import ImageReader
 from reportlab.lib.units import mm
-from reportlab.platypus import (
-    HRFlowable,
-    Image,
-    Paragraph,
-    SimpleDocTemplate,
-    Spacer,
-    Table,
-    TableStyle,
-)
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Paragraph
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = ROOT / "public" / "documents"
+ARTIFACT_DIR = ROOT / "output" / "pdf"
 OUTPUT_FILES = {
     "en": OUTPUT_DIR / "andres-tirano-cv.pdf",
     "es": OUTPUT_DIR / "andres-tirano-cv-es.pdf",
 }
-LEGACY_OUTPUT_DIR = ROOT / "output" / "pdf"
-LEGACY_OUTPUT_FILE = LEGACY_OUTPUT_DIR / "andres-tirano-resume.pdf"
-PORTRAIT_FILE = ROOT / "public" / "images" / "portrait" / "andres-tirano.jpg"
+PORTRAIT_FILE = ROOT / "public" / "images" / "portrait" / "andres-skin-tone-test-v1.png"
 
+CHARCOAL = colors.HexColor("#11100E")
+INK = colors.HexColor("#201B17")
+PAPER = colors.HexColor("#F4EFE8")
+OFF_WHITE = colors.HexColor("#F5F1EA")
+MUTED = colors.HexColor("#766E66")
+COPPER = colors.HexColor("#B96D3B")
+HAIRLINE = colors.HexColor("#D5C9BC")
 
-PALETTE = {
-    "background": colors.HexColor("#F6F1EA"),
-    "surface": colors.HexColor("#FBF7F1"),
-    "surface_strong": colors.HexColor("#EFE5D7"),
-    "text": colors.HexColor("#221A14"),
-    "muted": colors.HexColor("#6E6154"),
-    "accent": colors.HexColor("#A76A3A"),
-    "border": colors.HexColor("#DCCFC0"),
+FONT_DIR = Path("/System/Library/Fonts/Supplemental")
+FONTS = {
+    "Display": FONT_DIR / "Georgia.ttf",
+    "DisplayItalic": FONT_DIR / "Georgia Italic.ttf",
+    "Sans": FONT_DIR / "Arial.ttf",
+    "SansBold": FONT_DIR / "Arial Bold.ttf",
 }
 
 
-RESUMES = {
-    "en": {
-        "name": "Andres Tirano",
-        "title": "Andrés Tirano | Professional Cook — Hotels & Restaurants",
-        "tagline": (
-            "Professional cook with experience in quality-focused restaurants, "
-            "premium hospitality, brunch production, and high-volume hotel service."
-        ),
-        "summary": (
-            "Currently seeking professional kitchen opportunities. "
-            "Andres brings hands-on experience from chef Lucía Freitas's "
-            "projects, premium hospitality in Málaga, brunch operations, and live "
-            "hotel buffet service serving up to 1,200 guests a day."
-        ),
-        "callout": "Seeking professional kitchen opportunities",
-        "contact": [
-            ("Email", "andres@tirano.co"),
-            ("Phone", "+34 603 91 99 93"),
-            ("Instagram", "@anfetirano"),
-            ("LinkedIn", "Andres F. Tirano Vasquez"),
-            ("Website", "chef.tirano.co"),
-        ],
-        "strengths_heading": "Core strengths",
-        "strengths": [
-            "Reliable high-volume execution in live buffet stations serving around 1,200 guests per day.",
-            "Precision in quality-focused kitchens shaped by A Tafona and LUME.",
-            "Strong mise en place, station setup, purchasing support, and menu execution.",
-            "Calm guest-facing service in brunch and hotel environments.",
-            "Experience in premium hospitality environments with polished service standards.",
-            "Adaptable across chef-led restaurants, brunch concepts, and hotel kitchens.",
-        ],
-        "experience_heading": "Experience",
-        "experience": [
-            (
-                "2025",
-                "Only YOU Hotel Málaga",
-                "Hotel Line Cook",
-                "Málaga, Spain",
-                "Worked in the culinary environment of a five-star hotel, adding experience in premium hospitality standards, coordinated service, and guest-focused execution.",
-            ),
-            (
-                "2024",
-                "Hotel Gran Cervantes",
-                "Showcooking Buffet Cook",
-                "Torremolinos, Spain",
-                "Worked in buffet showcooking across grill, wok, and crepes stations while serving a daily average of around 1,200 guests. Strengthened teamwork, guest interaction, speed, and consistency under pressure.",
-            ),
-            (
-                "2022",
-                "La Deriva",
-                "Restaurant Line Cook",
-                "Málaga, Spain",
-                "Restaurant experience that reinforced mise en place discipline, service rhythm, and day-to-day kitchen coordination in a fast-moving dining environment.",
-            ),
-            (
-                "2022",
-                "The Club",
-                "Brunch Cook",
-                "Málaga, Spain",
-                "Focused on assembly and brunch service while also supporting purchasing, inventory, menu creation, and pre-service preparation in a high-demand concept.",
-            ),
-            (
-                "2021",
-                "LUME",
-                "Line Cook",
-                "Santiago de Compostela, Spain",
-                "Worked in an innovative direct-to-guest concept blending Japanese techniques with Mexican flavors, requiring accuracy, product respect, and clean execution.",
-            ),
-            (
-                "2021",
-                "A Tafona",
-                "Prep Cook",
-                "Santiago de Compostela, Spain",
-                "Worked under chef Lucía Freitas in a quality-focused environment where pre-preparation, precision, and attention to detail were essential to maintaining kitchen standards.",
-            ),
-        ],
-        "profile_heading": "Profile",
-        "profile": [
-            "A cook shaped by demanding kitchens, disciplined preparation, and direct guest-facing service.",
-            "His trajectory combines chef-led restaurant standards, premium hotel execution, and brunch operations, all connected by consistency and adaptability.",
-            "The next step is to bring that experience into a professional kitchen where high standards and consistency matter every day.",
-        ],
-        "education_heading": "Education",
-        "education": [
-            (
-                "Technical Program in Kitchen Assistance",
-                "Escuela de Gastronomía de Medellín (EGM)",
-                "Training in culinary techniques, ingredient handling, food safety, and menu preparation with a strong practical focus.",
-            ),
-            (
-                "Basic Molecular Cuisine Course",
-                "Escuela MCS Colombia",
-                "Training in spherification, texture development, smoking, plating, and liquid nitrogen techniques with hands-on application.",
-            ),
-        ],
-        "languages_heading": "Languages",
-        "languages": [
-            ("Spanish", "Native"),
-            ("English", "Upper-intermediate (B2)"),
-        ],
-    },
+CV = {
     "es": {
-        "name": "Andres Tirano",
-        "title": "Cocinero profesional",
-        "tagline": (
-            "Cocinero profesional con experiencia en restaurantes enfocados en calidad, "
+        "role": "COCINERO PROFESIONAL",
+        "intro": (
+            "Cocinero profesional con experiencia en restaurantes orientados a la calidad, "
             "hospitalidad premium, producción de brunch y servicio hotelero de alto volumen."
         ),
-        "summary": (
-            "Actualmente buscando oportunidades profesionales de cocina, "
-            "Andres aporta experiencia práctica en proyectos de la chef Lucía "
-            "Freitas, hospitalidad premium en Málaga, operaciones de brunch y servicio "
-            "de buffet en vivo para hasta 1,200 comensales por día."
+        "statement": "Precisión antes del servicio.<br/>Calma durante el pase.",
+        "closing_statement": "Exigencia hasta el final.<br/>Orgullo después del último plato.",
+        "experience": "EXPERIENCIA",
+        "profile": "PERFIL",
+        "profile_text": (
+            "Formado en cocinas exigentes, combina disciplina de mise en place, ejecución "
+            "serena y adaptación a distintos ritmos de servicio. Está abierto a nuevas "
+            "oportunidades profesionales y reubicación."
         ),
-        "callout": "Buscando oportunidades profesionales de cocina",
-        "contact": [
-            ("Correo", "andres@tirano.co"),
-            ("Teléfono", "+34 603 91 99 93"),
-            ("Instagram", "@anfetirano"),
-            ("LinkedIn", "Andres F. Tirano Vasquez"),
-            ("Sitio web", "chef.tirano.co"),
+        "strengths": "FORTALEZAS",
+        "strength_items": [
+            "Mise en place y organización de partida",
+            "Showcooking y atención al cliente",
+            "Servicio hotelero de alto volumen",
+            "Respeto por el producto y el detalle",
+            "Trabajo en equipo bajo presión",
         ],
-        "strengths_heading": "Fortalezas clave",
-        "strengths": [
-            "Ejecución confiable en estaciones de buffet en vivo atendiendo alrededor de 1,200 comensales por día.",
-            "Precisión en cocinas enfocadas en calidad, marcada por A Tafona y LUME.",
-            "Sólido mise en place, montaje de estación, apoyo en compras y ejecución de menú.",
-            "Servicio sereno de cara al cliente en entornos de brunch y hotelería.",
-            "Experiencia en hospitalidad premium con estándares de servicio pulidos.",
-            "Adaptabilidad entre restaurantes liderados por chefs, conceptos de brunch y cocinas hoteleras.",
-        ],
-        "experience_heading": "Experiencia",
-        "experience": [
-            (
-                "2025",
-                "Only YOU Hotel Málaga",
-                "Cocinero de línea en hotel",
-                "Málaga, España",
-                "Trabajó en el entorno culinario de un hotel cinco estrellas, sumando experiencia en estándares de hospitalidad premium, servicio coordinado y ejecución orientada al cliente.",
-            ),
-            (
-                "2024",
-                "Hotel Gran Cervantes",
-                "Cocinero de buffet showcooking",
-                "Torremolinos, España",
-                "Trabajó en buffet showcooking cubriendo estaciones como grill, wok y crepes mientras atendía un promedio diario de alrededor de 1,200 comensales. Fortaleció trabajo en equipo, interacción con clientes, velocidad y consistencia bajo presión.",
-            ),
-            (
-                "2022",
-                "La Deriva",
-                "Cocinero de línea en restaurante",
-                "Málaga, España",
-                "Experiencia en restaurante que reforzó la disciplina de mise en place, el ritmo de servicio y la coordinación diaria de cocina en un entorno de alto movimiento.",
-            ),
-            (
-                "2022",
-                "The Club",
-                "Cocinero de brunch",
-                "Málaga, España",
-                "Enfocado en montaje y servicio de brunch, apoyando además compras, inventario, creación de menú y preparación previa al servicio en un concepto de alta demanda.",
-            ),
-            (
-                "2021",
-                "LUME",
-                "Cocinero de línea",
-                "Santiago de Compostela, España",
-                "Trabajó en un concepto innovador de servicio directo al cliente que combinaba técnicas japonesas con sabores mexicanos, exigiendo precisión, respeto por el producto y ejecución limpia.",
-            ),
-            (
-                "2021",
-                "A Tafona",
-                "Cocinero de preparación",
-                "Santiago de Compostela, España",
-                "Trabajó bajo la chef Lucía Freitas en un entorno enfocado en la calidad donde la preelaboración, la precisión y la atención al detalle eran esenciales para mantener los estándares de cocina.",
-            ),
-        ],
-        "profile_heading": "Perfil",
-        "profile": [
-            "Un cocinero formado por cocinas exigentes, preparación disciplinada y servicio directo al cliente.",
-            "Su trayectoria combina estándares de restaurantes liderados por chefs, ejecución hotelera premium y operaciones de brunch, unidas por consistencia y adaptabilidad.",
-            "El siguiente paso es llevar esa experiencia a una cocina profesional donde los estándares altos y la consistencia importan cada día.",
-        ],
-        "education_heading": "Formación",
-        "education": [
+        "education": "FORMACIÓN",
+        "languages": "IDIOMAS",
+        "contact": "CONTACTO",
+        "continued": "TRAYECTORIA PROFESIONAL",
+        "education_items": [
             (
                 "Programa técnico en asistencia de cocina",
                 "Escuela de Gastronomía de Medellín (EGM)",
-                "Formación en técnicas culinarias, manejo de ingredientes, seguridad alimentaria y preparación de menús con un fuerte enfoque práctico.",
+                "Técnicas culinarias, manipulación de alimentos, seguridad y preparación de menús.",
             ),
             (
                 "Curso básico de cocina molecular",
                 "Escuela MCS Colombia",
-                "Formación en esferificación, desarrollo de texturas, ahumados, emplatado y técnicas con nitrógeno líquido con aplicación práctica.",
+                "Esferificación, texturas, ahumados, emplatado y técnicas con nitrógeno líquido.",
             ),
         ],
-        "languages_heading": "Idiomas",
-        "languages": [
-            ("Español", "Nativo"),
-            ("Inglés", "Intermedio alto (B2)"),
+        "language_items": [("Español", "Nativo"), ("Inglés", "Intermedio alto · B2")],
+        "experience_items": [
+            (
+                "2025",
+                "Only YOU Hotel Málaga",
+                "Cocinero de línea en hotel · Málaga, España",
+                "Experiencia en el entorno culinario de un hotel cinco estrellas, con estándares "
+                "de hospitalidad premium, servicio coordinado y ejecución orientada al cliente.",
+            ),
+            (
+                "2024",
+                "Hotel Gran Cervantes",
+                "Cocinero de buffet showcooking · Torremolinos, España",
+                "Responsable de estaciones de grill, wok y crepes en servicio para alrededor de "
+                "1.200 comensales diarios, manteniendo velocidad, consistencia y trato directo.",
+            ),
+            (
+                "2022",
+                "La Deriva",
+                "Cocinero de línea · Málaga, España",
+                "Disciplina de mise en place, ritmo de servicio y coordinación diaria en una "
+                "cocina de restaurante de alto movimiento.",
+            ),
+            (
+                "2022",
+                "The Club",
+                "Cocinero de brunch · Málaga, España",
+                "Montaje y servicio de brunch, con apoyo en compras, inventario, creación de menú "
+                "y preparación previa al servicio.",
+            ),
+            (
+                "2021",
+                "LUME",
+                "Cocinero de línea · Santiago de Compostela, España",
+                "Concepto de servicio directo al cliente que combinaba técnicas japonesas con "
+                "sabores mexicanos, exigiendo precisión y respeto por el producto.",
+            ),
+            (
+                "2021",
+                "A Tafona",
+                "Cocinero de preparación · Santiago de Compostela, España",
+                "Trabajo bajo la chef Lucía Freitas en una cocina orientada a la calidad, donde "
+                "la preelaboración y la atención al detalle sostenían el estándar diario.",
+            ),
+        ],
+    },
+    "en": {
+        "role": "PROFESSIONAL COOK",
+        "intro": (
+            "Professional cook with experience in quality-focused restaurants, premium "
+            "hospitality, brunch production, and high-volume hotel service."
+        ),
+        "statement": "Precision before service.<br/>Calm during the pass.",
+        "closing_statement": "Demanding standards until the end.<br/>Pride after the final plate.",
+        "experience": "EXPERIENCE",
+        "profile": "PROFILE",
+        "profile_text": (
+            "Shaped by demanding kitchens, he combines disciplined mise en place, calm "
+            "execution, and adaptability across different styles of service. Open to new "
+            "professional opportunities and relocation."
+        ),
+        "strengths": "CORE STRENGTHS",
+        "strength_items": [
+            "Mise en place and station organization",
+            "Showcooking and guest-facing service",
+            "High-volume hotel execution",
+            "Product respect and attention to detail",
+            "Teamwork under pressure",
+        ],
+        "education": "EDUCATION",
+        "languages": "LANGUAGES",
+        "contact": "CONTACT",
+        "continued": "PROFESSIONAL JOURNEY",
+        "education_items": [
+            (
+                "Technical Program in Kitchen Assistance",
+                "Escuela de Gastronomía de Medellín (EGM)",
+                "Culinary techniques, food handling, safety, and menu preparation.",
+            ),
+            (
+                "Basic Molecular Cuisine Course",
+                "Escuela MCS Colombia",
+                "Spherification, textures, smoking, plating, and liquid nitrogen techniques.",
+            ),
+        ],
+        "language_items": [("Spanish", "Native"), ("English", "Upper-intermediate · B2")],
+        "experience_items": [
+            (
+                "2025",
+                "Only YOU Hotel Málaga",
+                "Hotel line cook · Málaga, Spain",
+                "Experience in the culinary environment of a five-star hotel, working with "
+                "premium hospitality standards, coordinated service, and guest-focused execution.",
+            ),
+            (
+                "2024",
+                "Hotel Gran Cervantes",
+                "Showcooking buffet cook · Torremolinos, Spain",
+                "Covered grill, wok, and crepe stations while serving around 1,200 guests daily, "
+                "maintaining speed, consistency, and direct guest interaction.",
+            ),
+            (
+                "2022",
+                "La Deriva",
+                "Restaurant line cook · Málaga, Spain",
+                "Strengthened mise en place discipline, service rhythm, and daily kitchen "
+                "coordination in a fast-moving restaurant environment.",
+            ),
+            (
+                "2022",
+                "The Club",
+                "Brunch cook · Málaga, Spain",
+                "Brunch assembly and service, with support in purchasing, inventory, menu "
+                "development, and pre-service preparation.",
+            ),
+            (
+                "2021",
+                "LUME",
+                "Line cook · Santiago de Compostela, Spain",
+                "Direct-to-guest concept blending Japanese techniques with Mexican flavors, "
+                "requiring accuracy and respect for the product.",
+            ),
+            (
+                "2021",
+                "A Tafona",
+                "Prep cook · Santiago de Compostela, Spain",
+                "Worked under chef Lucía Freitas in a quality-focused kitchen where precise "
+                "preparation and attention to detail sustained the daily standard.",
+            ),
         ],
     },
 }
 
 
-def build_styles():
-    styles = getSampleStyleSheet()
-    styles.add(
-        ParagraphStyle(
-            name="Name",
-            fontName="Helvetica-Bold",
-            fontSize=24,
-            leading=27,
-            textColor=PALETTE["text"],
-            spaceAfter=2,
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="Role",
-            fontName="Helvetica-Bold",
-            fontSize=11,
-            leading=14,
-            textColor=PALETTE["accent"],
-            spaceAfter=6,
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="Body",
-            fontName="Helvetica",
-            fontSize=9.3,
-            leading=14.3,
-            textColor=PALETTE["muted"],
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="SectionTitle",
-            fontName="Helvetica-Bold",
-            fontSize=11.2,
-            leading=13,
-            textColor=PALETTE["text"],
-            spaceAfter=6,
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="SmallLabel",
-            fontName="Helvetica-Bold",
-            fontSize=7.5,
-            leading=10,
-            textColor=PALETTE["muted"],
-            uppercase=True,
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="ItemTitle",
-            fontName="Helvetica-Bold",
-            fontSize=11,
-            leading=13,
-            textColor=PALETTE["text"],
-            spaceAfter=2,
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="Meta",
-            fontName="Helvetica",
-            fontSize=8.3,
-            leading=11,
-            textColor=PALETTE["accent"],
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="ContactValue",
-            fontName="Helvetica-Bold",
-            fontSize=8.8,
-            leading=11,
-            textColor=PALETTE["text"],
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="Callout",
-            fontName="Helvetica-Bold",
-            fontSize=9.2,
-            leading=12,
-            textColor=PALETTE["text"],
-        )
-    )
-    return styles
+def register_fonts():
+    for name, path in FONTS.items():
+        pdfmetrics.registerFont(TTFont(name, str(path)))
 
 
-def section_heading(text, styles):
-    return [
-        Spacer(1, 4),
-        Paragraph(text, styles["SectionTitle"]),
-        HRFlowable(color=PALETTE["border"], thickness=0.6, spaceAfter=8, spaceBefore=0),
+def paragraph_style(name, font, size, leading, color, **kwargs):
+    return ParagraphStyle(
+        name,
+        fontName=font,
+        fontSize=size,
+        leading=leading,
+        textColor=color,
+        alignment=TA_LEFT,
+        **kwargs,
+    )
+
+
+STYLES = {}
+PORTRAIT_READER = None
+
+
+def setup_styles():
+    STYLES.update(
+        {
+            "intro": paragraph_style("intro", "Sans", 9.8, 15.5, OFF_WHITE),
+            "statement": paragraph_style("statement", "DisplayItalic", 17.5, 23, OFF_WHITE),
+            "body": paragraph_style("body", "Sans", 8.7, 13.2, MUTED),
+            "body_dark": paragraph_style("body_dark", "Sans", 8.7, 13.5, colors.HexColor("#C9C0B7")),
+            "meta": paragraph_style("meta", "Sans", 8.1, 11.5, COPPER),
+            "venue": paragraph_style("venue", "Display", 14.3, 17, INK),
+            "role": paragraph_style("role", "Sans", 8.3, 12, MUTED),
+            "education": paragraph_style("education", "Display", 11.2, 14, INK),
+            "small": paragraph_style("small", "Sans", 7.9, 11.5, colors.HexColor("#C9C0B7")),
+        }
+    )
+
+
+def load_portrait():
+    global PORTRAIT_READER
+    if PORTRAIT_READER is None:
+        image = PILImage.open(PORTRAIT_FILE).convert("RGB")
+        buffer = BytesIO()
+        image.save(buffer, format="JPEG", quality=88, optimize=True, progressive=True)
+        buffer.seek(0)
+        PORTRAIT_READER = ImageReader(buffer)
+    return PORTRAIT_READER
+
+
+def draw_paragraph(c, text, style, x, y_top, width):
+    p = Paragraph(text, style)
+    _, height = p.wrap(width, 500 * mm)
+    p.drawOn(c, x, y_top - height)
+    return y_top - height
+
+
+def draw_tracking(c, text, x, y, font="SansBold", size=7.2, color=COPPER, tracking=1.6):
+    c.setFont(font, size)
+    c.setFillColor(color)
+    cursor = x
+    for char in text:
+        c.drawString(cursor, y, char)
+        cursor += c.stringWidth(char, font, size) + tracking
+
+
+def draw_section_label(c, text, x, y, width, dark=False):
+    draw_tracking(c, text, x, y, color=OFF_WHITE if dark else COPPER)
+    c.setStrokeColor(colors.HexColor("#4A443E") if dark else HAIRLINE)
+    c.setLineWidth(0.45)
+    c.line(x, y - 4 * mm, x + width, y - 4 * mm)
+
+
+def draw_cover(c, data):
+    page_w, page_h = A4
+    split_x = 132 * mm
+    photo_h = 109 * mm
+
+    c.setFillColor(CHARCOAL)
+    c.rect(0, page_h - photo_h, page_w, photo_h, stroke=0, fill=1)
+    photo_w = page_w - split_x
+    portrait = load_portrait()
+    source_w, source_h = portrait.getSize()
+    scale = max(photo_w / source_w, photo_h / source_h)
+    rendered_w = source_w * scale
+    rendered_h = source_h * scale
+    photo_clip = c.beginPath()
+    photo_clip.rect(split_x, page_h - photo_h, photo_w, photo_h)
+    c.saveState()
+    c.clipPath(photo_clip, stroke=0, fill=0)
+    c.drawImage(
+        portrait,
+        split_x + (photo_w - rendered_w) / 2,
+        page_h - photo_h + (photo_h - rendered_h) / 2,
+        width=rendered_w,
+        height=rendered_h,
+        mask="auto",
+    )
+    c.restoreState()
+    c.setFillColor(COPPER)
+    c.rect(split_x - 0.6 * mm, page_h - photo_h, 0.6 * mm, photo_h, stroke=0, fill=1)
+
+    left = 16 * mm
+    top = page_h - 16 * mm
+    draw_tracking(c, "@ANFETIRANO", left, top, color=colors.HexColor("#D8D0C7"), tracking=1.3)
+    c.setFont("Display", 31)
+    c.setFillColor(OFF_WHITE)
+    c.drawString(left, top - 25 * mm, "ANDRÉS")
+    c.drawString(left, top - 39 * mm, "TIRANO")
+    draw_tracking(c, data["role"], left, top - 51 * mm, color=colors.HexColor("#D8D0C7"), tracking=1.8)
+    c.setFillColor(COPPER)
+    c.rect(left, top - 59 * mm, 18 * mm, 0.5 * mm, stroke=0, fill=1)
+    draw_paragraph(c, data["statement"], STYLES["statement"], left, top - 68 * mm, 101 * mm)
+
+    c.setFillColor(PAPER)
+    c.rect(0, 0, page_w, page_h - photo_h, stroke=0, fill=1)
+    body_top = page_h - photo_h - 13 * mm
+    draw_section_label(c, data["experience"], left, body_top, page_w - 32 * mm)
+    y = body_top - 12 * mm
+    for item in data["experience_items"][:3]:
+        y = draw_experience_item(c, item, left, y, page_w - 32 * mm)
+    c.setFillColor(COPPER)
+    c.rect(0, 0, 5 * mm, page_h - photo_h, stroke=0, fill=1)
+    draw_footer(c, 1)
+
+
+def draw_experience_item(c, item, x, y, width):
+    year, venue, role, description = item
+    c.setFont("SansBold", 8.5)
+    c.setFillColor(COPPER)
+    c.drawString(x, y, year)
+    text_x = x + 24 * mm
+    c.setFillColor(INK)
+    y2 = draw_paragraph(c, venue, STYLES["venue"], text_x, y + 2 * mm, width - 24 * mm)
+    y2 = draw_paragraph(c, role, STYLES["role"], text_x, y2 - 1 * mm, width - 24 * mm)
+    y2 = draw_paragraph(c, description, STYLES["body"], text_x, y2 - 2.5 * mm, width - 24 * mm)
+    line_y = y2 - 5 * mm
+    c.setStrokeColor(HAIRLINE)
+    c.setLineWidth(0.45)
+    c.line(text_x, line_y, x + width, line_y)
+    return line_y - 7 * mm
+
+
+def draw_sidebar(c, data):
+    page_w, page_h = A4
+    side_w = 65 * mm
+    c.setFillColor(CHARCOAL)
+    c.rect(0, 0, side_w, page_h, stroke=0, fill=1)
+    c.setFillColor(COPPER)
+    c.rect(side_w, 0, 0.65 * mm, page_h, stroke=0, fill=1)
+
+    x = 14 * mm
+    width = side_w - 27 * mm
+    y = page_h - 18 * mm
+    c.setFont("Display", 20)
+    c.setFillColor(OFF_WHITE)
+    c.drawString(x, y, "ANDRÉS")
+    c.drawString(x, y - 9 * mm, "TIRANO")
+    y -= 23 * mm
+
+    draw_section_label(c, data["profile"], x, y, width, dark=True)
+    y = draw_paragraph(c, data["profile_text"], STYLES["body_dark"], x, y - 11 * mm, width) - 10 * mm
+
+    draw_section_label(c, data["strengths"], x, y, width, dark=True)
+    y -= 11 * mm
+    for item in data["strength_items"]:
+        c.setFillColor(COPPER)
+        c.circle(x + 1 * mm, y + 1.8 * mm, 0.7 * mm, stroke=0, fill=1)
+        y = draw_paragraph(c, item, STYLES["small"], x + 5 * mm, y + 4 * mm, width - 5 * mm) - 4 * mm
+    y -= 4 * mm
+
+    draw_section_label(c, data["languages"], x, y, width, dark=True)
+    y -= 11 * mm
+    for language, level in data["language_items"]:
+        c.setFont("SansBold", 8)
+        c.setFillColor(OFF_WHITE)
+        c.drawString(x, y, language)
+        c.setFont("Sans", 7.8)
+        c.setFillColor(colors.HexColor("#B8AFA6"))
+        c.drawString(x, y - 4.5 * mm, level)
+        y -= 13 * mm
+
+    draw_section_label(c, data["contact"], x, y, width, dark=True)
+    y -= 11 * mm
+    contacts = [
+        "andres@tirano.co",
+        "+34 603 91 99 93",
+        "@anfetirano",
+        "chef.tirano.co",
+        "Andres F. Tirano Vasquez · LinkedIn",
     ]
+    for value in contacts:
+        c.setFont("Sans", 7.8)
+        c.setFillColor(colors.HexColor("#C9C0B7"))
+        c.drawString(x, y, value)
+        y -= 6.3 * mm
 
 
-def build_contact_row(contact, styles):
-    contact_cells = []
-    for label, value in contact:
-        contact_cells.append(
-            [
-                Paragraph(label.upper(), styles["SmallLabel"]),
-                Paragraph(value, styles["ContactValue"]),
-            ]
-        )
+def draw_second_page(c, data):
+    page_w, page_h = A4
+    draw_sidebar(c, data)
+    main_x = 79 * mm
+    main_w = page_w - main_x - 15 * mm
+    y = page_h - 18 * mm
 
-    contact_cell_width = (182 / len(contact_cells)) * mm
-    contact_row = Table([contact_cells], colWidths=[contact_cell_width] * len(contact_cells))
-    contact_row.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, -1), PALETTE["surface"]),
-                ("BOX", (0, 0), (-1, -1), 0.6, PALETTE["border"]),
-                ("INNERGRID", (0, 0), (-1, -1), 0.6, PALETTE["border"]),
-                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                ("LEFTPADDING", (0, 0), (-1, -1), 8),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 8),
-                ("TOPPADDING", (0, 0), (-1, -1), 7),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
-            ]
-        )
+    draw_section_label(c, data["continued"], main_x, y, main_w)
+    y -= 13 * mm
+    for item in data["experience_items"][3:]:
+        y = draw_experience_item(c, item, main_x, y, main_w)
+
+    y -= 2 * mm
+    draw_section_label(c, data["education"], main_x, y, main_w)
+    y -= 13 * mm
+    for title, school, description in data["education_items"]:
+        y = draw_paragraph(c, title, STYLES["education"], main_x, y + 1 * mm, main_w)
+        y = draw_paragraph(c, school, STYLES["meta"], main_x, y - 1 * mm, main_w)
+        y = draw_paragraph(c, description, STYLES["body"], main_x, y - 2 * mm, main_w) - 6 * mm
+
+    quote = data["closing_statement"]
+    c.setStrokeColor(COPPER)
+    c.setLineWidth(0.8)
+    c.line(main_x, 31 * mm, main_x + 22 * mm, 31 * mm)
+    draw_paragraph(
+        c,
+        quote,
+        paragraph_style("quote", "DisplayItalic", 12, 17, INK),
+        main_x,
+        27 * mm,
+        main_w,
     )
-    return contact_row
+    draw_footer(c, 2)
 
 
-def build_header(resume, styles):
-    top_left = [
-        Paragraph(resume["name"], styles["Name"]),
-        Paragraph(resume["title"], styles["Role"]),
-        Paragraph(resume["tagline"], styles["Body"]),
-    ]
-
-    portrait_cell = ""
-    if PORTRAIT_FILE.exists():
-        portrait_cell = Image(str(PORTRAIT_FILE), width=26 * mm, height=34 * mm)
-
-    top_row = Table([[top_left, portrait_cell]], colWidths=[154 * mm, 28 * mm])
-    top_row.setStyle(
-        TableStyle(
-            [
-                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                ("ALIGN", (1, 0), (1, 0), "RIGHT"),
-                ("LEFTPADDING", (0, 0), (-1, -1), 0),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
-                ("TOPPADDING", (0, 0), (-1, -1), 0),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
-            ]
-        )
-    )
-
-    summary_box = Table([[Paragraph(resume["summary"], styles["Body"])]], colWidths=[182 * mm])
-    summary_box.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, -1), PALETTE["surface"]),
-                ("BOX", (0, 0), (-1, -1), 0.6, PALETTE["border"]),
-                ("LEFTPADDING", (0, 0), (-1, -1), 10),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 10),
-                ("TOPPADDING", (0, 0), (-1, -1), 8),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
-            ]
-        )
-    )
-
-    callout = Table(
-        [[Paragraph(resume["callout"], styles["Callout"])]],
-        colWidths=[182 * mm],
-    )
-    callout.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, -1), PALETTE["surface_strong"]),
-                ("LEFTPADDING", (0, 0), (-1, -1), 10),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 10),
-                ("TOPPADDING", (0, 0), (-1, -1), 7),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
-            ]
-        )
-    )
-
-    return [
-        HRFlowable(width="100%", thickness=2, color=PALETTE["accent"], spaceAfter=10, spaceBefore=0),
-        top_row,
-        Spacer(1, 10),
-        summary_box,
-        Spacer(1, 8),
-        callout,
-        Spacer(1, 8),
-        build_contact_row(resume["contact"], styles),
-    ]
+def draw_footer(c, page_number):
+    page_w, _ = A4
+    c.setFont("Sans", 6.8)
+    c.setFillColor(colors.HexColor("#8D847B"))
+    c.drawRightString(page_w - 10 * mm, 7 * mm, f"ANDRÉS TIRANO  ·  {page_number:02d}")
 
 
-def build_strengths(resume, styles):
-    rows = []
-    for index in range(0, len(resume["strengths"]), 2):
-        left = Paragraph(resume["strengths"][index], styles["Body"])
-        right = Paragraph(resume["strengths"][index + 1], styles["Body"])
-        rows.append([left, right])
-
-    table = Table(rows, colWidths=[88 * mm, 88 * mm], hAlign="LEFT")
-    table.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, -1), PALETTE["surface"]),
-                ("BOX", (0, 0), (-1, -1), 0.6, PALETTE["border"]),
-                ("INNERGRID", (0, 0), (-1, -1), 0.6, PALETTE["border"]),
-                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                ("LEFTPADDING", (0, 0), (-1, -1), 8),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 8),
-                ("TOPPADDING", (0, 0), (-1, -1), 8),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
-            ]
-        )
-    )
-    return table
-
-
-def build_experience(resume, styles):
-    blocks = []
-    for year, venue, role, location, summary in resume["experience"]:
-        role_line = Paragraph(f"{role} | {location}", styles["Body"])
-        content = [
-            Paragraph(venue, styles["ItemTitle"]),
-            role_line,
-            Spacer(1, 4),
-            Paragraph(summary, styles["Body"]),
-        ]
-        item = Table([[Paragraph(year, styles["Meta"]), content]], colWidths=[18 * mm, 160 * mm])
-        item.setStyle(
-            TableStyle(
-                [
-                    ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                    ("LINEBELOW", (0, 0), (-1, -1), 0.5, PALETTE["border"]),
-                    ("LEFTPADDING", (0, 0), (-1, -1), 0),
-                    ("RIGHTPADDING", (0, 0), (-1, -1), 0),
-                    ("TOPPADDING", (0, 0), (-1, -1), 0),
-                    ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
-                ]
-            )
-        )
-        blocks.extend([item, Spacer(1, 6)])
-    return blocks
-
-
-def build_education(resume, styles):
-    items = []
-    for title, institution, description in resume["education"]:
-        items.extend(
-            [
-                Paragraph(title, styles["ItemTitle"]),
-                Paragraph(institution, styles["Meta"]),
-                Paragraph(description, styles["Body"]),
-                Spacer(1, 7),
-            ]
-        )
-    return items
-
-
-def build_languages(resume, styles):
-    rows = []
-    for name, level in resume["languages"]:
-        rows.append(
-            [
-                Paragraph(name, styles["Body"]),
-                Paragraph(level, styles["Body"]),
-            ]
-        )
-    table = Table(rows, colWidths=[36 * mm, 44 * mm])
-    table.setStyle(
-        TableStyle(
-            [
-                ("TEXTCOLOR", (0, 0), (-1, -1), PALETTE["text"]),
-                ("FONTNAME", (0, 0), (-1, -1), "Helvetica"),
-                ("FONTSIZE", (0, 0), (-1, -1), 9),
-                ("LEADING", (0, 0), (-1, -1), 13),
-                ("LINEBELOW", (0, 0), (-1, -2), 0.5, PALETTE["border"]),
-                ("LEFTPADDING", (0, 0), (-1, -1), 0),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
-                ("TOPPADDING", (0, 0), (-1, -1), 0),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
-            ]
-        )
-    )
-    return table
-
-
-def build_single_column_sections(resume, styles):
-    story = []
-
-    story.extend(section_heading(resume["strengths_heading"], styles))
-    story.append(build_strengths(resume, styles))
-    story.append(Spacer(1, 12))
-
-    story.extend(section_heading(resume["experience_heading"], styles))
-    story.extend(build_experience(resume, styles))
-
-    story.extend(section_heading(resume["profile_heading"], styles))
-    for paragraph in resume["profile"]:
-        story.extend([Paragraph(paragraph, styles["Body"]), Spacer(1, 6)])
-
-    story.extend(section_heading(resume["education_heading"], styles))
-    story.extend(build_education(resume, styles))
-
-    story.extend(section_heading(resume["languages_heading"], styles))
-    story.append(build_languages(resume, styles))
-
-    return story
-
-
-def create_pdf(resume, output_file):
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-    doc = SimpleDocTemplate(
+def create_pdf(locale, data, output_file):
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    c = canvas.Canvas(
         str(output_file),
         pagesize=A4,
-        leftMargin=14 * mm,
-        rightMargin=14 * mm,
-        topMargin=12 * mm,
-        bottomMargin=12 * mm,
-        title=f"{resume['name']} Resume",
-        author="OpenAI Codex",
+        pageCompression=1,
     )
-
-    styles = build_styles()
-    story = []
-
-    story.extend(build_header(resume, styles))
-    story.append(Spacer(1, 12))
-    story.extend(build_single_column_sections(resume, styles))
-
-    def paint_page(canvas, doc):
-        canvas.saveState()
-        canvas.setFillColor(colors.white)
-        canvas.rect(0, 0, A4[0], A4[1], stroke=0, fill=1)
-        canvas.restoreState()
-
-    doc.build(story, onFirstPage=paint_page, onLaterPages=paint_page)
+    c.setTitle(f"Andrés Tirano · {data['role'].title()}")
+    c.setAuthor("Andrés Tirano")
+    c.setSubject("Professional culinary CV")
+    draw_cover(c, data)
+    c.showPage()
+    c.setFillColor(PAPER)
+    c.rect(0, 0, A4[0], A4[1], stroke=0, fill=1)
+    draw_second_page(c, data)
+    c.save()
     return output_file
 
 
 def generate_all():
-    LEGACY_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-    generated_files = []
-    for locale, resume in RESUMES.items():
-        output_file = OUTPUT_FILES[locale]
-        generated_files.append(create_pdf(resume, output_file))
-
-    copy2(OUTPUT_FILES["en"], LEGACY_OUTPUT_FILE)
-    return generated_files
+    register_fonts()
+    setup_styles()
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
+    generated = []
+    for locale, data in CV.items():
+        site_file = create_pdf(locale, data, OUTPUT_FILES[locale])
+        artifact_file = ARTIFACT_DIR / f"andres-tirano-cv-{locale}.pdf"
+        copy2(site_file, artifact_file)
+        generated.append(site_file)
+    copy2(OUTPUT_FILES["en"], ARTIFACT_DIR / "andres-tirano-resume.pdf")
+    return generated
 
 
 if __name__ == "__main__":
-    for pdf_path in generate_all():
-        print(pdf_path)
+    for path in generate_all():
+        print(path)

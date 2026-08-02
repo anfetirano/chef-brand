@@ -228,7 +228,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       description:
         "Download the full CV and matching cover letter for a complete view of experience, education, and contact information.",
       note: "These files include his latest roles, education, direct contact details, and a formal introduction for employers.",
-      fileHref: "/documents/andres-tirano-cv.pdf",
+      fileHref: "/documents/andres-tirano-cv.pdf?v=20260802-2",
       fileLabel: "Download Resume",
       coverLetterHref: "/documents/andres-tirano-cover-letter.pdf",
       coverLetterLabel: "Download Cover Letter",
@@ -492,7 +492,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       description:
         "Descarga el CV completo y la carta de presentación para revisar experiencia, formación y datos de contacto en detalle.",
       note: "Estos archivos incluyen sus puestos más recientes, formación, datos de contacto directos y una presentación formal para empleadores.",
-      fileHref: "/documents/andres-tirano-cv-es.pdf",
+      fileHref: "/documents/andres-tirano-cv-es.pdf?v=20260802-2",
       fileLabel: "Descargar CV",
       coverLetterHref: "/documents/andres-tirano-cover-letter-es.pdf",
       coverLetterLabel: "Descargar carta",

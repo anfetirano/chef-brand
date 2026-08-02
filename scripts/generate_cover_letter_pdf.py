@@ -1,32 +1,45 @@
 from datetime import date
 from pathlib import Path
+from shutil import copy2
 
 from reportlab.lib import colors
+from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import HRFlowable, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+from reportlab.lib.utils import ImageReader
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Paragraph
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = ROOT / "public" / "documents"
+ARTIFACT_DIR = ROOT / "output" / "pdf"
 OUTPUT_FILES = {
     "en": OUTPUT_DIR / "andres-tirano-cover-letter.pdf",
     "es": OUTPUT_DIR / "andres-tirano-cover-letter-es.pdf",
 }
+SIGNATURE_FILE = Path("/Users/berta/Documents/Documentos Personales/firmasinfondo.png")
 
-
-PALETTE = {
-    "surface": colors.HexColor("#FBF7F1"),
-    "surface_strong": colors.HexColor("#EFE5D7"),
-    "text": colors.HexColor("#221A14"),
-    "muted": colors.HexColor("#6E6154"),
-    "accent": colors.HexColor("#A76A3A"),
-    "border": colors.HexColor("#DCCFC0"),
+FONT_DIR = Path("/System/Library/Fonts/Supplemental")
+FONTS = {
+    "Display": FONT_DIR / "Georgia.ttf",
+    "DisplayItalic": FONT_DIR / "Georgia Italic.ttf",
+    "Sans": FONT_DIR / "Arial.ttf",
+    "SansBold": FONT_DIR / "Arial Bold.ttf",
 }
 
+PAPER = colors.HexColor("#F5F0E9")
+INK = colors.HexColor("#201B17")
+MUTED = colors.HexColor("#6F675F")
+COPPER = colors.HexColor("#B96D3B")
+HAIRLINE = colors.HexColor("#D7CCC0")
+CHARCOAL = colors.HexColor("#11100E")
 
-def spanish_date(today: date) -> str:
+
+def spanish_date(today):
     months = {
         1: "enero",
         2: "febrero",
@@ -44,325 +57,248 @@ def spanish_date(today: date) -> str:
     return f"{today.day} de {months[today.month]} de {today.year}"
 
 
-today = date.today()
-
-COVER_LETTERS = {
-    "en": {
-        "title": "Professional Cook",
-        "date": today.strftime("%B %d, %Y"),
-        "availability": "Open to professional kitchen opportunities and available for relocation",
-        "contact": [
-            ("Email", "andres@tirano.co"),
-            ("Phone", "+34 603 91 99 93"),
-            ("LinkedIn", "Andres F. Tirano Vasquez"),
-            ("Website", "chef.tirano.co"),
-        ],
-        "intro_note": "Cover letter for professional kitchen opportunities.",
-        "callout": "Seeking a serious professional kitchen opportunity",
-        "opening": "Dear Hiring Manager,",
-        "paragraphs": [
-            (
-                "I am writing to express my interest in joining your kitchen team. "
-                "I am a professional cook with hands-on experience in quality-focused "
-                "restaurants, brunch operations, premium hospitality, and high-volume "
-                "hotel service."
-            ),
-            (
-                "My background includes work in Spain across chef Lucía Freitas's "
-                "projects, brunch-focused production, and live buffet stations serving "
-                "large numbers of guests each day. These environments strengthened my "
-                "discipline, mise en place, station organization, and ability to maintain "
-                "consistent execution under pressure."
-            ),
-            (
-                "I would bring a strong respect for kitchen standards, calm teamwork, and "
-                "a guest-focused mindset. I am comfortable supporting prep, line service, "
-                "buffet execution, and fast-paced daily operations while protecting quality "
-                "and cleanliness."
-            ),
-            (
-                "At this stage of my career, I am seeking the opportunity to continue "
-                "growing in a serious professional kitchen where I can contribute, learn "
-                "quickly, and adapt to the standards of a strong culinary team. Thank you "
-                "for your time and consideration. I would welcome the opportunity to speak "
-                "with you."
-            ),
-        ],
-        "closing": "Sincerely,",
-        "pdf_title": "Andres Tirano Cover Letter",
-    },
+TODAY = date.today()
+LETTERS = {
     "es": {
-        "title": "Cocinero profesional",
-        "date": spanish_date(today),
-        "availability": "Disponible para oportunidades profesionales de cocina y reubicación",
-        "contact": [
-            ("Correo", "andres@tirano.co"),
-            ("Teléfono", "+34 603 91 99 93"),
-            ("LinkedIn", "Andres F. Tirano Vasquez"),
-            ("Sitio web", "chef.tirano.co"),
-        ],
-        "intro_note": "Carta de presentación para oportunidades profesionales de cocina.",
-        "callout": "Buscando una oportunidad seria dentro de una cocina profesional",
+        "role": "COCINERO PROFESIONAL",
+        "date": spanish_date(TODAY),
+        "recipient": "Equipo de selección<br/>Departamento de cocina",
+        "subject_label": "ASUNTO",
+        "subject": "Candidatura para formar parte de su equipo de cocina",
         "opening": "Estimado equipo de selección:",
         "paragraphs": [
             (
-                "Me dirijo a ustedes para expresar mi interés en formar parte de su equipo de "
-                "cocina. Soy cocinero profesional con experiencia práctica en restaurantes "
-                "enfocados en la calidad, operaciones de brunch, hospitalidad premium y "
-                "servicio hotelero de alto volumen."
+                "Me dirijo a ustedes para expresar mi interés en formar parte de su equipo. "
+                "Soy cocinero profesional con experiencia en restaurantes orientados a la "
+                "calidad, hospitalidad premium, producción de brunch y servicio hotelero de "
+                "alto volumen."
             ),
             (
-                "Mi trayectoria incluye experiencia en España dentro de proyectos liderados "
-                "por la chef Lucía Freitas, operaciones de brunch y estaciones de buffet en "
-                "vivo con atención a un gran número de comensales cada día. Estos entornos "
-                "reforzaron mi disciplina, mi mise en place, la organización de estación y "
-                "mi capacidad para mantener una ejecución constante bajo presión."
+                "Mi trayectoria en España incluye proyectos de la chef Lucía Freitas, "
+                "servicio de restaurante y estaciones de showcooking para alrededor de 1.200 "
+                "comensales diarios. Estas cocinas reforzaron mi disciplina de mise en place, "
+                "la organización de partida y la capacidad de ejecutar con consistencia bajo presión."
             ),
             (
-                "Puedo aportar respeto por los estándares de cocina, trabajo en equipo y "
-                "enfoque en el servicio. Me siento cómodo apoyando preelaboración, servicio "
-                "de línea, buffet y operaciones diarias de ritmo alto, siempre cuidando la "
-                "calidad, el orden y la limpieza."
+                "Trabajo con respeto por el producto, atención al detalle y una actitud serena "
+                "durante el servicio. Me adapto con rapidez a los estándares de cada cocina y "
+                "entiendo que el resultado depende tanto de la técnica individual como del ritmo "
+                "y la confianza del equipo."
             ),
             (
-                "En esta etapa de mi carrera busco seguir creciendo dentro de una cocina "
-                "profesional seria, donde pueda contribuir con compromiso, adaptarme "
-                "rápidamente y seguir desarrollándome junto a un equipo exigente. Agradezco "
-                "su tiempo y consideración, y quedo a disposición para conversar en una entrevista."
+                "Busco una oportunidad en la que pueda aportar esa experiencia, continuar "
+                "aprendiendo y crecer dentro de un equipo exigente. Estoy disponible para "
+                "reubicación y agradecería la oportunidad de conversar sobre cómo podría "
+                "contribuir a su cocina."
             ),
         ],
+        "thanks": "Gracias por su tiempo y consideración.",
         "closing": "Atentamente,",
-        "pdf_title": "Carta de Presentacion de Andres Tirano",
+        "metadata_title": "Carta de presentación de Andrés Tirano",
+    },
+    "en": {
+        "role": "PROFESSIONAL COOK",
+        "date": TODAY.strftime("%B %d, %Y"),
+        "recipient": "Hiring team<br/>Kitchen department",
+        "subject_label": "SUBJECT",
+        "subject": "Application to join your kitchen team",
+        "opening": "Dear Hiring Team,",
+        "paragraphs": [
+            (
+                "I am writing to express my interest in joining your team. I am a professional "
+                "cook with experience in quality-focused restaurants, premium hospitality, "
+                "brunch production, and high-volume hotel service."
+            ),
+            (
+                "My background in Spain includes projects led by chef Lucía Freitas, restaurant "
+                "service, and live showcooking stations serving around 1,200 guests daily. "
+                "These kitchens strengthened my mise en place discipline, station organization, "
+                "and ability to execute consistently under pressure."
+            ),
+            (
+                "I work with respect for the product, attention to detail, and a calm approach "
+                "during service. I adapt quickly to each kitchen's standards and understand that "
+                "the final result depends as much on individual technique as it does on team "
+                "rhythm and trust."
+            ),
+            (
+                "I am looking for an opportunity where I can contribute that experience, keep "
+                "learning, and grow within a demanding team. I am available for relocation and "
+                "would welcome a conversation about how I could contribute to your kitchen."
+            ),
+        ],
+        "thanks": "Thank you for your time and consideration.",
+        "closing": "Sincerely,",
+        "metadata_title": "Andrés Tirano Cover Letter",
     },
 }
 
 
-def build_styles():
-    styles = getSampleStyleSheet()
-    styles.add(
-        ParagraphStyle(
-            name="Name",
-            fontName="Helvetica-Bold",
-            fontSize=24,
-            leading=27,
-            textColor=PALETTE["text"],
-            spaceAfter=2,
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="Role",
-            fontName="Helvetica-Bold",
-            fontSize=11,
-            leading=14,
-            textColor=PALETTE["accent"],
-            spaceAfter=6,
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="Body",
-            fontName="Helvetica",
-            fontSize=10,
-            leading=16,
-            textColor=PALETTE["muted"],
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="SmallLabel",
-            fontName="Helvetica-Bold",
-            fontSize=7.5,
-            leading=10,
-            textColor=PALETTE["muted"],
-            uppercase=True,
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="ContactValue",
-            fontName="Helvetica-Bold",
-            fontSize=8.6,
-            leading=11,
-            textColor=PALETTE["text"],
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="LetterHeading",
-            fontName="Helvetica-Bold",
-            fontSize=11.4,
-            leading=14,
-            textColor=PALETTE["text"],
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="Meta",
-            fontName="Helvetica",
-            fontSize=8.5,
-            leading=11,
-            textColor=PALETTE["accent"],
-        )
-    )
-    styles.add(
-        ParagraphStyle(
-            name="Callout",
-            fontName="Helvetica-Bold",
-            fontSize=9.2,
-            leading=12,
-            textColor=PALETTE["text"],
-        )
-    )
-    return styles
+def register_fonts():
+    for name, path in FONTS.items():
+        pdfmetrics.registerFont(TTFont(name, str(path)))
 
 
-def build_contact_row(styles, content):
-    cells = []
-    for label, value in content["contact"]:
-        cells.append(
-            [
-                Paragraph(label.upper(), styles["SmallLabel"]),
-                Paragraph(value, styles["ContactValue"]),
-            ]
-        )
-
-    cell_width = (182 / len(cells)) * mm
-    row = Table([cells], colWidths=[cell_width] * len(cells))
-    row.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, -1), PALETTE["surface"]),
-                ("BOX", (0, 0), (-1, -1), 0.6, PALETTE["border"]),
-                ("INNERGRID", (0, 0), (-1, -1), 0.6, PALETTE["border"]),
-                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                ("LEFTPADDING", (0, 0), (-1, -1), 8),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 8),
-                ("TOPPADDING", (0, 0), (-1, -1), 7),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
-            ]
-        )
+def style(name, font, size, leading, color, **kwargs):
+    return ParagraphStyle(
+        name,
+        fontName=font,
+        fontSize=size,
+        leading=leading,
+        textColor=color,
+        alignment=TA_LEFT,
+        **kwargs,
     )
-    return row
 
 
-def build_letter_box(styles, content):
-    story = [
-        Paragraph(content["opening"], styles["LetterHeading"]),
-        Spacer(1, 7),
-    ]
+STYLES = {}
 
+
+def setup_styles():
+    STYLES.update(
+        {
+            "recipient": style("recipient", "Sans", 9.2, 14.2, MUTED),
+            "subject": style("subject", "Display", 13, 17, INK),
+            "opening": style("opening", "Display", 11.5, 15, INK),
+            "body": style("body", "Sans", 9.5, 15.8, colors.HexColor("#4E4842")),
+            "closing": style("closing", "Sans", 9.5, 14, MUTED),
+        }
+    )
+
+
+def draw_paragraph(c, text, paragraph_style, x, y_top, width):
+    paragraph = Paragraph(text, paragraph_style)
+    _, height = paragraph.wrap(width, 400 * mm)
+    paragraph.drawOn(c, x, y_top - height)
+    return y_top - height
+
+
+def draw_tracking(c, text, x, y, size=7.2, color=COPPER, tracking=1.6):
+    c.setFont("SansBold", size)
+    c.setFillColor(color)
+    cursor = x
+    for character in text:
+        c.drawString(cursor, y, character)
+        cursor += c.stringWidth(character, "SansBold", size) + tracking
+
+
+def draw_header(c, content):
+    page_w, page_h = A4
+    left = 25 * mm
+    right = page_w - 25 * mm
+    top = page_h - 22 * mm
+
+    c.setFillColor(CHARCOAL)
+    c.rect(0, page_h - 7 * mm, page_w, 7 * mm, stroke=0, fill=1)
+    c.setFillColor(COPPER)
+    c.rect(0, page_h - 7.7 * mm, page_w, 0.7 * mm, stroke=0, fill=1)
+
+    c.setFont("Display", 24)
+    c.setFillColor(INK)
+    c.drawString(left, top, "ANDRÉS TIRANO")
+    draw_tracking(c, content["role"], left, top - 9 * mm, size=6.8, color=COPPER, tracking=1.55)
+
+    c.setFont("Sans", 7.7)
+    c.setFillColor(MUTED)
+    c.drawRightString(right, top, "andres@tirano.co")
+    c.drawRightString(right, top - 5 * mm, "+34 603 91 99 93")
+    c.drawRightString(right, top - 10 * mm, "chef.tirano.co  ·  @anfetirano")
+
+    c.setStrokeColor(HAIRLINE)
+    c.setLineWidth(0.5)
+    c.line(left, top - 16 * mm, right, top - 16 * mm)
+    return top - 28 * mm
+
+
+def draw_letter(c, content):
+    page_w, page_h = A4
+    left = 25 * mm
+    right = page_w - 25 * mm
+    width = right - left
+    y = draw_header(c, content)
+
+    y -= 4 * mm
+
+    y = draw_paragraph(c, content["recipient"], STYLES["recipient"], left, y, 75 * mm)
+    y -= 11 * mm
+
+    draw_tracking(c, content["subject_label"], left, y, size=6.7, color=COPPER, tracking=1.4)
+    y = draw_paragraph(c, content["subject"], STYLES["subject"], left, y - 5 * mm, width)
+    c.setStrokeColor(COPPER)
+    c.setLineWidth(0.7)
+    c.line(left, y - 4 * mm, left + 20 * mm, y - 4 * mm)
+    y -= 14 * mm
+
+    y = draw_paragraph(c, content["opening"], STYLES["opening"], left, y, width)
+    y -= 6 * mm
     for paragraph in content["paragraphs"]:
-        story.extend([Paragraph(paragraph, styles["Body"]), Spacer(1, 9)])
+        y = draw_paragraph(c, paragraph, STYLES["body"], left, y, width)
+        y -= 5.2 * mm
 
-    story.extend(
-        [
-            Paragraph(content["closing"], styles["Body"]),
-            Spacer(1, 5),
-            Paragraph("Andres Tirano", styles["LetterHeading"]),
-        ]
-    )
+    y = draw_paragraph(c, content["thanks"], STYLES["body"], left, y, width)
+    y -= 8 * mm
+    y = draw_paragraph(c, content["closing"], STYLES["closing"], left, y, width)
 
-    box = Table([[story]], colWidths=[182 * mm])
-    box.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, -1), PALETTE["surface"]),
-                ("BOX", (0, 0), (-1, -1), 0.6, PALETTE["border"]),
-                ("LEFTPADDING", (0, 0), (-1, -1), 12),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 12),
-                ("TOPPADDING", (0, 0), (-1, -1), 12),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 12),
-            ]
+    if SIGNATURE_FILE.exists():
+        signature_width = 47 * mm
+        signature_height = signature_width * 1129 / 1600
+        c.drawImage(
+            ImageReader(str(SIGNATURE_FILE)),
+            left - 2 * mm,
+            y - signature_height + 3 * mm,
+            width=signature_width,
+            height=signature_height,
+            preserveAspectRatio=True,
+            mask="auto",
         )
-    )
-    return box
+        y -= signature_height - 2 * mm
+    else:
+        y -= 8 * mm
+
+    c.setFont("Display", 11.2)
+    c.setFillColor(INK)
+    c.drawString(left, y, "Andrés Tirano")
+    c.setFont("Sans", 7.4)
+    c.setFillColor(MUTED)
+    c.drawString(left, y - 4.5 * mm, content["role"].title())
+
+    c.setStrokeColor(HAIRLINE)
+    c.setLineWidth(0.45)
+    c.line(left, 16 * mm, right, 16 * mm)
+    c.setFont("Sans", 6.8)
+    c.setFillColor(colors.HexColor("#91877E"))
+    c.drawString(left, 10 * mm, "LINKEDIN  ·  Andres F. Tirano Vasquez")
+    c.drawRightString(right, 10 * mm, "DISPONIBLE PARA REUBICACIÓN" if content["role"].startswith("COCINERO") else "AVAILABLE FOR RELOCATION")
 
 
-def create_pdf(locale: str):
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-    content = COVER_LETTERS[locale]
+def create_pdf(locale, content):
     output_file = OUTPUT_FILES[locale]
-
-    doc = SimpleDocTemplate(
-        str(output_file),
-        pagesize=A4,
-        leftMargin=14 * mm,
-        rightMargin=14 * mm,
-        topMargin=12 * mm,
-        bottomMargin=12 * mm,
-        title=content["pdf_title"],
-        author="OpenAI Codex",
-    )
-
-    styles = build_styles()
-
-    top_row = Table(
-        [[
-            [
-                Paragraph("Andres Tirano", styles["Name"]),
-                Paragraph(content["title"], styles["Role"]),
-                Paragraph(content["intro_note"], styles["Body"]),
-            ],
-            [
-                Paragraph(content["date"], styles["Meta"]),
-                Spacer(1, 6),
-                Paragraph(content["availability"], styles["Body"]),
-            ],
-        ]],
-        colWidths=[132 * mm, 50 * mm],
-    )
-    top_row.setStyle(
-        TableStyle(
-            [
-                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                ("ALIGN", (1, 0), (1, 0), "RIGHT"),
-                ("LEFTPADDING", (0, 0), (-1, -1), 0),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
-                ("TOPPADDING", (0, 0), (-1, -1), 0),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
-            ]
-        )
-    )
-
-    callout = Table(
-        [[Paragraph(content["callout"], styles["Callout"])]],
-        colWidths=[182 * mm],
-    )
-    callout.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, -1), PALETTE["surface_strong"]),
-                ("LEFTPADDING", (0, 0), (-1, -1), 10),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 10),
-                ("TOPPADDING", (0, 0), (-1, -1), 7),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
-            ]
-        )
-    )
-
-    story = [
-        HRFlowable(width="100%", thickness=2, color=PALETTE["accent"], spaceAfter=10, spaceBefore=0),
-        top_row,
-        Spacer(1, 10),
-        build_contact_row(styles, content),
-        Spacer(1, 8),
-        callout,
-        Spacer(1, 10),
-        build_letter_box(styles, content),
-    ]
-
-    def paint_page(canvas, _doc):
-        canvas.saveState()
-        canvas.setFillColor(colors.white)
-        canvas.rect(0, 0, A4[0], A4[1], stroke=0, fill=1)
-        canvas.restoreState()
-
-    doc.build(story, onFirstPage=paint_page, onLaterPages=paint_page)
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    c = canvas.Canvas(str(output_file), pagesize=A4, pageCompression=1)
+    c.setTitle(content["metadata_title"])
+    c.setAuthor("Andrés Tirano")
+    c.setSubject("Professional kitchen cover letter")
+    c.setFillColor(PAPER)
+    c.rect(0, 0, A4[0], A4[1], stroke=0, fill=1)
+    draw_letter(c, content)
+    c.save()
     return output_file
 
 
+def generate_all():
+    register_fonts()
+    setup_styles()
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
+    generated = []
+    for locale, content in LETTERS.items():
+        site_file = create_pdf(locale, content)
+        artifact_file = ARTIFACT_DIR / f"andres-tirano-cover-letter-{locale}.pdf"
+        copy2(site_file, artifact_file)
+        generated.append(site_file)
+    return generated
+
+
 if __name__ == "__main__":
-    for locale in ("en", "es"):
-        print(create_pdf(locale))
+    for file_path in generate_all():
+        print(file_path)
