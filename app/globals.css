@@ -98,6 +98,169 @@ img {
   filter: saturate(0.94) contrast(1.03) brightness(1.01);
 }
 
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.pass-scene {
+  position: absolute;
+  z-index: 20;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pass-scene__table-viewport {
+  position: absolute;
+  z-index: 1;
+  top: 67%;
+  right: calc(-5% - 70px);
+  width: 70%;
+  height: 21%;
+  overflow: hidden;
+  opacity: 0.055;
+  transition:
+    opacity 700ms ease,
+    filter 700ms ease;
+}
+
+.pass-scene__table {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  clip-path: inset(0 0 61.5% 0);
+  filter: brightness(0.62) saturate(0.58) contrast(1.04);
+  transform: translateY(-13.5%);
+  transition: filter 700ms ease;
+}
+
+.pass-scene__plate {
+  position: absolute;
+  z-index: 2;
+  right: 15%;
+  bottom: 16.5%;
+  width: 18%;
+  aspect-ratio: 1;
+  animation: pass-plate-enter 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pass-scene__lamp-button {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 60%;
+  width: 30%;
+  height: 63%;
+  padding: 0;
+  pointer-events: auto;
+  cursor: pointer;
+  color: var(--foreground);
+  border: 0;
+  background: transparent;
+}
+
+.pass-scene__lamp {
+  position: absolute;
+  inset: 0;
+}
+
+.pass-scene__lamp-image {
+  object-fit: fill;
+  object-position: top center;
+  filter: none;
+  transition:
+    opacity 650ms ease,
+    filter 650ms ease;
+}
+
+.pass-scene__lamp-image--off {
+  opacity: 0.9;
+}
+
+.pass-scene__lamp-image--on {
+  opacity: 0;
+}
+
+.pass-scene__label {
+  position: absolute;
+  z-index: 2;
+  top: 31%;
+  left: 50%;
+  width: max-content;
+  transform: translateX(-50%);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  color: rgba(196, 187, 176, 0.62);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.9);
+  transition: color 500ms ease;
+}
+
+.pass-scene__lamp-button:hover .pass-scene__label {
+  color: rgba(255, 250, 241, 0.98);
+  text-shadow:
+    0 1px 5px rgba(0, 0, 0, 0.9),
+    0 0 9px rgba(255, 245, 229, 0.24);
+}
+
+.pass-scene__lamp-button:hover .pass-scene__lamp-image--off {
+  filter: brightness(1.14) contrast(1.04);
+}
+
+.pass-scene__lamp-button:focus-visible {
+  outline: none;
+}
+
+.pass-scene__lamp-button:focus-visible .pass-scene__label {
+  color: rgba(255, 250, 241, 0.98);
+  text-shadow:
+    0 1px 5px rgba(0, 0, 0, 0.9),
+    0 0 9px rgba(255, 245, 229, 0.24);
+}
+
+.pass-scene--on .pass-scene__table-viewport {
+  opacity: 0.58;
+  filter: drop-shadow(0 -8px 24px rgba(193, 125, 65, 0.1));
+}
+
+.pass-scene--on .pass-scene__table {
+  filter: brightness(0.94) saturate(0.82) contrast(1.02);
+}
+
+.pass-scene--on .pass-scene__lamp-image--off {
+  opacity: 0;
+}
+
+.pass-scene--on .pass-scene__lamp-image--on {
+  opacity: 1;
+  filter: drop-shadow(0 16px 22px rgba(202, 128, 62, 0.1));
+}
+
+.pass-scene--on
+  .pass-scene__lamp-button:hover
+  .pass-scene__lamp-image--on {
+  filter: brightness(1.14) contrast(1.04)
+    drop-shadow(0 16px 22px rgba(202, 128, 62, 0.14));
+}
+
+.pass-scene--on .pass-scene__label {
+  color: rgba(255, 250, 241, 0.78);
+}
+
+@keyframes pass-plate-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.975);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .editorial-action {
   position: relative;
   isolation: isolate;
@@ -239,6 +402,140 @@ img {
   .mobile-flavor-icon,
   .mobile-flavor-label {
     animation: none;
+  }
+
+  .pass-scene__table-viewport,
+  .pass-scene__table,
+  .pass-scene__lamp-image {
+    transition: none;
+  }
+
+  .pass-scene__plate {
+    animation: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .pass-scene__table-viewport {
+    display: block;
+    top: 68%;
+    right: calc(-5% - 40px);
+    width: 72%;
+    height: 20%;
+  }
+
+  .pass-scene__lamp-button {
+    top: 0;
+    right: 2%;
+    bottom: auto;
+    left: auto;
+    width: 32%;
+    height: 62%;
+    opacity: 0.82;
+  }
+
+  .pass-scene__lamp {
+    inset: 0;
+  }
+
+  .pass-scene__label {
+    top: 30%;
+    font-size: 0.56rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-copy {
+    min-height: 1250px;
+  }
+
+  .hero-pillars {
+    margin-top: 15rem;
+  }
+
+  .pass-scene__table-viewport {
+    top: 40rem;
+    right: -3%;
+    width: 62%;
+    height: 12rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-copy {
+    min-height: 76rem;
+  }
+
+  .hero-pillars {
+    margin-top: 15rem;
+  }
+
+  .pass-scene__table-viewport {
+    top: 42rem;
+    right: -10vw;
+    width: 120vw;
+    height: 10rem;
+  }
+
+  .pass-scene__plate {
+    top: 46rem;
+    right: 23vw;
+    bottom: auto;
+    width: 9rem;
+  }
+
+  .pass-scene__lamp-button {
+    top: 27rem;
+    right: auto;
+    left: 50%;
+    width: 7rem;
+    height: 16rem;
+    opacity: 0.8;
+    transform: translateX(-50%);
+  }
+
+  .pass-scene__label {
+    top: 29%;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 7rem minmax(0, 1fr);
+    gap: 0;
+    width: 100%;
+  }
+
+  .hero-actions > :first-child {
+    grid-column: 1;
+  }
+
+  .hero-actions > :last-child {
+    grid-column: 3;
+  }
+
+  .hero-actions .hero-action {
+    width: 100%;
+    min-height: 3.75rem;
+    padding-inline: 0.75rem;
+    font-size: 0.64rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-actions {
+    grid-template-columns: minmax(0, 1fr) 6rem minmax(0, 1fr);
+  }
+
+  .pass-scene__lamp-button {
+    width: 6rem;
+  }
+
+  .hero-actions .hero-action {
+    padding-inline: 0.25rem;
+    font-size: 0.5rem;
+    line-height: 1.35;
+    letter-spacing: 0.08em;
+    white-space: normal;
   }
 }
 

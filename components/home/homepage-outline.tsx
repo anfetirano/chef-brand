@@ -7,6 +7,7 @@ import {
   TrackedActionLink,
   TrackedLink,
 } from "@/components/analytics/tracked-link";
+import { PassLampScene } from "@/components/home/pass-lamp-scene";
 import { SectionShell } from "@/components/layout/section-shell";
 import type { HomepageContent } from "@/types/homepage";
 
@@ -95,7 +96,8 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
             className="hero-copy relative flex px-6 py-10 md:px-10 md:py-14 lg:px-14 lg:py-10"
             style={{ color: "var(--foreground)" }}
           >
-            <div className="flex w-full flex-col justify-between gap-12">
+            <PassLampScene locale={page.locale} />
+            <div className="relative z-10 flex w-full flex-col justify-between gap-12">
               <div className="pt-[clamp(2rem,7vh,6rem)]">
                 <h1 className="max-w-[8.5ch] font-editorial text-[clamp(5rem,8.4vw,10rem)] font-medium uppercase leading-[0.78] tracking-[-0.045em] text-foreground">
                   <span className="block">{firstName}</span>
@@ -120,7 +122,7 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                   ))}
                 </p>
 
-                <div className="mt-10 flex flex-wrap gap-3">
+                <div className="hero-actions mt-10">
                   <details className="group relative">
                     <summary
                       className="hero-action hero-action-primary inline-flex min-h-[3.75rem] cursor-pointer list-none items-center justify-center border border-accent bg-accent px-9 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-foreground [&::-webkit-details-marker]:hidden"
