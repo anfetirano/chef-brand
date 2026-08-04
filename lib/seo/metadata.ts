@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/content/site";
 
+const socialImage = {
+  url: "/images/social/andres-tirano-share.jpg",
+  width: 1200,
+  height: 630,
+  alt: "Andres Tirano, cocinero profesional, en una cocina durante el servicio",
+};
+
 type PageMetadataInput = {
   title: string;
   description: string;
@@ -34,6 +41,13 @@ export function buildRootMetadata(): Metadata {
       title: siteConfig.defaultTitle,
       description: siteConfig.description,
       url: siteConfig.url,
+      images: [socialImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: siteConfig.defaultTitle,
+      description: siteConfig.description,
+      images: [socialImage.url],
     },
   };
 }
@@ -56,6 +70,13 @@ export function createPageMetadata({
       type: "website",
       locale: siteConfig.openGraphLocale,
       siteName: siteConfig.name,
+      images: [socialImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [socialImage.url],
     },
   };
 }
