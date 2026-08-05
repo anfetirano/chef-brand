@@ -86,7 +86,7 @@ CV = {
             (
                 "2025",
                 "Only YOU Hotel Málaga",
-                "Cocinero de línea en hotel · Málaga, España",
+                "Jefe de partida · Málaga, España",
                 "Experiencia en el entorno culinario de un hotel cinco estrellas, con estándares "
                 "de hospitalidad premium, servicio coordinado y ejecución orientada al cliente.",
             ),
@@ -100,7 +100,7 @@ CV = {
             (
                 "2022",
                 "La Deriva",
-                "Cocinero de línea · Málaga, España",
+                "Jefe de partida · Málaga, España",
                 "Disciplina de mise en place, ritmo de servicio y coordinación diaria en una "
                 "cocina de restaurante de alto movimiento.",
             ),
@@ -171,7 +171,7 @@ CV = {
             (
                 "2025",
                 "Only YOU Hotel Málaga",
-                "Hotel line cook · Málaga, Spain",
+                "Chef de Partie · Málaga, Spain",
                 "Experience in the culinary environment of a five-star hotel, working with "
                 "premium hospitality standards, coordinated service, and guest-focused execution.",
             ),
@@ -185,7 +185,7 @@ CV = {
             (
                 "2022",
                 "La Deriva",
-                "Restaurant line cook · Málaga, Spain",
+                "Chef de Partie · Málaga, Spain",
                 "Strengthened mise en place discipline, service rhythm, and daily kitchen "
                 "coordination in a fast-moving restaurant environment.",
             ),

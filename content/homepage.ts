@@ -8,7 +8,8 @@ const contactValues = {
   instagram: "@anfetirano",
   instagramHref: "https://www.instagram.com/anfetirano/",
   linkedin: "Andres F. Tirano Vasquez",
-  linkedinHref: "https://www.linkedin.com/in/andres-f-tirano-vasquez-5792b51a1/",
+  linkedinHref:
+    "https://www.linkedin.com/in/andres-felipe-tirano-vasquez-5792b51a1/",
   website: "chef.tirano.co",
   websiteHref: "https://chef.tirano.co",
 } as const;
@@ -150,7 +151,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
     experience: [
       {
         venue: "Only YOU Hotel Málaga",
-        role: "Hotel Line Cook",
+        role: "Chef de Partie",
         period: "2025",
         location: "Málaga, Spain",
         summary:
@@ -166,7 +167,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       },
       {
         venue: "La Deriva",
-        role: "Restaurant Line Cook",
+        role: "Chef de Partie",
         period: "2022",
         location: "Málaga, Spain",
         summary:
@@ -414,7 +415,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
     experience: [
       {
         venue: "Only YOU Hotel Málaga",
-        role: "Cocinero de línea en hotel",
+        role: "Jefe de partida",
         period: "2025",
         location: "Málaga, España",
         summary:
@@ -430,7 +431,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       },
       {
         venue: "La Deriva",
-        role: "Cocinero de línea en restaurante",
+        role: "Jefe de partida",
         period: "2022",
         location: "Málaga, España",
         summary:

@@ -96,7 +96,13 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
             className="hero-copy relative flex px-6 py-10 md:px-10 md:py-14 lg:px-14 lg:py-10"
             style={{ color: "var(--foreground)" }}
           >
-            <PassLampScene locale={page.locale} />
+            <PassLampScene
+              locale={page.locale}
+              linkedInHref={
+                linkedInMethod?.href ??
+                "https://www.linkedin.com/in/andres-felipe-tirano-vasquez-5792b51a1/"
+              }
+            />
             <div className="relative z-10 flex w-full flex-col justify-between gap-12">
               <div className="pt-[clamp(2rem,7vh,6rem)]">
                 <h1 className="max-w-[8.5ch] font-editorial text-[clamp(5rem,8.4vw,10rem)] font-medium uppercase leading-[0.78] tracking-[-0.045em] text-foreground">
