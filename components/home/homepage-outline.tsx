@@ -7,6 +7,7 @@ import {
   TrackedActionLink,
   TrackedLink,
 } from "@/components/analytics/tracked-link";
+import { CinematicVideoSequence } from "@/components/home/cinematic-video-sequence";
 import { PassLampScene } from "@/components/home/pass-lamp-scene";
 import { SectionShell } from "@/components/layout/section-shell";
 import type { HomepageContent } from "@/types/homepage";
@@ -41,6 +42,115 @@ const flavorIcons = [
   "/images/flavors/acido-limon.png",
   "/images/flavors/umami-shiitake.png",
 ] as const;
+
+const experienceLogos = {
+  "A Tafona": {
+    src: "/images/experience-logos/atafona.gif",
+    width: 2400,
+    height: 1600,
+    treatment: "dark-on-light",
+  },
+  LUME: {
+    src: "/images/experience-logos/lume.png",
+    width: 372,
+    height: 135,
+    treatment: "dark-on-light",
+  },
+  "The Club": {
+    src: "/images/experience-logos/the-club.png",
+    width: 1024,
+    height: 1024,
+    treatment: "dark-on-light",
+  },
+  "La Deriva": {
+    src: "/images/experience-logos/la-deriva.png",
+    width: 225,
+    height: 225,
+    treatment: "light-on-dark",
+  },
+  "Hotel Gran Cervantes": {
+    src: "/images/experience-logos/gran-cervantes.jpeg",
+    width: 447,
+    height: 447,
+    treatment: "dark-on-light",
+  },
+  "Only YOU Hotel Málaga": {
+    src: "/images/experience-logos/only-you.png",
+    width: 320,
+    height: 320,
+    treatment: "dark-on-light",
+  },
+} as const;
+
+const experienceChaptersByLocale = {
+  es: [
+    {
+      title: "Origen",
+      period: "Santiago de Compostela · 2021",
+      description:
+        "La precisión se aprende desde la base: producto, preparación y atención al detalle.",
+      venues: ["A Tafona", "LUME"],
+    },
+    {
+      title: "Ritmo",
+      period: "Málaga · 2022",
+      description:
+        "La partida exige orden, lectura del servicio y coordinación con el equipo.",
+      venues: ["The Club", "La Deriva"],
+    },
+    {
+      title: "Hospitalidad",
+      period: "Málaga · 2024–2025",
+      description:
+        "El oficio se amplía cuando técnica y servicio responden al mismo estándar.",
+      venues: ["Hotel Gran Cervantes", "Only YOU Hotel Málaga"],
+    },
+  ],
+  en: [
+    {
+      title: "Foundations",
+      period: "Santiago de Compostela · 2021",
+      description:
+        "Precision begins with the fundamentals: product, preparation, and attention to detail.",
+      venues: ["A Tafona", "LUME"],
+    },
+    {
+      title: "Rhythm",
+      period: "Málaga · 2022",
+      description:
+        "A station demands order, awareness of service, and coordination with the team.",
+      venues: ["The Club", "La Deriva"],
+    },
+    {
+      title: "Hospitality",
+      period: "Málaga · 2024–2025",
+      description:
+        "The craft expands when technique and service answer to the same standard.",
+      venues: ["Hotel Gran Cervantes", "Only YOU Hotel Málaga"],
+    },
+  ],
+} as const;
+
+const profileEditorialByLocale = {
+  es: {
+    title: "El cocinero",
+    statement:
+      "La curiosidad abre el camino. La disciplina convierte cada aprendizaje en oficio.",
+    educationStatement:
+      "Una base práctica que sigue creciendo con cada cocina, cada técnica y cada servicio.",
+    languageStatement:
+      "La comunicación también forma parte del servicio.",
+  },
+  en: {
+    title: "The cook",
+    statement:
+      "Curiosity opens the way. Discipline turns every lesson into craft.",
+    educationStatement:
+      "A practical foundation that continues to grow through every kitchen, technique, and service.",
+    languageStatement:
+      "Communication is part of service too.",
+  },
+} as const;
 
 export function HomepageOutline({ page }: HomepageOutlineProps) {
   const [statementIndex, setStatementIndex] = useState(0);
@@ -88,6 +198,21 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
   const linkedInMethod = page.contact.methods.find(
     (method) => method.id === "linkedin",
   );
+  const experienceChapters = experienceChaptersByLocale[page.locale];
+  const profileEditorial = profileEditorialByLocale[page.locale];
+  const experienceIntro =
+    page.locale === "es"
+      ? {
+          title: "La trayectoria",
+          statement:
+            "Cada cocina dejó una forma distinta de entender el producto, el equipo y el servicio.",
+        }
+      : {
+          title: "The journey",
+          statement:
+            "Each kitchen shaped a different way of understanding product, teamwork, and service.",
+        };
+
   return (
     <>
       <section id="top" className="relative border-b border-border">
@@ -282,25 +407,30 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
         </div>
       </section>
 
-      <div className="bg-[var(--surface)] px-6 py-6 md:px-10">
-        <div className="w-full">
-          <div className="mb-5">
-            <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+      <section
+        id="craft"
+        aria-labelledby="craft-title"
+        className="craft-section"
+      >
+        <div className="craft-section__intro">
+          <div>
+            <span className="craft-section__rule" aria-hidden="true" />
+            <h2 id="craft-title" className="craft-section__title">
               {page.strengthsTitle}
             </h2>
           </div>
-          <div className="grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
-            {page.valueItems.map((item) => (
-              <article key={item.title} className="bg-[var(--surface)] p-5 md:p-6">
-                <h3 className="text-base font-semibold tracking-tight text-foreground">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-muted">{item.description}</p>
-              </article>
-            ))}
-          </div>
+          <p className="craft-section__statement">{page.promiseIntro}</p>
         </div>
-      </div>
+
+        <div className="craft-principles">
+          {page.valueItems.map((item) => (
+            <article key={item.title} className="craft-principle">
+              <h3 className="craft-principle__title">{item.title}</h3>
+              <p className="craft-principle__description">{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <div className="bg-[var(--surface)] px-6 pb-6 md:px-10 md:pb-10">
         <div className="w-full">
@@ -308,114 +438,159 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
             aria-label="Andres Tirano in kitchen service"
             className="overflow-hidden border border-border bg-[var(--surface-strong)]"
           >
-            <video
-              className="aspect-[16/10] w-full object-cover md:aspect-[21/8]"
-              src="/videos/andres-kitchen-banner.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-            />
+            <CinematicVideoSequence />
           </section>
         </div>
       </div>
 
-      <div className="bg-[var(--surface)] px-6 md:px-10">
+      <div className="bg-[var(--surface)]">
         <div className="w-full">
-          <SectionShell
-            id="experience"
-            heading={page.experienceSection.title}
-            summary={page.experienceSection.description}
-          >
-            <div className="space-y-8">
-              {page.experience.map((item) => (
-                <article
-                  key={`${item.venue}-${item.period}`}
-                  className="grid gap-4 border-b border-border pb-8 last:border-b-0 last:pb-0 md:grid-cols-[7rem_minmax(0,1fr)]"
-                >
-                  <div className="space-y-2 md:pt-1">
-                    {item.period ? (
-                      <p className="text-2xl font-semibold tracking-tight text-accent">
-                        {item.period}
-                      </p>
-                    ) : null}
-                    <p className="text-sm leading-6 text-muted">{item.location}</p>
+          <section id="experience" className="experience-journey">
+            <header className="experience-journey__intro">
+              <div>
+                <span className="experience-journey__rule" aria-hidden="true" />
+                <h2 className="experience-journey__title">
+                  {experienceIntro.title}
+                </h2>
+              </div>
+              <p className="experience-journey__statement">
+                {experienceIntro.statement}
+              </p>
+            </header>
+
+            <div className="experience-chapters">
+              {experienceChapters.map((chapter) => (
+                <article key={chapter.title} className="experience-chapter">
+                  <div className="experience-chapter__heading">
+                    <p className="experience-chapter__period">{chapter.period}</p>
+                    <h3 className="experience-chapter__title">{chapter.title}</h3>
+                    <p className="experience-chapter__description">
+                      {chapter.description}
+                    </p>
                   </div>
-                  <div className="space-y-3">
-                    <div className="space-y-1">
-                      <h3 className="text-2xl font-semibold tracking-tight text-foreground">
-                        {item.venue}
-                      </h3>
-                      <p className="text-sm uppercase tracking-[0.14em] text-muted">
-                        {item.role}
-                      </p>
-                    </div>
-                    <p className="max-w-3xl text-sm leading-8 text-muted">{item.summary}</p>
+
+                  <div className="experience-chapter__venues">
+                    {chapter.venues.map((venueName) => {
+                      const item = page.experience.find(
+                        (experience) => experience.venue === venueName,
+                      );
+                      const logo =
+                        experienceLogos[
+                          venueName as keyof typeof experienceLogos
+                        ];
+
+                      if (!item || !logo) {
+                        return null;
+                      }
+
+                      return (
+                        <div key={venueName} className="experience-venue">
+                          <div className="experience-venue__logo">
+                            <Image
+                              src={logo.src}
+                              alt=""
+                              aria-hidden="true"
+                              width={logo.width}
+                              height={logo.height}
+                              className={`experience-logo experience-logo--${logo.treatment} ${
+                                venueName === "A Tafona"
+                                  ? "experience-logo--atafona"
+                                  : ""
+                              }`}
+                            />
+                          </div>
+                          <div className="experience-venue__copy">
+                            <h4>{item.venue}</h4>
+                            <p>{item.role}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </article>
               ))}
             </div>
-          </SectionShell>
+          </section>
 
-          <SectionShell
-            id="story"
-            heading={page.storySection.title}
-            summary={page.storySection.description}
-          >
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(22rem,0.8fr)]">
-              <div className="bg-[var(--surface-strong)] p-6 md:p-8">
-                <div className="space-y-5">
-                  {page.story.map((paragraph) => (
-                    <p key={paragraph} className="text-sm leading-8 text-muted">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </div>
+          <section id="story" className="profile-editorial">
+            <div className="profile-editorial__frame">
+              <aside className="profile-editorial__rail" aria-hidden="true">
+                <span>01</span>
+                <p>{page.storySection.title}</p>
+              </aside>
 
-              <div className="grid gap-px border border-border bg-border">
-                <div className="bg-[var(--surface)] p-6">
-                  <h3 className="text-base font-semibold tracking-tight text-foreground">
-                    {page.educationTitle}
-                  </h3>
-                  <div className="mt-5 space-y-5">
-                    {page.education.map((item) => (
-                      <article
-                        key={`${item.institution}-${item.period ?? item.title}`}
-                        className="space-y-1"
-                      >
-                        <h4 className="text-sm font-medium text-foreground">{item.title}</h4>
-                        <p className="text-sm text-muted">
-                          {item.period
-                            ? `${item.institution} · ${item.period}`
-                            : item.institution}
-                        </p>
-                        <p className="text-sm leading-6 text-muted">{item.description}</p>
-                      </article>
+              <div className="profile-editorial__body">
+                <header className="profile-editorial__intro">
+                  <div>
+                    <span className="profile-editorial__rule" aria-hidden="true" />
+                    <h2 className="profile-editorial__title">
+                      {profileEditorial.title}
+                    </h2>
+                  </div>
+                  <p className="profile-editorial__statement">
+                    {profileEditorial.statement}
+                  </p>
+                </header>
+
+                <div className="profile-narrative">
+                  <p className="profile-narrative__lead">{page.story[0]}</p>
+                  <div className="profile-narrative__support">
+                    {page.story.slice(1).map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
                     ))}
                   </div>
                 </div>
 
-                <div className="bg-[var(--surface)] p-6">
-                  <h3 className="text-base font-semibold tracking-tight text-foreground">
-                    {page.languagesTitle}
-                  </h3>
-                  <dl className="mt-5 space-y-2">
-                    {page.languages.map((language) => (
-                      <div
-                        key={language.name}
-                        className="flex items-center justify-between gap-4 border-b border-border pb-2 text-sm"
+                <section className="profile-education">
+                  <header className="profile-subsection__heading">
+                    <h3>{page.educationTitle}</h3>
+                    <p>{profileEditorial.educationStatement}</p>
+                  </header>
+
+                  <div className="profile-education__list">
+                    {page.education.map((item, index) => (
+                      <article
+                        key={`${item.institution}-${item.period ?? item.title}`}
+                        className="profile-education__item"
                       >
-                        <dt className="text-foreground">{language.name}</dt>
-                        <dd className="text-muted">{language.level}</dd>
+                        <span aria-hidden="true">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <div className="profile-education__copy">
+                          <div>
+                            <h4>{item.title}</h4>
+                            <p className="profile-education__institution">
+                              {item.period
+                                ? `${item.institution} · ${item.period}`
+                                : item.institution}
+                            </p>
+                          </div>
+                          <p className="profile-education__description">
+                            {item.description}
+                          </p>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="profile-languages">
+                  <div className="profile-languages__heading">
+                    <h3>{page.languagesTitle}</h3>
+                    <p>{profileEditorial.languageStatement}</p>
+                  </div>
+                  <dl className="profile-languages__list">
+                    {page.languages.map((language) => (
+                      <div key={language.name}>
+                        <dt>{language.name}</dt>
+                        <dd>{language.level}</dd>
                       </div>
                     ))}
                   </dl>
-                </div>
+                </section>
               </div>
             </div>
-          </SectionShell>
+          </section>
 
           {page.gallery.length > 0 ? (
             <SectionShell

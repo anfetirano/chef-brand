@@ -92,38 +92,28 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       ],
     },
     promiseIntro:
-      "This profile is built for employers who need a cook that can step into demanding service, respect standards, and contribute with discipline from day one.",
-    strengthsTitle: "Core strengths",
+      "A good service begins long before the first plate. It is built on product, order, judgement, and teamwork.",
+    strengthsTitle: "The craft",
     valueItems: [
       {
-        title: "Reliable high-volume execution",
+        title: "Product",
         description:
-          "At Hotel Gran Cervantes, Andres worked in live buffet stations such as grill, wok, and crepes while serving around 1,200 guests per day.",
+          "Understand it, respect it, and work with intention.",
       },
       {
-        title: "Precision in quality-focused kitchens",
+        title: "Station",
         description:
-          "He worked in A Tafona and LUME, projects led by chef Lucía Freitas, where detail, product quality, and disciplined pre-service preparation were essential.",
+          "Clear mise en place, order, and consistency before service.",
       },
       {
-        title: "Strong mise en place and organization",
+        title: "Judgement",
         description:
-          "His work includes pre-preparation, station setup, inventory support, purchasing, and menu-related execution in fast-moving service environments.",
+          "Apply the right technique and care for every decision.",
       },
       {
-        title: "Calm service with direct guest contact",
+        title: "Team",
         description:
-          "From brunch service to live hotel stations, he has experience working visibly in front of guests while keeping speed, coordination, and consistency.",
-      },
-      {
-        title: "Experience in premium hospitality environments",
-        description:
-          "His background also includes hotel and restaurant service in Málaga, adding exposure to guest expectations, polished standards, and service consistency.",
-      },
-      {
-        title: "Adaptable across restaurant and hotel kitchens",
-        description:
-          "From chef-led restaurants to brunch concepts and large hotel operations, Andres adapts quickly to different service styles while protecting standards and team rhythm.",
+          "Listen, coordinate, and maintain one rhythm through the pass.",
       },
     ],
     experienceSection: {
@@ -144,9 +134,9 @@ export const homepageContentByLocale: HomepageContentByLocale = {
         "These are the kinds of professional moments the visual gallery will emphasize as assets are added.",
     },
     story: [
-      "Andres has been passionate about gastronomy from an early age, but his profile is not built on enthusiasm alone. It is built on repeated exposure to demanding kitchens where consistency matters every day.",
-      "He is committed to learning continuously, from culinary tradition to newer techniques, and then turning that learning into better execution, stronger teamwork, and a better guest experience.",
-      "What stands out in his trajectory is range without losing focus: chef-led kitchens, brunch production, and high-volume hotel service, all connected by the same priorities of discipline, adaptability, and care for standards.",
+      "Andres’s relationship with cooking began with curiosity and became a profession through repetition, discipline, and the daily responsibility of service.",
+      "He continues to learn from culinary tradition and contemporary techniques, always looking for a practical application: cleaner execution, better coordination, and greater care for the guest.",
+      "His path crosses chef-led kitchens, brunch concepts, and hotel hospitality. Different settings connected by the same way of working: respect for the product, attention to detail, and commitment to the team.",
     ],
     experience: [
       {
@@ -356,38 +346,28 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       ],
     },
     promiseIntro:
-      "Este perfil está diseñado para empleadores que necesitan un cocinero capaz de integrarse a un servicio exigente, respetar estándares y aportar disciplina desde el primer día.",
-    strengthsTitle: "Fortalezas clave",
+      "Un buen servicio comienza mucho antes del primer plato. Se construye con producto, orden, criterio y equipo.",
+    strengthsTitle: "El oficio",
     valueItems: [
       {
-        title: "Ejecución confiable en alto volumen",
+        title: "Producto",
         description:
-          "En Hotel Gran Cervantes, Andres trabajó en estaciones de buffet en vivo como grill, wok y crepes, atendiendo alrededor de 1,200 comensales por día.",
+          "Entenderlo, respetarlo y trabajarlo con intención.",
       },
       {
-        title: "Precisión en cocinas enfocadas en calidad",
+        title: "Partida",
         description:
-          "Trabajó en A Tafona y LUME, proyectos liderados por la chef Lucía Freitas, donde el detalle, la calidad del producto y la preparación disciplinada antes del servicio eran esenciales.",
+          "Mise en place clara, orden y constancia antes del servicio.",
       },
       {
-        title: "Mise en place y organización sólidas",
+        title: "Criterio",
         description:
-          "Su trabajo incluye preelaboración, montaje de estación, apoyo en inventario, compras y ejecución relacionada con menú en entornos de servicio dinámicos.",
+          "Aplicar la técnica adecuada y cuidar cada decisión.",
       },
       {
-        title: "Servicio sereno con contacto directo con el cliente",
+        title: "Equipo",
         description:
-          "Desde el servicio de brunch hasta estaciones hoteleras en vivo, tiene experiencia trabajando de cara al cliente manteniendo velocidad, coordinación y consistencia.",
-      },
-      {
-        title: "Experiencia en entornos de hospitalidad premium",
-        description:
-          "Su trayectoria también incluye servicio en hoteles y restaurantes en Málaga, con exposición a expectativas elevadas del cliente, estándares pulidos y consistencia de servicio.",
-      },
-      {
-        title: "Adaptabilidad entre restaurantes y hoteles",
-        description:
-          "Desde restaurantes liderados por chefs hasta conceptos de brunch y operaciones hoteleras, Andres se adapta rápido a distintos estilos de servicio sin perder estándares ni ritmo de equipo.",
+          "Escuchar, coordinar y mantener un mismo ritmo durante el pase.",
       },
     ],
     experienceSection: {
@@ -408,9 +388,9 @@ export const homepageContentByLocale: HomepageContentByLocale = {
         "Estos son los tipos de momentos profesionales que la galería visual destacará cuando se agreguen materiales reales.",
     },
     story: [
-      "Andres ha sentido pasión por la gastronomía desde muy joven, pero su perfil no se sostiene solo en entusiasmo. Se construye sobre experiencia repetida en cocinas exigentes donde la consistencia importa todos los días.",
-      "Está comprometido con aprender de forma continua, desde la tradición culinaria hasta técnicas más actuales, y convertir ese aprendizaje en mejor ejecución, mejor trabajo en equipo y una mejor experiencia para el cliente.",
-      "Lo que destaca en su trayectoria es la amplitud sin perder enfoque: cocinas lideradas por chefs, producción de brunch y servicio hotelero de alto volumen, todo unido por disciplina, adaptabilidad y cuidado por los estándares.",
+      "La relación de Andres con la cocina comenzó en la curiosidad y se convirtió en oficio a través de la repetición, la disciplina y la responsabilidad diaria del servicio.",
+      "Mantiene una actitud de aprendizaje continuo, desde la tradición culinaria hasta técnicas actuales, buscando siempre una aplicación práctica: ejecución más limpia, mejor coordinación y mayor cuidado por el comensal.",
+      "Su recorrido atraviesa cocinas de autor, conceptos de brunch y hospitalidad hotelera. Contextos distintos unidos por una misma forma de trabajar: respeto por el producto, atención al detalle y compromiso con el equipo.",
     ],
     experience: [
       {
