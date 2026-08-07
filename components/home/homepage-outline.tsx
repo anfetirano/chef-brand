@@ -152,8 +152,88 @@ const profileEditorialByLocale = {
   },
 } as const;
 
+const galleryEditorialByLocale = {
+  es: {
+    eyebrow: "Cuaderno de servicio",
+    title: "En servicio",
+    carouselLabel: "Galería de cocina en movimiento",
+    viewerClose: "Cerrar fotografía",
+    viewerPrevious: "Fotografía anterior",
+    viewerNext: "Fotografía siguiente",
+    statement:
+      "Fuego, producto y precisión. El oficio ocurre en el movimiento, no en la pose.",
+    images: [
+      {
+        src: "/images/gallery/prawn-stock.JPG",
+        alt: "Fondo de marisco cocinándose lentamente sobre el fuego",
+        label: "Fondo",
+      },
+      {
+        src: "/images/gallery/plating-prawn.JPG",
+        alt: "Emplatado de langostino con crema y aceite verde",
+        label: "Emplatado",
+      },
+      {
+        src: "/images/gallery/beef-service.JPG",
+        alt: "Selección de carne trinchada y preparada para el servicio",
+        label: "Producto",
+      },
+      {
+        src: "/images/gallery/slow-roast.JPG",
+        alt: "Cocción lenta de piezas de cerdo en una cocina profesional",
+        label: "Tiempo",
+      },
+      {
+        src: "/images/gallery/prawn-reduction.JPG",
+        alt: "Reducción de marisco en plena ebullición",
+        label: "Reducción",
+      },
+    ],
+  },
+  en: {
+    eyebrow: "Service journal",
+    title: "In service",
+    carouselLabel: "Moving kitchen gallery",
+    viewerClose: "Close photograph",
+    viewerPrevious: "Previous photograph",
+    viewerNext: "Next photograph",
+    statement:
+      "Fire, product, and precision. The craft lives in movement, never in the pose.",
+    images: [
+      {
+        src: "/images/gallery/prawn-stock.JPG",
+        alt: "Shellfish stock cooking slowly over the flame",
+        label: "Stock",
+      },
+      {
+        src: "/images/gallery/plating-prawn.JPG",
+        alt: "Prawn plated with a smooth cream and green oil",
+        label: "Plating",
+      },
+      {
+        src: "/images/gallery/beef-service.JPG",
+        alt: "Sliced beef selected and prepared for service",
+        label: "Product",
+      },
+      {
+        src: "/images/gallery/slow-roast.JPG",
+        alt: "Slow-roasted pork in a professional kitchen",
+        label: "Time",
+      },
+      {
+        src: "/images/gallery/prawn-reduction.JPG",
+        alt: "Shellfish reduction at a full simmer",
+        label: "Reduction",
+      },
+    ],
+  },
+} as const;
+
 export function HomepageOutline({ page }: HomepageOutlineProps) {
   const [statementIndex, setStatementIndex] = useState(0);
+  const [selectedGalleryIndex, setSelectedGalleryIndex] = useState<
+    number | null
+  >(null);
   const statements = statementsByLocale[page.locale];
   const activeStatement =
     statements[statementIndex % statements.length] ?? statements[0];
@@ -200,6 +280,46 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
   );
   const experienceChapters = experienceChaptersByLocale[page.locale];
   const profileEditorial = profileEditorialByLocale[page.locale];
+  const galleryEditorial = galleryEditorialByLocale[page.locale];
+  const selectedGalleryImage =
+    selectedGalleryIndex === null
+      ? null
+      : galleryEditorial.images[selectedGalleryIndex];
+
+  useEffect(() => {
+    if (selectedGalleryIndex === null) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedGalleryIndex(null);
+      } else if (event.key === "ArrowLeft") {
+        setSelectedGalleryIndex((current) =>
+          current === null
+            ? null
+            : (current - 1 + galleryEditorial.images.length) %
+              galleryEditorial.images.length,
+        );
+      } else if (event.key === "ArrowRight") {
+        setSelectedGalleryIndex((current) =>
+          current === null
+            ? null
+            : (current + 1) % galleryEditorial.images.length,
+        );
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [galleryEditorial.images.length, selectedGalleryIndex]);
   const experienceIntro =
     page.locale === "es"
       ? {
@@ -592,25 +712,70 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
             </div>
           </section>
 
-          {page.gallery.length > 0 ? (
-            <SectionShell
-              id="gallery"
-              heading={page.gallerySection.title}
-              summary={page.gallerySection.description}
-            >
-              <div className="grid gap-px border border-border bg-border md:grid-cols-3">
-                {page.gallery.map((item) => (
-                  <article key={item.title} className="bg-[var(--surface)] p-5 md:p-6">
-                    <div className="mb-4 aspect-[4/3] bg-[var(--surface-strong)]" />
-                    <h3 className="text-base font-semibold tracking-tight text-foreground">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-7 text-muted">{item.description}</p>
-                  </article>
-                ))}
+          <section id="gallery" className="service-gallery">
+            <div className="service-gallery__frame">
+              <header className="service-gallery__intro">
+                <div>
+                  <span className="service-gallery__rule" aria-hidden="true" />
+                  <p className="service-gallery__eyebrow">
+                    {galleryEditorial.eyebrow}
+                  </p>
+                  <h2>{galleryEditorial.title}</h2>
+                </div>
+                <p className="service-gallery__statement">
+                  {galleryEditorial.statement}
+                </p>
+              </header>
+
+              <div
+                className="service-gallery__viewport"
+                role="region"
+                aria-label={galleryEditorial.carouselLabel}
+              >
+                <div className="service-gallery__rail">
+                  {[0, 1].map((groupIndex) => (
+                    <div
+                      key={groupIndex}
+                      className="service-gallery__rail-group"
+                      aria-hidden={groupIndex === 1 ? true : undefined}
+                    >
+                      {galleryEditorial.images.map((item, index) => (
+                        <figure
+                          key={`${groupIndex}-${item.src}`}
+                          className={`service-gallery__image service-gallery__image--${index + 1}`}
+                          role={groupIndex === 0 ? "button" : undefined}
+                          tabIndex={groupIndex === 0 ? 0 : -1}
+                          onClick={() => setSelectedGalleryIndex(index)}
+                          onKeyDown={(event) => {
+                            if (
+                              groupIndex === 0 &&
+                              (event.key === "Enter" || event.key === " ")
+                            ) {
+                              event.preventDefault();
+                              setSelectedGalleryIndex(index);
+                            }
+                          }}
+                        >
+                          <Image
+                            src={item.src}
+                            alt={groupIndex === 0 ? item.alt : ""}
+                            fill
+                            sizes="(min-width: 768px) 42vw, 84vw"
+                          />
+                          <figcaption>
+                            <span>
+                              {String(index + 1).padStart(2, "0")}
+                            </span>
+                            <p>{item.label}</p>
+                          </figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </SectionShell>
-          ) : null}
+            </div>
+          </section>
 
           <SectionShell
             id="resume"
@@ -698,6 +863,81 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
           </SectionShell>
         </div>
       </div>
+
+      {selectedGalleryImage ? (
+        <div
+          className="gallery-viewer"
+          role="dialog"
+          aria-modal="true"
+          aria-label={selectedGalleryImage.label}
+          onClick={() => setSelectedGalleryIndex(null)}
+        >
+          <button
+            type="button"
+            className="gallery-viewer__close"
+            aria-label={galleryEditorial.viewerClose}
+            onClick={() => setSelectedGalleryIndex(null)}
+            autoFocus
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+
+          <button
+            type="button"
+            className="gallery-viewer__control gallery-viewer__control--previous"
+            aria-label={galleryEditorial.viewerPrevious}
+            onClick={(event) => {
+              event.stopPropagation();
+              setSelectedGalleryIndex((current) =>
+                current === null
+                  ? null
+                  : (current - 1 + galleryEditorial.images.length) %
+                    galleryEditorial.images.length,
+              );
+            }}
+          >
+            <span aria-hidden="true">←</span>
+          </button>
+
+          <figure
+            className="gallery-viewer__figure"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="gallery-viewer__image">
+              <Image
+                key={selectedGalleryImage.src}
+                src={selectedGalleryImage.src}
+                alt={selectedGalleryImage.alt}
+                fill
+                sizes="96vw"
+                priority
+              />
+            </div>
+            <figcaption>
+              <span>
+                {String((selectedGalleryIndex ?? 0) + 1).padStart(2, "0")}
+              </span>
+              <p>{selectedGalleryImage.label}</p>
+            </figcaption>
+          </figure>
+
+          <button
+            type="button"
+            className="gallery-viewer__control gallery-viewer__control--next"
+            aria-label={galleryEditorial.viewerNext}
+            onClick={(event) => {
+              event.stopPropagation();
+              setSelectedGalleryIndex((current) =>
+                current === null
+                  ? null
+                  : (current + 1) % galleryEditorial.images.length,
+              );
+            }}
+          >
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      ) : null}
     </>
   );
 }
