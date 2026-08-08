@@ -9,7 +9,6 @@ import {
 } from "@/components/analytics/tracked-link";
 import { CinematicVideoSequence } from "@/components/home/cinematic-video-sequence";
 import { PassLampScene } from "@/components/home/pass-lamp-scene";
-import { SectionShell } from "@/components/layout/section-shell";
 import type { HomepageContent } from "@/types/homepage";
 
 type HomepageOutlineProps = {
@@ -152,6 +151,66 @@ const profileEditorialByLocale = {
   },
 } as const;
 
+const documentsEditorialByLocale = {
+  es: {
+    title: "Documentos profesionales",
+    statement:
+      "Experiencia, formación y contacto reunidos en documentos preparados para selección.",
+    documents: [
+      {
+        number: "01",
+        title: "Currículum",
+        meta: "Experiencia · Formación · Contacto",
+        action: "Descargar PDF",
+      },
+      {
+        number: "02",
+        title: "Carta de presentación",
+        meta: "Perfil · Motivación · Disponibilidad",
+        action: "Descargar PDF",
+      },
+    ],
+    linkedIn: "Perfil profesional en LinkedIn",
+  },
+  en: {
+    title: "Professional documents",
+    statement:
+      "Experience, training, and contact details gathered in documents prepared for recruitment.",
+    documents: [
+      {
+        number: "01",
+        title: "Curriculum vitae",
+        meta: "Experience · Training · Contact",
+        action: "Download PDF",
+      },
+      {
+        number: "02",
+        title: "Cover letter",
+        meta: "Profile · Motivation · Availability",
+        action: "Download PDF",
+      },
+    ],
+    linkedIn: "Professional profile on LinkedIn",
+  },
+} as const;
+
+const contactEditorialByLocale = {
+  es: {
+    title: "Hablemos de la próxima cocina.",
+    statement:
+      "Disponible para nuevas oportunidades, equipos exigentes y proyectos donde el producto, el ritmo y el servicio importan.",
+    backToTop: "Volver arriba",
+    availability: "Málaga · Disponible para reubicación",
+  },
+  en: {
+    title: "Let’s talk about the next kitchen.",
+    statement:
+      "Available for new opportunities, demanding teams, and projects where product, rhythm, and service matter.",
+    backToTop: "Back to top",
+    availability: "Málaga · Available for relocation",
+  },
+} as const;
+
 const galleryEditorialByLocale = {
   es: {
     eyebrow: "Cuaderno de servicio",
@@ -278,9 +337,16 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
   const linkedInMethod = page.contact.methods.find(
     (method) => method.id === "linkedin",
   );
+  const emailMethod = page.contact.methods.find(
+    (method) => method.id === "email",
+  );
+  const footerMethods = ["whatsapp", "linkedin", "instagram"]
+    .map((id) => page.contact.methods.find((method) => method.id === id))
+    .filter((method): method is NonNullable<typeof method> => Boolean(method));
   const experienceChapters = experienceChaptersByLocale[page.locale];
   const profileEditorial = profileEditorialByLocale[page.locale];
   const galleryEditorial = galleryEditorialByLocale[page.locale];
+  const contactEditorial = contactEditorialByLocale[page.locale];
   const selectedGalleryImage =
     selectedGalleryIndex === null
       ? null
@@ -777,90 +843,133 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
             </div>
           </section>
 
-          <SectionShell
-            id="resume"
-            heading={page.resume.title}
-            summary={page.resume.description}
-          >
-            <div className="grid gap-6 bg-[var(--surface-strong)] p-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:p-8">
-              <p className="max-w-2xl text-sm leading-7 text-muted">{page.resume.note}</p>
-              <div className="flex flex-wrap gap-3 md:justify-end">
-                <TrackedLink
-                  className="inline-flex min-h-11 items-center justify-center border border-accent bg-accent px-4 py-2 text-sm font-medium text-foreground"
-                  eventName="resume_download"
-                  eventPayload={{
-                    locale: page.locale,
-                    document: "resume",
-                    placement: "resume-section",
-                  }}
-                  href={page.resume.fileHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {page.resume.fileLabel}
-                </TrackedLink>
-                <TrackedLink
-                  className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground"
-                  eventName="resume_download"
-                  eventPayload={{
-                    locale: page.locale,
-                    document: "cover_letter",
-                    placement: "resume-section",
-                  }}
-                  href={page.resume.coverLetterHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {page.resume.coverLetterLabel}
-                </TrackedLink>
-                {linkedInMethod ? (
-                  <TrackedActionLink
-                    className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-medium text-foreground"
-                    eventPayload={{
-                      locale: page.locale,
-                      placement: "resume-section",
-                    }}
-                    href={linkedInMethod.href}
-                    methodId={linkedInMethod.id}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {page.resume.linkedInLabel}
-                  </TrackedActionLink>
-                ) : null}
-              </div>
-            </div>
-          </SectionShell>
+          <section id="resume" className="documents-section">
+            <div className="documents-section__frame">
+              <header className="documents-section__intro">
+                <div>
+                  <span className="documents-section__rule" aria-hidden="true" />
+                  <h2>{documentsEditorialByLocale[page.locale].title}</h2>
+                </div>
+                <p>{documentsEditorialByLocale[page.locale].statement}</p>
+              </header>
 
-          <SectionShell
-            id="contact"
-            heading={page.contact.title}
-            summary={page.contact.description}
-          >
-            <div className="grid gap-px border border-border bg-border md:grid-cols-2">
-              {page.contact.methods.map((method) => (
+              <div className="documents-list">
+                {documentsEditorialByLocale[page.locale].documents.map(
+                  (document, index) => {
+                    const isResume = index === 0;
+
+                    return (
+                      <TrackedLink
+                        key={document.number}
+                        className="document-row"
+                        eventName="resume_download"
+                        eventPayload={{
+                          locale: page.locale,
+                          document: isResume ? "resume" : "cover_letter",
+                          placement: "resume-section",
+                        }}
+                        href={
+                          isResume
+                            ? page.resume.fileHref
+                            : page.resume.coverLetterHref
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span className="document-row__number">
+                          {document.number}
+                        </span>
+                        <span className="document-row__identity">
+                          <strong>{document.title}</strong>
+                          <small>{document.meta}</small>
+                        </span>
+                        <span className="document-row__action">
+                          {document.action}
+                          <span aria-hidden="true">↓</span>
+                        </span>
+                      </TrackedLink>
+                    );
+                  },
+                )}
+              </div>
+
+              {linkedInMethod ? (
                 <TrackedActionLink
-                  key={method.id}
-                  className="bg-[var(--surface)] p-5 hover:bg-[var(--surface-strong)] md:p-6"
+                  className="documents-linkedin"
+                  eventPayload={{
+                    locale: page.locale,
+                    placement: "resume-section",
+                  }}
+                  href={linkedInMethod.href}
+                  methodId={linkedInMethod.id}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{documentsEditorialByLocale[page.locale].linkedIn}</span>
+                  <span aria-hidden="true">↗</span>
+                </TrackedActionLink>
+              ) : null}
+            </div>
+          </section>
+
+          <section id="contact" className="final-contact">
+            <div className="final-contact__frame">
+              <header className="final-contact__intro">
+                <h2>{contactEditorial.title}</h2>
+                <p>{contactEditorial.statement}</p>
+              </header>
+
+              {emailMethod ? (
+                <TrackedActionLink
+                  className="final-contact__email"
                   eventPayload={{
                     locale: page.locale,
                     placement: "contact-section",
                   }}
-                  href={method.href}
-                  methodId={method.id}
-                  target={method.href.startsWith("http") ? "_blank" : undefined}
-                  rel={method.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  href={emailMethod.href}
+                  methodId={emailMethod.id}
                 >
-                  <p className="text-xs uppercase tracking-[0.18em] text-muted">
-                    {method.label}
-                  </p>
-                  <p className="mt-3 break-words text-lg font-medium tracking-tight text-foreground">
-                    {method.value}
-                  </p>
+                  <span>{emailMethod.value}</span>
+                  <span aria-hidden="true">↗</span>
                 </TrackedActionLink>
-              ))}
+              ) : null}
+
+              <div className="final-contact__methods">
+                {footerMethods.map((method) => (
+                  <TrackedActionLink
+                    key={method.id}
+                    className="final-contact__method"
+                    eventPayload={{
+                      locale: page.locale,
+                      placement: "contact-section",
+                    }}
+                    href={method.href}
+                    methodId={method.id}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className="final-contact__method-copy">
+                      <strong>{method.label}</strong>
+                      <small>{method.value}</small>
+                    </span>
+                    <span aria-hidden="true">↗</span>
+                  </TrackedActionLink>
+                ))}
+              </div>
+
+              <p className="final-contact__signature" aria-hidden="true">
+                Tirano
+              </p>
+
+              <footer className="final-contact__footer">
+                <p>© 2026 Andres Tirano</p>
+                <p>{contactEditorial.availability}</p>
+                <a href="#top">
+                  {contactEditorial.backToTop} <span aria-hidden="true">↑</span>
+                </a>
+              </footer>
             </div>
-          </SectionShell>
+          </section>
         </div>
       </div>
 
