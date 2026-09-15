@@ -79,6 +79,12 @@ const experienceLogos = {
     height: 320,
     treatment: "dark-on-light",
   },
+  "Balneario de Panticosa": {
+    src: "/images/experience-logos/balneario-panticosa.png",
+    width: 396,
+    height: 253,
+    treatment: "dark-on-light",
+  },
 } as const;
 
 const experienceChaptersByLocale = {
@@ -99,10 +105,14 @@ const experienceChaptersByLocale = {
     },
     {
       title: "Hospitalidad",
-      period: "Málaga · 2024–2025",
+      period: "Málaga · Huesca · 2024–Actualidad",
       description:
-        "El oficio se amplía cuando técnica y servicio responden al mismo estándar.",
-      venues: ["Hotel Gran Cervantes", "Only YOU Hotel Málaga"],
+        "El oficio se amplía en operaciones hoteleras donde producción, volumen y servicio responden al mismo estándar.",
+      venues: [
+        "Balneario de Panticosa",
+        "Only YOU Hotel Málaga",
+        "Hotel Gran Cervantes",
+      ],
     },
   ],
   en: [
@@ -122,10 +132,14 @@ const experienceChaptersByLocale = {
     },
     {
       title: "Hospitality",
-      period: "Málaga · 2024–2025",
+      period: "Málaga · Huesca · 2024–Present",
       description:
-        "The craft expands when technique and service answer to the same standard.",
-      venues: ["Hotel Gran Cervantes", "Only YOU Hotel Málaga"],
+        "The craft expands in hotel operations where production, volume, and service answer to the same standard.",
+      venues: [
+        "Balneario de Panticosa",
+        "Only YOU Hotel Málaga",
+        "Hotel Gran Cervantes",
+      ],
     },
   ],
 } as const;

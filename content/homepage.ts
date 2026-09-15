@@ -140,6 +140,14 @@ export const homepageContentByLocale: HomepageContentByLocale = {
     ],
     experience: [
       {
+        venue: "Balneario de Panticosa",
+        role: "Cook · Hot Section",
+        period: "August 2026–Present",
+        location: "Huesca, Spain",
+        summary:
+          "Responsible for hot-section production in a high-volume buffet serving several hundred guests. Plans daily mise en place, manages simultaneous preparations, controls regeneration and continuous replenishment, coordinates with the kitchen team, and adapts production to menu and product availability.",
+      },
+      {
         venue: "Only YOU Hotel Málaga",
         role: "Chef de Partie",
         period: "2025",
@@ -393,6 +401,14 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       "Su recorrido atraviesa cocinas de autor, conceptos de brunch y hospitalidad hotelera. Contextos distintos unidos por una misma forma de trabajar: respeto por el producto, atención al detalle y compromiso con el equipo.",
     ],
     experience: [
+      {
+        venue: "Balneario de Panticosa",
+        role: "Cocinero · Partida de caliente",
+        period: "Agosto 2026–Actualidad",
+        location: "Huesca, España",
+        summary:
+          "Responsable de la producción de partida caliente en un buffet de alto volumen para varios cientos de comensales. Planifica la mise en place diaria, gestiona elaboraciones simultáneas, controla la regeneración y reposición continua, se coordina con el equipo y adapta la producción al menú y al producto disponible.",
+      },
       {
         venue: "Only YOU Hotel Málaga",
         role: "Jefe de partida",
