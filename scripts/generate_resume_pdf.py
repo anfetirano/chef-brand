@@ -45,25 +45,25 @@ CV = {
     "es": {
         "role": "COCINERO PROFESIONAL",
         "intro": (
-            "Cocinero profesional con experiencia en restaurantes orientados a la calidad, "
-            "hospitalidad premium, producción de brunch y servicio hotelero de alto volumen."
+            "Cocinero de partida caliente con experiencia actual en buffet de gran volumen, "
+            "hospitalidad premium y restaurantes orientados a la calidad."
         ),
         "statement": "Precisión antes del servicio.<br/>Calma durante el pase.",
         "closing_statement": "Exigencia hasta el final.<br/>Orgullo después del último plato.",
         "experience": "EXPERIENCIA",
         "profile": "PERFIL",
         "profile_text": (
-            "Formado en cocinas exigentes, combina disciplina de mise en place, ejecución "
-            "serena y adaptación a distintos ritmos de servicio. Está abierto a nuevas "
-            "oportunidades profesionales y reubicación."
+            "Experiencia actual en una operativa de gran volumen y alta exigencia, gestionando "
+            "con autonomía la producción de la partida de caliente y priorizando tiempos, "
+            "calidad y continuidad del servicio."
         ),
         "strengths": "FORTALEZAS",
         "strength_items": [
-            "Mise en place y organización de partida",
+            "Producción y organización de partida caliente",
             "Showcooking y atención al cliente",
             "Servicio hotelero de alto volumen",
-            "Respeto por el producto y el detalle",
-            "Trabajo en equipo bajo presión",
+            "Control de regeneración y reposición de buffet",
+            "Coordinación de equipo bajo presión",
         ],
         "education": "FORMACIÓN",
         "languages": "IDIOMAS",
@@ -83,6 +83,15 @@ CV = {
         ],
         "language_items": [("Español", "Nativo"), ("Inglés", "Intermedio alto · B2")],
         "experience_items": [
+            (
+                "ACTUAL",
+                "Balneario de Panticosa",
+                "Cocinero · Agosto 2026 - actualidad · Huesca, España",
+                "Responsable de la partida de caliente en buffet de alto volumen: planificación "
+                "y producción diaria para varios cientos de comensales, gestión simultánea de "
+                "elaboraciones, regeneración y reposición continua. Coordinación con el equipo, "
+                "control de higiene y adaptación del servicio según menú y producto disponible.",
+            ),
             (
                 "2025",
                 "Only YOU Hotel Málaga",
@@ -130,25 +139,25 @@ CV = {
     "en": {
         "role": "PROFESSIONAL COOK",
         "intro": (
-            "Professional cook with experience in quality-focused restaurants, premium "
-            "hospitality, brunch production, and high-volume hotel service."
+            "Hot-section cook with current experience in high-volume buffet operations, "
+            "premium hospitality, and quality-focused restaurants."
         ),
         "statement": "Precision before service.<br/>Calm during the pass.",
         "closing_statement": "Demanding standards until the end.<br/>Pride after the final plate.",
         "experience": "EXPERIENCE",
         "profile": "PROFILE",
         "profile_text": (
-            "Shaped by demanding kitchens, he combines disciplined mise en place, calm "
-            "execution, and adaptability across different styles of service. Open to new "
-            "professional opportunities and relocation."
+            "Currently working in a demanding high-volume operation, independently managing "
+            "hot-section production while prioritizing timing, quality, and uninterrupted "
+            "service."
         ),
         "strengths": "CORE STRENGTHS",
         "strength_items": [
-            "Mise en place and station organization",
+            "Hot-section production and organization",
             "Showcooking and guest-facing service",
             "High-volume hotel execution",
-            "Product respect and attention to detail",
-            "Teamwork under pressure",
+            "Buffet regeneration and continuous replenishment",
+            "Team coordination under pressure",
         ],
         "education": "EDUCATION",
         "languages": "LANGUAGES",
@@ -168,6 +177,15 @@ CV = {
         ],
         "language_items": [("Spanish", "Native"), ("English", "Upper-intermediate · B2")],
         "experience_items": [
+            (
+                "CURRENT",
+                "Balneario de Panticosa",
+                "Cook · August 2026 - present · Huesca, Spain",
+                "Responsible for the hot section in a high-volume buffet: daily planning and "
+                "production for several hundred guests, simultaneous preparation management, "
+                "regeneration, and continuous replenishment. Coordinates with the team, applies "
+                "food-safety procedures, and adapts service to menu and product availability.",
+            ),
             (
                 "2025",
                 "Only YOU Hotel Málaga",
