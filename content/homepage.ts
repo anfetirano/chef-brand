@@ -24,8 +24,9 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       role: "Professional cook with experience in quality-focused restaurants, premium hospitality, brunch production, and high-volume hotel service.",
       summaryLabel: "Summary",
       summary:
-        "Currently seeking professional kitchen opportunities, Andres brings hands-on experience from chef Lucía Freitas's projects, premium hospitality in Málaga, brunch operations, and live hotel buffet service serving up to 1,200 guests a day.",
+        "Currently working in the Spanish Pyrenees, Andres brings hot-section and high-volume buffet experience alongside earlier work in chef Lucía Freitas's kitchens, premium hospitality in Málaga, and brunch service.",
       locationLabel: "Location",
+      location: "Huesca, Spain",
       availabilityLabel: "Availability",
       availability:
         "Open to professional kitchen opportunities and available for relocation.",
@@ -156,24 +157,24 @@ export const homepageContentByLocale: HomepageContentByLocale = {
           "Worked in the culinary environment of a five-star hotel in central Málaga, adding experience in premium hospitality standards, coordinated service, and guest-focused execution.",
       },
       {
-        venue: "Hotel Gran Cervantes",
-        role: "Showcooking Buffet Cook",
+        venue: "Gran Hotel Cervantes",
+        role: "Show Cooking Chef",
         period: "2024",
-        location: "Torremolinos, Spain",
+        location: "Torremolinos, Málaga, Spain",
         summary:
           "Worked in the buffet showcooking team, covering stations such as grill, wok, and crepes while serving a daily average of around 1,200 guests. This role strengthened his teamwork, guest interaction, speed, and consistency under pressure.",
       },
       {
         venue: "La Deriva",
-        role: "Chef de Partie",
-        period: "2022",
+        role: "Line Cook",
+        period: "2023",
         location: "Málaga, Spain",
         summary:
-          "Restaurant experience in Málaga that reinforced mise en place discipline, service rhythm, and day-to-day kitchen coordination in a fast-moving dining environment.",
+          "Line-cook experience in a fast-moving Málaga restaurant, with a focus on mise en place and service rhythm.",
       },
       {
-        venue: "The Club",
-        role: "Brunch Cook",
+        venue: "The Club Málaga",
+        role: "Cook",
         period: "2022",
         location: "Málaga, Spain",
         summary:
@@ -182,7 +183,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       {
         venue: "LUME",
         role: "Line Cook",
-        period: "2021",
+        period: "2021–2022",
         location: "Santiago de Compostela, Spain",
         summary:
           "Worked in an innovative direct-to-guest concept that blended Japanese techniques with Mexican flavors. The role required accuracy, product respect, and clean execution in an interactive environment.",
@@ -190,25 +191,25 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       {
         venue: "A Tafona",
         role: "Prep Cook",
-        period: "2021",
+        period: "2021–2022",
         location: "Santiago de Compostela, Spain",
         summary:
-          "Worked under chef Lucía Freitas in a quality-focused environment where pre-preparation, precision, and attention to detail were essential to maintaining kitchen standards.",
+          "Worked in chef Lucía Freitas's kitchen, alternating shifts with LUME within the same professional structure. Pre-preparation, precision, and attention to detail were essential to daily standards.",
       },
     ],
     education: [
       {
-        title: "Technical Program in Kitchen Assistance",
+        title: "Culinary Assistant - Technical Vocational Programme",
         institution: "Escuela de Gastronomía de Medellín (EGM)",
+        period: "01/2019–12/2021",
         description:
-          "Training in culinary techniques, ingredient handling, food safety, and menu preparation with a strong practical focus.",
+          "Principal three-year culinary training programme in Medellín, Colombia, covering culinary techniques, ingredient handling, food safety, and menu preparation.",
       },
       {
         title: "Basic Molecular Cuisine Course",
         institution: "Escuela MCS Colombia",
-        period: "2021",
         description:
-          "Training in spherification, texture development, smoking, plating, and liquid nitrogen techniques with hands-on application.",
+          "Complementary training completed after EGM, covering spherification, texture development, smoking, plating, and liquid nitrogen techniques with hands-on application.",
       },
     ],
     languages: [
@@ -227,7 +228,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       description:
         "Download the full CV and matching cover letter for a complete view of experience, education, and contact information.",
       note: "These files include his latest roles, education, direct contact details, and a formal introduction for employers.",
-      fileHref: "/documents/andres-tirano-cv.pdf?v=20260802-2",
+      fileHref: "/documents/andres-tirano-cv.pdf?v=20260916-ireland-final",
       fileLabel: "Download Resume",
       coverLetterHref: "/documents/andres-tirano-cover-letter.pdf",
       coverLetterLabel: "Download Cover Letter",
@@ -286,8 +287,9 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       role: "Cocinero profesional con experiencia en restaurantes enfocados en calidad, hospitalidad premium, producción de brunch y servicio hotelero de alto volumen.",
       summaryLabel: "Resumen",
       summary:
-        "Actualmente buscando oportunidades profesionales de cocina, Andres aporta experiencia práctica en proyectos de la chef Lucía Freitas, hospitalidad premium en Málaga, operaciones de brunch y servicio de buffet en vivo para hasta 1,200 comensales por día.",
+        "Actualmente trabajando en el Pirineo aragonés, Andres aporta experiencia en partida de caliente y buffet de alto volumen, además de su trayectoria en cocinas de Lucía Freitas, hospitalidad premium en Málaga y servicio de brunch.",
       locationLabel: "Ubicación",
+      location: "Huesca, España",
       availabilityLabel: "Disponibilidad",
       availability:
         "Abierto a oportunidades profesionales de cocina y disponible para reubicación.",
@@ -418,24 +420,24 @@ export const homepageContentByLocale: HomepageContentByLocale = {
           "Trabajó en el entorno culinario de un hotel cinco estrellas en el centro de Málaga, sumando experiencia en estándares de hospitalidad premium, servicio coordinado y ejecución orientada al cliente.",
       },
       {
-        venue: "Hotel Gran Cervantes",
-        role: "Cocinero de buffet showcooking",
+        venue: "Gran Hotel Cervantes",
+        role: "Cocinero de show cooking",
         period: "2024",
-        location: "Torremolinos, España",
+        location: "Torremolinos, Málaga, España",
         summary:
           "Trabajó en el equipo de buffet showcooking cubriendo estaciones como grill, wok y crepes mientras atendía un promedio diario de alrededor de 1,200 comensales. Este puesto fortaleció su trabajo en equipo, interacción con clientes, velocidad y consistencia bajo presión.",
       },
       {
         venue: "La Deriva",
-        role: "Jefe de partida",
-        period: "2022",
+        role: "Cocinero de línea",
+        period: "2023",
         location: "Málaga, España",
         summary:
-          "Experiencia en restaurante en Málaga que reforzó la disciplina de mise en place, el ritmo de servicio y la coordinación diaria de cocina en un entorno de alto movimiento.",
+          "Experiencia como cocinero de línea en un restaurante de alto movimiento en Málaga, centrada en la mise en place y el ritmo de servicio.",
       },
       {
-        venue: "The Club",
-        role: "Cocinero de brunch",
+        venue: "The Club Málaga",
+        role: "Cocinero",
         period: "2022",
         location: "Málaga, España",
         summary:
@@ -444,7 +446,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       {
         venue: "LUME",
         role: "Cocinero de línea",
-        period: "2021",
+        period: "2021–2022",
         location: "Santiago de Compostela, España",
         summary:
           "Trabajó en un concepto innovador de servicio directo al cliente que combinaba técnicas japonesas con sabores mexicanos. El puesto exigía precisión, respeto por el producto y ejecución limpia en un entorno interactivo.",
@@ -452,25 +454,25 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       {
         venue: "A Tafona",
         role: "Cocinero de preparación",
-        period: "2021",
+        period: "2021–2022",
         location: "Santiago de Compostela, España",
         summary:
-          "Trabajó bajo la chef Lucía Freitas en un entorno enfocado en la calidad donde la preelaboración, la precisión y la atención al detalle eran esenciales para mantener el estándar de la cocina.",
+          "Trabajó en la cocina de Lucía Freitas, alternando jornadas con LUME dentro de la misma estructura profesional. La preelaboración, la precisión y la atención al detalle eran esenciales para el estándar diario.",
       },
     ],
     education: [
       {
-        title: "Programa técnico en asistencia de cocina",
+        title: "Auxiliar de Cocina - Técnico Laboral por Competencias",
         institution: "Escuela de Gastronomía de Medellín (EGM)",
+        period: "01/2019–12/2021",
         description:
-          "Formación en técnicas culinarias, manejo de ingredientes, seguridad alimentaria y preparación de menús con un fuerte enfoque práctico.",
+          "Formación gastronómica principal de aproximadamente tres años en Medellín, Colombia, con un fuerte enfoque práctico en técnicas culinarias, manejo de ingredientes, seguridad alimentaria y preparación de menús.",
       },
       {
         title: "Curso básico de cocina molecular",
         institution: "Escuela MCS Colombia",
-        period: "2021",
         description:
-          "Formación en esferificación, desarrollo de texturas, ahumados, emplatado y técnicas con nitrógeno líquido con aplicación práctica.",
+          "Formación complementaria realizada después de EGM en esferificación, desarrollo de texturas, ahumados, emplatado y técnicas con nitrógeno líquido con aplicación práctica.",
       },
     ],
     languages: [

@@ -55,7 +55,7 @@ const experienceLogos = {
     height: 135,
     treatment: "dark-on-light",
   },
-  "The Club": {
+  "The Club Málaga": {
     src: "/images/experience-logos/the-club.png",
     width: 1024,
     height: 1024,
@@ -67,7 +67,7 @@ const experienceLogos = {
     height: 225,
     treatment: "light-on-dark",
   },
-  "Hotel Gran Cervantes": {
+  "Gran Hotel Cervantes": {
     src: "/images/experience-logos/gran-cervantes.jpeg",
     width: 447,
     height: 447,
@@ -91,17 +91,17 @@ const experienceChaptersByLocale = {
   es: [
     {
       title: "Origen",
-      period: "Santiago de Compostela · 2021",
+      period: "Santiago de Compostela · 2021–2022",
       description:
-        "La precisión se aprende desde la base: producto, preparación y atención al detalle.",
+        "A Tafona y LUME: dos cocinas de Lucía Freitas dentro de una misma etapa profesional, alternando jornadas entre ambas.",
       venues: ["A Tafona", "LUME"],
     },
     {
       title: "Ritmo",
-      period: "Málaga · 2022",
+      period: "Málaga · 2022–2023",
       description:
         "La partida exige orden, lectura del servicio y coordinación con el equipo.",
-      venues: ["The Club", "La Deriva"],
+      venues: ["The Club Málaga", "La Deriva"],
     },
     {
       title: "Hospitalidad",
@@ -111,24 +111,24 @@ const experienceChaptersByLocale = {
       venues: [
         "Balneario de Panticosa",
         "Only YOU Hotel Málaga",
-        "Hotel Gran Cervantes",
+        "Gran Hotel Cervantes",
       ],
     },
   ],
   en: [
     {
       title: "Foundations",
-      period: "Santiago de Compostela · 2021",
+      period: "Santiago de Compostela · 2021–2022",
       description:
-        "Precision begins with the fundamentals: product, preparation, and attention to detail.",
+        "A Tafona and LUME: two kitchens led by Lucía Freitas within one professional period, alternating shifts between them.",
       venues: ["A Tafona", "LUME"],
     },
     {
       title: "Rhythm",
-      period: "Málaga · 2022",
+      period: "Málaga · 2022–2023",
       description:
         "A station demands order, awareness of service, and coordination with the team.",
-      venues: ["The Club", "La Deriva"],
+      venues: ["The Club Málaga", "La Deriva"],
     },
     {
       title: "Hospitality",
@@ -138,7 +138,7 @@ const experienceChaptersByLocale = {
       venues: [
         "Balneario de Panticosa",
         "Only YOU Hotel Málaga",
-        "Hotel Gran Cervantes",
+        "Gran Hotel Cervantes",
       ],
     },
   ],
@@ -214,14 +214,14 @@ const contactEditorialByLocale = {
     statement:
       "Disponible para nuevas oportunidades, equipos exigentes y proyectos donde el producto, el ritmo y el servicio importan.",
     backToTop: "Volver arriba",
-    availability: "Málaga · Disponible para reubicación",
+    availability: "Huesca · Disponible para reubicación",
   },
   en: {
     title: "Let’s talk about the next kitchen.",
     statement:
       "Available for new opportunities, demanding teams, and projects where product, rhythm, and service matter.",
     backToTop: "Back to top",
-    availability: "Málaga · Available for relocation",
+    availability: "Huesca · Available for relocation",
   },
 } as const;
 
