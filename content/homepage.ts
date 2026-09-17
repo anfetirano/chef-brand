@@ -228,7 +228,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       description:
         "Download the full CV and matching cover letter for a complete view of experience, education, and contact information.",
       note: "These files include his latest roles, education, direct contact details, and a formal introduction for employers.",
-      fileHref: "/documents/andres-tirano-cv.pdf?v=20260916-ireland-final",
+      fileHref: "/documents/andres-tirano-cv.pdf?v=20260917-international-final",
       fileLabel: "Download Resume",
       coverLetterHref: "/documents/andres-tirano-cover-letter.pdf",
       coverLetterLabel: "Download Cover Letter",
