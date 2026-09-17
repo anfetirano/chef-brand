@@ -75,13 +75,13 @@ RECENT = [
         "venue": "Balneario de Panticosa",
         "role": "Cook - Hot Section · Huesca, Spain",
         "summary": (
-            "Lead hot-section production for a high-volume buffet serving several "
-            "hundred guests, coordinating mise en place, simultaneous preparations, "
-            "regeneration and continuous replenishment."
+            "Responsible for hot-section production for a high-volume buffet serving "
+            "several hundred guests, coordinating mise en place, simultaneous "
+            "preparations, regeneration and continuous replenishment."
         ),
     },
     {
-        "date": "02/2025 - 12/2025",
+        "date": "02/2025 - 01/2026",
         "venue": "Only YOU Hotel Málaga",
         "role": "Chef de Partie · Málaga, Spain",
         "summary": (
