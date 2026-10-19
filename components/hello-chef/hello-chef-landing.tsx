@@ -25,7 +25,7 @@ export function HelloChefLanding() {
               </p>
             </div>
             <div className={styles.actions}>
-              <Link className={styles.primaryAction} href="/">View my profile</Link>
+              <Link className={styles.primaryAction} href="/?lang=en#story">View my profile</Link>
               <a className={styles.secondaryAction} href="https://wa.me/34603919993" target="_blank" rel="noreferrer">Message me on WhatsApp</a>
             </div>
             <div className={styles.signature}>

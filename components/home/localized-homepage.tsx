@@ -30,6 +30,14 @@ export function LocalizedHomepage({ pages }: LocalizedHomepageProps) {
   const [locale, setLocale] = useState<HomepageLocale>("es");
 
   useEffect(() => {
+    const requestedLocale = new URLSearchParams(window.location.search).get("lang");
+
+    if (requestedLocale === "en" || requestedLocale === "es") {
+      startTransition(() => setLocale(requestedLocale));
+    }
+  }, []);
+
+  useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
 
