@@ -344,13 +344,13 @@ img {
 }
 
 @keyframes pass-lamp-invitation {
-  12% {
+  5% {
     color: #ffc494;
     text-shadow: 0 0 12px rgba(239, 170, 118, 0.7);
   }
 
   0%,
-  28%,
+  12%,
   100% {
     color: rgba(255, 250, 241, 0.85);
     text-shadow: 0 1px 5px rgba(0, 0, 0, 0.9);
@@ -363,7 +363,7 @@ img {
 
 @media (prefers-reduced-motion: no-preference) {
   .pass-scene__lamp-button[aria-pressed="false"] .pass-scene__label {
-    animation: pass-lamp-invitation 5s ease-in-out 1s 2;
+    animation: pass-lamp-invitation 12s ease-in-out 1s infinite;
   }
 }
 
