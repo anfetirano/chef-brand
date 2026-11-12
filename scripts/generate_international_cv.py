@@ -73,9 +73,9 @@ RECENT = [
     {
         "date": "08/2026 - Present",
         "venue": "Balneario de Panticosa",
-        "role": "Cook - Hot Section · Huesca, Spain",
+        "role": "Chef de Partie - Hot Section · Huesca, Spain",
         "summary": (
-            "Responsible for hot-section production for a high-volume buffet serving "
+            "Promoted from cook to Chef de Partie. Leads hot-section production for a high-volume buffet serving "
             "several hundred guests, coordinating mise en place, simultaneous "
             "preparations, regeneration and continuous replenishment."
         ),

@@ -86,8 +86,8 @@ CV = {
             (
                 "ACTUAL",
                 "Balneario de Panticosa",
-                "Cocinero · Agosto 2026 - actualidad · Huesca, España",
-                "Responsable de la partida de caliente en buffet de alto volumen: planificación "
+                "Jefe de partida · Cocina caliente · Agosto 2026 - actualidad · Huesca, España",
+                "Ascendió de cocinero a jefe de partida. Dirige la cocina caliente en buffet de alto volumen: planificación "
                 "y producción diaria para varios cientos de comensales, gestión simultánea de "
                 "elaboraciones, regeneración y reposición continua. Coordinación con el equipo, "
                 "control de higiene y adaptación del servicio según menú y producto disponible.",
@@ -180,8 +180,8 @@ CV = {
             (
                 "CURRENT",
                 "Balneario de Panticosa",
-                "Cook · August 2026 - present · Huesca, Spain",
-                "Responsible for the hot section in a high-volume buffet: daily planning and "
+                "Chef de Partie · Hot Section · August 2026 - present · Huesca, Spain",
+                "Promoted from cook to Chef de Partie. Leads the hot section in a high-volume buffet: daily planning and "
                 "production for several hundred guests, simultaneous preparation management, "
                 "regeneration, and continuous replenishment. Coordinates with the team, applies "
                 "food-safety procedures, and adapts service to menu and product availability.",
