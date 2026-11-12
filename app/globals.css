@@ -486,6 +486,16 @@ img {
   }
 }
 
+@keyframes editorial-word-color {
+  0%, 100% {
+    color: var(--foreground);
+  }
+
+  30% {
+    color: #ffc494;
+  }
+}
+
 .editorial-statement {
   animation: editorial-statement-cycle 7s ease-in-out both;
 }
@@ -498,9 +508,13 @@ img {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .editorial-statement,
-  .editorial-statement__word {
+  .editorial-statement {
     animation: none;
+  }
+
+  .editorial-statement__word {
+    animation-name: editorial-word-color;
+    animation-timing-function: step-end;
   }
 
   .knife-track,
