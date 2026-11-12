@@ -23,6 +23,11 @@ const statementsByLocale = {
     ["Técnica en las manos.", "Criterio en cada decisión."],
     ["Confianza en el equipo.", "Un mismo ritmo durante el servicio."],
     ["Exigencia hasta el final.", "Orgullo después del último plato."],
+    [
+      "Preparar el sabor antes,",
+      "transformarlo durante la cocción",
+      "y perfeccionarlo al final.",
+    ],
   ],
   en: [
     ["Precision before service.", "Calm during the pass."],
@@ -31,6 +36,11 @@ const statementsByLocale = {
     ["Technique in the hands.", "Judgment in every decision."],
     ["Trust in the team.", "One rhythm throughout service."],
     ["High standards to the end.", "Pride after the last plate."],
+    [
+      "Prepare the flavor beforehand,",
+      "transform it during cooking,",
+      "and perfect it at the end.",
+    ],
   ],
 } as const;
 
@@ -315,10 +325,6 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
   const familyName = familyNameParts.join(" ");
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-
     const intervalId = window.setInterval(() => {
       setStatementIndex((currentIndex) => currentIndex + 1);
     }, 7000);
