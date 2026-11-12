@@ -359,11 +359,23 @@ img {
 
 .pass-scene__lamp-button[aria-pressed="false"] .pass-scene__label {
   color: rgba(255, 250, 241, 0.85);
+  animation: pass-lamp-invitation 6s ease-in-out 1s infinite;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+@keyframes pass-lamp-invitation-color {
+  0%, 24%, 100% {
+    color: rgba(255, 250, 241, 0.85);
+  }
+
+  10% {
+    color: #ffc494;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
   .pass-scene__lamp-button[aria-pressed="false"] .pass-scene__label {
-    animation: pass-lamp-invitation 6s ease-in-out 1s infinite;
+    animation-name: pass-lamp-invitation-color;
+    animation-timing-function: step-end;
   }
 }
 
