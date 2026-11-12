@@ -452,11 +452,31 @@ export function HomepageOutline({ page }: HomepageOutlineProps) {
                   className="editorial-statement mt-8 min-h-[clamp(6rem,9vw,9rem)] text-[clamp(2rem,3.15vw,4rem)] leading-[1.12] tracking-[-0.025em] text-foreground/90"
                   style={{ fontFamily: "var(--font-cormorant)" }}
                 >
-                  {activeStatement.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
+                  {activeStatement.map((line, lineIndex) => {
+                    const precedingWordCount = activeStatement
+                      .slice(0, lineIndex)
+                      .reduce((total, precedingLine) => {
+                        return total + precedingLine.split(" ").length;
+                      }, 0);
+
+                    return (
+                      <span key={line} className="editorial-statement__line block">
+                        {line.split(" ").map((word, wordIndex) => (
+                          <span
+                            key={`${word}-${wordIndex}`}
+                            className="editorial-statement__word"
+                            style={
+                              {
+                                "--word-index": precedingWordCount + wordIndex,
+                              } as CSSProperties
+                            }
+                          >
+                            {word}
+                          </span>
+                        ))}
+                      </span>
+                    );
+                  })}
                 </p>
 
                 <div className="hero-actions mt-10">
