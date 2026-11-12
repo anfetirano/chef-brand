@@ -142,11 +142,11 @@ export const homepageContentByLocale: HomepageContentByLocale = {
     experience: [
       {
         venue: "Balneario de Panticosa",
-        role: "Cook · Hot Section",
+        role: "Chef de Partie · Hot Section",
         period: "August 2026–Present",
         location: "Huesca, Spain",
         summary:
-          "Responsible for hot-section production in a high-volume buffet serving several hundred guests. Plans daily mise en place, manages simultaneous preparations, controls regeneration and continuous replenishment, coordinates with the kitchen team, and adapts production to menu and product availability.",
+          "Joined as a cook and was promoted to Chef de Partie. Leads hot-section production for a high-volume buffet serving several hundred guests, planning daily mise en place, managing simultaneous preparations, overseeing regeneration and replenishment, and coordinating with the kitchen team.",
       },
       {
         venue: "Only YOU Hotel Málaga",
@@ -405,11 +405,11 @@ export const homepageContentByLocale: HomepageContentByLocale = {
     experience: [
       {
         venue: "Balneario de Panticosa",
-        role: "Cocinero · Partida de caliente",
+        role: "Jefe de partida · Cocina caliente",
         period: "Agosto 2026–Actualidad",
         location: "Huesca, España",
         summary:
-          "Responsable de la producción de partida caliente en un buffet de alto volumen para varios cientos de comensales. Planifica la mise en place diaria, gestiona elaboraciones simultáneas, controla la regeneración y reposición continua, se coordina con el equipo y adapta la producción al menú y al producto disponible.",
+          "Se incorporó como cocinero y ascendió a jefe de partida. Dirige la producción de cocina caliente para un buffet de alto volumen que atiende a varios cientos de comensales. Planifica la mise en place, gestiona elaboraciones simultáneas, supervisa la regeneración y la reposición y se coordina con el equipo de cocina.",
       },
       {
         venue: "Only YOU Hotel Málaga",
