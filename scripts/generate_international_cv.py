@@ -215,14 +215,22 @@ def first_page(c):
     c.drawString(left, page_h - 112 * mm, "Andrés Felipe Tirano Vásquez")
     c.setFont("Sans", 7.65)
     c.setFillColor(MUTED)
-    c.drawString(left, page_h - 118 * mm,
+    c.drawString(left, page_h - 117 * mm,
                  "Nationality: Colombian  ·  Current Location: Huesca, Spain")
-    c.drawString(left, page_h - 124 * mm,
+    c.drawString(left, page_h - 122 * mm,
                  "Available for International Relocation  ·  andres@tirano.co  ·  +34 603 91 99 93")
-    c.drawString(left, page_h - 130 * mm, "chef.tirano.co")
+    c.drawString(left, page_h - 127 * mm, "chef.tirano.co")
 
-    section(c, "EXPERIENCE", left, page_h - 142 * mm, page_w - 32 * mm)
-    y = page_h - 154 * mm
+    section(c, "PROFESSIONAL PROFILE", left, page_h - 134 * mm, page_w - 32 * mm)
+    y = paragraph(
+        c,
+        "I am a professional cook with experience in fine dining, upscale hotels and high-volume service. I specialise in the hot section, combining organised production with a technical approach to ingredients and building flavour through stocks, sofritos, reductions and precise cooking."
+        "<br/><br/>"
+        "My cooking starts with disciplined mise en place, making the most of each ingredient and balancing flavour, texture and presentation. I am used to managing several preparations at once and working as part of a team under pressure, with a focus on quality from prep to the last plate of service.",
+        STYLES["body"], left, page_h - 143 * mm, page_w - 32 * mm,
+    ) - 6 * mm
+    section(c, "EXPERIENCE", left, y, page_w - 32 * mm)
+    y -= 10 * mm
     for item in RECENT:
         y = cover_item(c, item, y)
     footer(c, 1)
@@ -309,15 +317,7 @@ def sidebar(c):
     c.drawString(x, page_h - 20 * mm, "ANDRÉS")
     c.drawString(x, page_h - 29 * mm, "TIRANO")
 
-    y = side_section(c, "PROFILE", x, page_h - 42 * mm, width)
-    y = paragraph(
-        c,
-        "Chef in Spanish hotels and restaurants. Hot-section production, "
-        "premium service and calm under pressure.",
-        STYLES["sidebar"], x, y, width,
-    ) - 10 * mm
-
-    y = side_section(c, "CORE STRENGTHS", x, y, width)
+    y = side_section(c, "CORE STRENGTHS", x, page_h - 42 * mm, width)
     strengths = [
         "Mise en place &amp; section organisation",
         "Show cooking &amp; guest interaction",

@@ -135,9 +135,8 @@ export const homepageContentByLocale: HomepageContentByLocale = {
         "These are the kinds of professional moments the visual gallery will emphasize as assets are added.",
     },
     story: [
-      "Andres’s relationship with cooking began with curiosity and became a profession through repetition, discipline, and the daily responsibility of service.",
-      "He continues to learn from culinary tradition and contemporary techniques, always looking for a practical application: cleaner execution, better coordination, and greater care for the guest.",
-      "His path crosses chef-led kitchens, brunch concepts, and hotel hospitality. Different settings connected by the same way of working: respect for the product, attention to detail, and commitment to the team.",
+      "I am a professional cook with experience in fine dining, upscale hotels and high-volume service. I specialise in the hot section, combining organised production with a technical approach to ingredients and building flavour through stocks, sofritos, reductions and precise cooking.",
+      "My cooking starts with disciplined mise en place, making the most of each ingredient and balancing flavour, texture and presentation. I am used to managing several preparations at once and working as part of a team under pressure, with a focus on quality from prep to the last plate of service.",
     ],
     experience: [
       {
@@ -228,7 +227,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       description:
         "Download the full CV and matching cover letter for a complete view of experience, education, and contact information.",
       note: "These files include his latest roles, education, direct contact details, and a formal introduction for employers.",
-      fileHref: "/documents/andres-tirano-cv.pdf?v=panticosa-promotion",
+      fileHref: "/documents/andres-tirano-cv.pdf?v=professional-profile",
       fileLabel: "Download Resume",
       coverLetterHref: "/documents/andres-tirano-cover-letter.pdf",
       coverLetterLabel: "Download Cover Letter",
@@ -398,9 +397,8 @@ export const homepageContentByLocale: HomepageContentByLocale = {
         "Estos son los tipos de momentos profesionales que la galería visual destacará cuando se agreguen materiales reales.",
     },
     story: [
-      "La relación de Andres con la cocina comenzó en la curiosidad y se convirtió en oficio a través de la repetición, la disciplina y la responsabilidad diaria del servicio.",
-      "Mantiene una actitud de aprendizaje continuo, desde la tradición culinaria hasta técnicas actuales, buscando siempre una aplicación práctica: ejecución más limpia, mejor coordinación y mayor cuidado por el comensal.",
-      "Su recorrido atraviesa cocinas de autor, conceptos de brunch y hospitalidad hotelera. Contextos distintos unidos por una misma forma de trabajar: respeto por el producto, atención al detalle y compromiso con el equipo.",
+      "Cocinero profesional con trayectoria en restauración gastronómica, hotelería de alta categoría y servicios de gran volumen. Especializado en cocina caliente, combino la organización de la producción con una visión técnica del producto, desarrollando sabores a través de fondos, sofritos, reducciones y cocciones precisas.",
+      "Mi forma de cocinar parte de una mise en place rigurosa, el aprovechamiento inteligente de los ingredientes y la búsqueda constante del equilibrio entre sabor, textura y presentación. Acostumbrado a gestionar múltiples elaboraciones y trabajar en equipo bajo presión, mantengo un compromiso con la calidad desde la preparación hasta el último plato del servicio.",
     ],
     experience: [
       {
@@ -491,7 +489,7 @@ export const homepageContentByLocale: HomepageContentByLocale = {
       description:
         "Descarga el CV completo y la carta de presentación para revisar experiencia, formación y datos de contacto en detalle.",
       note: "Estos archivos incluyen sus puestos más recientes, formación, datos de contacto directos y una presentación formal para empleadores.",
-      fileHref: "/documents/andres-tirano-cv-es.pdf?v=panticosa-promotion",
+      fileHref: "/documents/andres-tirano-cv-es.pdf?v=professional-profile",
       fileLabel: "Descargar CV",
       coverLetterHref: "/documents/andres-tirano-cover-letter-es.pdf",
       coverLetterLabel: "Descargar carta",

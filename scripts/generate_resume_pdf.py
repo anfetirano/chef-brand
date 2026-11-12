@@ -51,11 +51,11 @@ CV = {
         "statement": "Precisión antes del servicio.<br/>Calma durante el pase.",
         "closing_statement": "Exigencia hasta el final.<br/>Orgullo después del último plato.",
         "experience": "EXPERIENCIA",
-        "profile": "PERFIL",
+        "profile": "PERFIL PROFESIONAL",
         "profile_text": (
-            "Experiencia actual en una operativa de gran volumen y alta exigencia, gestionando "
-            "con autonomía la producción de la partida de caliente y priorizando tiempos, "
-            "calidad y continuidad del servicio."
+            "Cocinero profesional con trayectoria en restauración gastronómica, hotelería de alta categoría y servicios de gran volumen. Especializado en cocina caliente, combino la organización de la producción con una visión técnica del producto, desarrollando sabores a través de fondos, sofritos, reducciones y cocciones precisas."
+            "<br/><br/>"
+            "Mi forma de cocinar parte de una mise en place rigurosa, el aprovechamiento inteligente de los ingredientes y la búsqueda constante del equilibrio entre sabor, textura y presentación. Acostumbrado a gestionar múltiples elaboraciones y trabajar en equipo bajo presión, mantengo un compromiso con la calidad desde la preparación hasta el último plato del servicio."
         ),
         "strengths": "FORTALEZAS",
         "strength_items": [
@@ -145,11 +145,11 @@ CV = {
         "statement": "Precision before service.<br/>Calm during the pass.",
         "closing_statement": "Demanding standards until the end.<br/>Pride after the final plate.",
         "experience": "EXPERIENCE",
-        "profile": "PROFILE",
+        "profile": "PROFESSIONAL PROFILE",
         "profile_text": (
-            "Currently working in a demanding high-volume operation, independently managing "
-            "hot-section production while prioritizing timing, quality, and uninterrupted "
-            "service."
+            "I am a professional cook with experience in fine dining, upscale hotels and high-volume service. I specialise in the hot section, combining organised production with a technical approach to ingredients and building flavour through stocks, sofritos, reductions and precise cooking."
+            "<br/><br/>"
+            "My cooking starts with disciplined mise en place, making the most of each ingredient and balancing flavour, texture and presentation. I am used to managing several preparations at once and working as part of a team under pressure, with a focus on quality from prep to the last plate of service."
         ),
         "strengths": "CORE STRENGTHS",
         "strength_items": [
@@ -348,6 +348,10 @@ def draw_cover(c, data):
     c.setFillColor(PAPER)
     c.rect(0, 0, page_w, page_h - photo_h, stroke=0, fill=1)
     body_top = page_h - photo_h - 13 * mm
+    draw_section_label(c, data["profile"], left, body_top, page_w - 32 * mm)
+    body_top = draw_paragraph(
+        c, data["profile_text"], STYLES["body"], left, body_top - 10 * mm, page_w - 32 * mm
+    ) - 6 * mm
     draw_section_label(c, data["experience"], left, body_top, page_w - 32 * mm)
     y = body_top - 12 * mm
     for item in data["experience_items"][:3]:
@@ -390,9 +394,6 @@ def draw_sidebar(c, data):
     c.drawString(x, y, "ANDRÉS")
     c.drawString(x, y - 9 * mm, "TIRANO")
     y -= 23 * mm
-
-    draw_section_label(c, data["profile"], x, y, width, dark=True)
-    y = draw_paragraph(c, data["profile_text"], STYLES["body_dark"], x, y - 11 * mm, width) - 10 * mm
 
     draw_section_label(c, data["strengths"], x, y, width, dark=True)
     y -= 11 * mm
