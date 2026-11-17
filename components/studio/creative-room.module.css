@@ -124,6 +124,140 @@
   font-size: 13px;
 }
 
+.devicePrejoin {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  min-height: 430px;
+}
+
+.previewFrame {
+  position: relative;
+  display: grid;
+  min-height: 430px;
+  place-items: center;
+  overflow: hidden;
+  border-right: 1px solid var(--studio-border);
+  background: #020d0a;
+}
+
+.previewFrame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.76) contrast(1.04);
+}
+
+.previewFrame[data-camera-enabled="false"] video {
+  display: none;
+}
+
+.observerPreview {
+  display: grid;
+  place-items: center;
+  color: var(--studio-muted);
+}
+
+.observerPreview span {
+  display: grid;
+  width: 90px;
+  height: 90px;
+  place-items: center;
+  color: rgba(241, 234, 219, 0.38);
+  border: 1px solid rgba(241, 234, 219, 0.28);
+  border-radius: 50%;
+  font-size: 70px;
+  line-height: 1;
+}
+
+.observerPreview p {
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.deviceControls {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px;
+}
+
+.nameField,
+.deviceRow label {
+  display: grid;
+  min-width: 0;
+  gap: 7px;
+  color: var(--studio-muted);
+  font-size: 11px;
+}
+
+.nameField input,
+.deviceRow select {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 0 10px;
+  color: var(--studio-text);
+  border: 1px solid var(--studio-border);
+  border-radius: 6px;
+  outline: none;
+  background: #031812;
+  font: inherit;
+}
+
+.nameField input:focus,
+.deviceRow select:focus {
+  border-color: rgba(213, 193, 154, 0.78);
+}
+
+.deviceRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 74px;
+  gap: 8px;
+  align-items: end;
+}
+
+.deviceRow button,
+.joinActions button {
+  min-height: 38px;
+  padding: 0 10px;
+  color: var(--studio-text);
+  border: 1px solid var(--studio-border);
+  border-radius: 6px;
+  background: #0a3024;
+  font-size: 11px;
+}
+
+.deviceRow button:disabled,
+.joinActions button:disabled,
+.deviceRow select:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.joinActions {
+  display: grid;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.joinActions .joinButton {
+  color: #102219;
+  border-color: var(--studio-accent);
+  background: var(--studio-accent);
+  font-weight: 600;
+}
+
+.deviceMessage {
+  margin: 0;
+  padding: 10px 12px;
+  color: #f0d6c7;
+  border: 1px solid rgba(213, 193, 154, 0.3);
+  background: #2f2119;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
 .studio {
   display: grid;
   grid-template: 72px minmax(0, 1fr) / 244px minmax(500px, 1fr) 314px;
@@ -646,6 +780,17 @@
   }
 
   .prejoinPanel :global(.lk-video-container) {
+    border-right: 0;
+    border-bottom: 1px solid var(--studio-border);
+  }
+
+  .devicePrejoin {
+    grid-template-columns: 1fr;
+  }
+
+  .previewFrame {
+    min-height: 260px;
+    aspect-ratio: 4 / 3;
     border-right: 0;
     border-bottom: 1px solid var(--studio-border);
   }
