@@ -1,19 +1,14 @@
-import { getSupabaseConfig, isSupabaseConfigured } from "@/lib/supabase/config";
+"use client";
 
-export type FutureSupabaseClientConfig = {
-  url: string;
-  anonKey: string;
-};
+import { createBrowserClient } from "@supabase/ssr";
+import { getSupabaseConfig } from "@/lib/supabase/config";
 
-export function getFutureSupabaseClientConfig(): FutureSupabaseClientConfig | null {
-  if (!isSupabaseConfigured()) {
-    return null;
+export function createClient() {
+  const { url, publishableKey } = getSupabaseConfig();
+
+  if (!url || !publishableKey) {
+    throw new Error("Supabase browser configuration is missing.");
   }
 
-  const config = getSupabaseConfig();
-
-  return {
-    url: config.url,
-    anonKey: config.anonKey,
-  };
+  return createBrowserClient(url, publishableKey);
 }
